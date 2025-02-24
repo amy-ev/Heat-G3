@@ -5,9 +5,9 @@ import javax.swing.*;
 public class SplashScreenManager {
 
     private static SplashScreenManager instance = null;
-
+    JFrame splashScreen = new JFrame("Splash Screen");
     public SplashScreenManager(){
-        JFrame splashScreen = new JFrame();
+        //JFrame splashScreen = new JFrame();
         JButton yesButton = new JButton("Yes");
         JButton noButton = new JButton("No");
 
@@ -32,13 +32,7 @@ public class SplashScreenManager {
         return instance;
     }
 
-
-
-    // splash screen startup
-    //TODO: correct this
     public boolean isActive(){
-        return false;
+        return splashScreen.isActive();
     }
-
-
 }
