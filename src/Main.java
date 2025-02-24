@@ -13,11 +13,11 @@
 
 //import com.incors.plaf.alloy.AlloyLookAndFeel;
 
-import managers.FileManager;
-import managers.InterpreterManager;
-import managers.SettingsManager;
-import managers.WindowManager;
-import managers.UndoManager;
+import managers.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -51,9 +51,43 @@ public static void main(String[] args) {
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
 
+//
+//    // TODO: create as a splashScreenManager
+//    // splash screen startup
+//    JFrame splashScreen = new JFrame();
+//    JButton yesButton = new JButton("Yes");
+//    JButton noButton = new JButton("No");
+//
+//
+//    splashScreen.setSize(500,500);
+//    splashScreen.setLocationRelativeTo(null);
+//    splashScreen.setLayout(new GridLayout());
+//
+//    // TODO: set button dimensions
+//
+//
+//    splashScreen.add(yesButton);
+//    splashScreen.add(noButton);
+//
+////    yesButton.addActionListener(new ActionListener() {
+////
+////    });
+//
+//
+//    splashScreen.setVisible(true);
+    SplashScreenManager splashScreen = SplashScreenManager.getInstance();
+    // while splash screen is still open do NOT start the program
+
+    while (splashScreen.isActive()){ // isActive also refers to clicking outside of the frame.
+        ;
+    }
+
+
     sm.loadSettings();
     WindowManager.setLookAndFeel();
     wm.createGUI();
+
+
 
     if (sm.isNewSettingsFile())
       wm.showWizardWindow();
