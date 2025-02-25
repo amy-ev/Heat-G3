@@ -340,14 +340,26 @@ public class WindowManager {
     SettingsManager sm = SettingsManager.getInstance();
     String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
 
+    // Grab the colour settings for the overlay and assign to String objects
+    String overlayRed = sm.getSetting(Settings.OVERLAY_RED);
+    String overlayGreen = sm.getSetting(Settings.OVERLAY_GREEN);
+    String overlayBlue = sm.getSetting(Settings.OVERLAY_BLUE);
+    String overlayAlpha = sm.getSetting(Settings.OVERLAY_ALPHA);
+
     // Checks if the overlay display setting is true && !null and displays the overlay if so
     if (displayOverlay != null && displayOverlay != "false") {
         JPanel glassPane = new JPanel() {
+            // Parse String objects for int value of overlay colours
+            int red = Integer.parseInt(overlayRed);
+            int green = Integer.parseInt(overlayGreen);
+            int blue = Integer.parseInt(overlayBlue);
+            int alpha = Integer.parseInt(overlayAlpha);
+
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(0, 0, 0, 100)); // Controls overlay colour
+                g2d.setColor(new Color(red, green, blue, alpha)); // Controls overlay colour
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 g2d.dispose();
             }

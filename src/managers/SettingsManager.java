@@ -105,6 +105,11 @@ public class SettingsManager {
     newSettings.setProperty(Settings.TEST_FUNCTION,"");
     newSettings.setProperty(Settings.TEST_POSITIVE,"True");
     newSettings.setProperty(Settings.OVERLAY_DISPLAY,"true");
+
+    newSettings.setProperty(Settings.OVERLAY_RED,"0");
+    newSettings.setProperty(Settings.OVERLAY_GREEN,"255");
+    newSettings.setProperty(Settings.OVERLAY_BLUE,"0");
+    newSettings.setProperty(Settings.OVERLAY_ALPHA,"50");
     return newSettings;
   }
   

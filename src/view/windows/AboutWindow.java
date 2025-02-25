@@ -28,11 +28,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JEditorPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+import javax.swing.*;
 
 
 public class AboutWindow {
@@ -47,7 +46,7 @@ public class AboutWindow {
   private JButton jbClose = new JButton();
   private FlowLayout flowLayout2 = new FlowLayout();
   private JEditorPane jEditorPane1 = new JEditorPane();
-  
+
   private static Logger log = Logger.getLogger("heat");
   private static File localFile = new File("html/about.html");
   private java.net.URL htmURL;
@@ -71,10 +70,10 @@ public class AboutWindow {
     jPanel2.setLayout(flowLayout2);
     jbClose.setText("Close");
     jbClose.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          jbClose_actionPerformed(e);
-        }
-      });
+      public void actionPerformed(ActionEvent e) {
+        jbClose_actionPerformed(e);
+      }
+    });
     jEditorPane1.setText("jEditorPane1");
     jEditorPane1.setEditable(false);
     try {
@@ -86,7 +85,7 @@ public class AboutWindow {
         jEditorPane1.setPage(htmURL);
     } catch (Exception e) {
       jEditorPane1.setText("Error: Could not find html page: " +
-        localFile.getAbsolutePath());
+              localFile.getAbsolutePath());
     }
     jEditorPane1.addHyperlinkListener(new LinkListener(jEditorPane1));
     jPanel1.add(jlHeat, null);
@@ -95,6 +94,15 @@ public class AboutWindow {
     jPanel2.add(jbClose, null);
     jpMain.add(jPanel2, BorderLayout.SOUTH);
     jpMain.add(jEditorPane1, BorderLayout.CENTER);
+  }
+
+  public void show() {
+    dialog = new JDialog(WindowManager.getInstance().getMainScreenFrame(),
+            "About HEAT");
+    dialog.setModal(true);
+    dialog.getContentPane().add(jpMain);
+    dialog.setSize(400, 400);
+    dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
 
     // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
     SettingsManager sm = SettingsManager.getInstance();
@@ -102,35 +110,49 @@ public class AboutWindow {
 
     // Checks if the overlay display setting is true && !null and displays the overlay if so
     if (displayOverlay != null && displayOverlay != "false") {
-      JPanel glassPane = new JPanel() {
+      JPanel overlayPanel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
           super.paintComponent(g);
           Graphics2D g2d = (Graphics2D) g.create();
-          g2d.setColor(new Color(0, 0, 0, 100)); // Controls overlay colour
+          g2d.setColor(new Color(0, 0, 0, 100)); // Semi-transparent black
           g2d.fillRect(0, 0, getWidth(), getHeight());
           g2d.dispose();
         }
       };
-      // Creates transparency, ensures interactivity of underlying elements, assigns to main window frame
-      glassPane.setOpaque(false);
-      glassPane.setLayout(null);
-      jpMain.setGlassPane(glassPane);
-      glassPane.setVisible(true);
+
+      overlayPanel.setOpaque(false); // Ensure transparency
+      overlayPanel.setLayout(null); // Allow interaction with underlying components
+      overlayPanel.setBounds(0, 0, 400, 400); // Match panel size
+
+      // Use a JLayeredPane to stack the overlay above mainPanel
+      JLayeredPane layeredPane = new JLayeredPane();
+      layeredPane.setPreferredSize(new Dimension(400, 400));
+      jpMain.setBounds(0, 0, 400, 300);
+      layeredPane.add(jpMain, JLayeredPane.DEFAULT_LAYER);
+      layeredPane.add(overlayPanel, JLayeredPane.PALETTE_LAYER); // Higher layer
+
+      dialog.addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+          int width = dialog.getContentPane().getWidth();
+          int height = dialog.getContentPane().getHeight();
+          jpMain.setBounds(0, 0, width, height);
+          overlayPanel.setBounds(0, 0, width, height);
+        }
+      });
+
+      dialog.add(layeredPane, BorderLayout.CENTER);
+      dialog.setVisible(true);
+    } else {
+      dialog.setVisible(true);
     }
   }
 
-  public void show() {
-    dialog = new JDialog(WindowManager.getInstance().getMainScreenFrame(),
-        "About HEAT");
-    dialog.setModal(true);
-    dialog.getContentPane().add(jpMain);
-    dialog.setSize(400, 400);
-    dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
-    dialog.setVisible(true);
-  }
 
   private void jbClose_actionPerformed(ActionEvent e) {
     dialog.dispose();
   }
 }
+
+
