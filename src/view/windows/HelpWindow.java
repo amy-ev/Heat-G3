@@ -90,9 +90,9 @@ public class HelpWindow {
     nodeback.clear();
     nodeforward.clear();
 
-    iconHome = Resources.getIcon("home16");
-    iconBack = Resources.getIcon("back16");
-    iconForward = Resources.getIcon("forward16");
+    iconHome = Resources.getIcon("home22");
+    iconBack = Resources.getIcon("back22");
+    iconForward = Resources.getIcon("forward22");
 
     jPanel0.setSize(new Dimension(670, 400));
 

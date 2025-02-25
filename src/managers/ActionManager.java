@@ -49,99 +49,100 @@ public class ActionManager {
   /* Static instantiation of our custom Actions */
   
   // file/program actions
+    //changing all off these icon to be bigger and more modern look
   private ExitProgramAction exitProgramAction = new ExitProgramAction("Quit",
-      Resources.getIcon("exit16"), "Quit HEAT", new Integer(KeyEvent.VK_Q),
+      Resources.getIcon("exit64"), "Quit HEAT", new Integer(KeyEvent.VK_Q),
       KeyStroke.getKeyStroke(KeyEvent.VK_Q, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private ExitProgramAction toolbarExitProgramAction = new ExitProgramAction(null,
-      Resources.getIcon("exit22"), "Quit HEAT", new Integer(KeyEvent.VK_Q),
+      Resources.getIcon("exit64"), "Quit HEAT", new Integer(KeyEvent.VK_Q),
       KeyStroke.getKeyStroke(KeyEvent.VK_Q, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private OpenFileAction openFileAction = new OpenFileAction("Open..",
-      Resources.getIcon("fileopen16"), "Open an existing or new file in the editor",
+      Resources.getIcon("fileopen64"), "Open an existing or new file in the editor",
       new Integer(KeyEvent.VK_O),
       KeyStroke.getKeyStroke(KeyEvent.VK_O, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private OpenFileAction toolbarOpenFileAction = new OpenFileAction(null,
-      Resources.getIcon("fileopen22"), "Open an existing or new file in the editor",
+      Resources.getIcon("fileopen32"), "Open an existing or new file in the editor",
       new Integer(KeyEvent.VK_O),
       KeyStroke.getKeyStroke(KeyEvent.VK_O, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private CloseFileAction closeFileAction = new CloseFileAction("Close",
-	      Resources.getIcon("fileclose16"), "Save file and close editor", null, null);
+	      Resources.getIcon("fileclose64"), "Save file and close editor", null, null);
   private CloseFileAction toolbarCloseFileAction = new CloseFileAction(null,
-	      Resources.getIcon("fileclose22"), "Save file and close editor", null, null);
+	      Resources.getIcon("fileclose32"), "Save file and close editor", null, null);
   private PrintFileAction printFileAction = new PrintFileAction("Print",
-		  Resources.getIcon("fileprint16"), "Print editor content or interpreter console",
+		  Resources.getIcon("fileprint64"), "Print editor content or interpreter console",
 	      new Integer(KeyEvent.VK_P),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_P, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private ShowOptionsAction showOptionsAction = new ShowOptionsAction("Options",
-	      Resources.getIcon("list16"), "Change HEAT Options",
+	      Resources.getIcon("list64"), "Change HEAT Options",
 	      new Integer(KeyEvent.VK_D),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_D, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
 
   // editing actions
-  private UndoAction undoAction = new UndoAction("Undo", Resources.getIcon("undo16"),
+  private UndoAction undoAction = new UndoAction("Undo", Resources.getIcon("undo64"),
 	      "Undo last change", new Integer(KeyEvent.VK_Z),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_Z, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
-  private UndoAction toolbarUndoAction = new UndoAction(null, Resources.getIcon("undo22"),
+  private UndoAction toolbarUndoAction = new UndoAction(null, Resources.getIcon("undo32"),
 	      "Undo last change", new Integer(KeyEvent.VK_Z),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_Z, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
-  private RedoAction redoAction = new RedoAction("Redo", Resources.getIcon("redo16"),
+  private RedoAction redoAction = new RedoAction("Redo", Resources.getIcon("redo64"),
 	      "Redo last change", new Integer(KeyEvent.VK_Y),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_Y, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
-  private RedoAction toolbarRedoAction = new RedoAction(null, Resources.getIcon("redo22"),
+  private RedoAction toolbarRedoAction = new RedoAction(null, Resources.getIcon("redo32"),
 	      "Redo last change", new Integer(KeyEvent.VK_Y),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_Y, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private ShowSearchAction showSearchAction = new ShowSearchAction("Find",
-	      Resources.getIcon("filefind16"), "Find text in the program",
+	      Resources.getIcon("filefind64"), "Find text in the program",
 	      new Integer(KeyEvent.VK_F),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_F, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private ShowSearchAction toolbarSearchAction = new ShowSearchAction(null,
-	      Resources.getIcon("filefind22"), "Find text in the program",
+	      Resources.getIcon("filefind32"), "Find text in the program",
 	      new Integer(KeyEvent.VK_F),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_F, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditCutAction editCutAction = new EditCutAction("Cut",
-	      Resources.getIcon("editcut16"), "Cut selected text", new Integer(KeyEvent.VK_X),
+	      Resources.getIcon("editcut64"), "Cut selected text", new Integer(KeyEvent.VK_X),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_X, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditCutAction toolbarEditCutAction = new EditCutAction(null,
-	      Resources.getIcon("editcut22"), "Cut selected text", new Integer(KeyEvent.VK_X),
+	      Resources.getIcon("editcut32"), "Cut selected text", new Integer(KeyEvent.VK_X),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_X, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditCopyAction editCopyAction = new EditCopyAction("Copy",
-	      Resources.getIcon("editcopy16"), "Copy selected text", new Integer(KeyEvent.VK_C),
+	      Resources.getIcon("editcopy64"), "Copy selected text", new Integer(KeyEvent.VK_C),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_C, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditCopyAction toolbarEditCopyAction = new EditCopyAction(null,
-	      Resources.getIcon("editcopy22"), "Copy selected text", new Integer(KeyEvent.VK_C),
+	      Resources.getIcon("editcopy32"), "Copy selected text", new Integer(KeyEvent.VK_C),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_C, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditPasteAction editPasteAction = new EditPasteAction("Paste",
-	      Resources.getIcon("editpaste16"), "Paste selected text", new Integer(KeyEvent.VK_V),
+	      Resources.getIcon("editpaste64"), "Paste selected text", new Integer(KeyEvent.VK_V),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_V, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private EditPasteAction toolbarEditPasteAction = new EditPasteAction(null,
-	      Resources.getIcon("editpaste22"), "Paste selected text", new Integer(KeyEvent.VK_V),
+	      Resources.getIcon("editpaste32"), "Paste selected text", new Integer(KeyEvent.VK_V),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_V, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
 
   // run actions
   private CompileAction compileAction = new CompileAction(null,
-		  	Resources.getIcon("reload16"), "Load & compile program", new Integer(KeyEvent.VK_L),
+		  	Resources.getIcon("reload64"), "Load & compile program", new Integer(KeyEvent.VK_L),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_L, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private CompileAction toolbarCompileAction = new CompileAction(null,
-		  	Resources.getIcon("reload22"), "Load program into interpreter and compile it", new Integer(KeyEvent.VK_L),
+		  	Resources.getIcon("reload32"), "Load program into interpreter and compile it", new Integer(KeyEvent.VK_L),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_L, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private InterruptAction interruptAction = new InterruptAction(null, 
-		  	Resources.getIcon("stop16"), "Interrupt interpreter", new Integer(KeyEvent.VK_I),
+		  	Resources.getIcon("stop64"), "Interrupt interpreter", new Integer(KeyEvent.VK_I),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_I, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private InterruptAction toolbarInterruptAction = new InterruptAction(null, 
-		  	Resources.getIcon("stop22"), "Interrupt interpreter", new Integer(KeyEvent.VK_I),
+		  	Resources.getIcon("stop32"), "Interrupt interpreter", new Integer(KeyEvent.VK_I),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_I, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private TestAction testAction = new TestAction(null, 
-		  	Resources.getIcon("debug16"), "Check properties", new Integer(KeyEvent.VK_T),
+		  	Resources.getIcon("debug64"), "Check properties", new Integer(KeyEvent.VK_T),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_T, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private TestAction toolbarTestAction = new TestAction(null, 
-		  	Resources.getIcon("debug22"), "Check properties", new Integer(KeyEvent.VK_T),
+		  	Resources.getIcon("debug32"), "Check properties", new Integer(KeyEvent.VK_T),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_T, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
 
   // help actions
   private ShowHelpAction showHelpAction = new ShowHelpAction("Help",
-      Resources.getIcon("help16"), "Display help", new Integer(KeyEvent.VK_L),
+      Resources.getIcon("help64"), "Display help", new Integer(KeyEvent.VK_L),
       KeyStroke.getKeyStroke(KeyEvent.VK_H, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private ShowAboutAction showAboutAction = new ShowAboutAction("About",
-      Resources.getIcon("info16"), "Display about information", null, null);
+      Resources.getIcon("info64"), "Display about information", null, null);
   
 
   private RefreshTreeAction refreshTreeAction = new RefreshTreeAction("", Resources.getIcon("reload16"),
@@ -150,14 +151,14 @@ public class ActionManager {
            "Expand all overview elements");
   private CollapseTreeAction collapseTreeAction = new CollapseTreeAction("", Resources.getIcon("collapseTreeWindow16"),
            "Collapse all overview elements");
-  private ToggleTreeAction toggleTreeAction = new ToggleTreeAction(null, Resources.getIcon("tree_window_22"),
+  private ToggleTreeAction toggleTreeAction = new ToggleTreeAction(null, Resources.getIcon("tree_window_32"),
       "Show/hide overview");
-  private ToggleConsoleAction toggleOutputAction = new ToggleConsoleAction(null, Resources.getIcon("output_window_22"),
+  private ToggleConsoleAction toggleOutputAction = new ToggleConsoleAction(null, Resources.getIcon("output_window_32"),
       "Show/hide interpreter console");
   
   // for the console window:
   private SendEvaluationAction sendEvaluationAction = new SendEvaluationAction("Send",
-      Resources.getIcon("effect16"), "Sends Evaluation to Interpreter",
+      Resources.getIcon("effect32"), "Sends Evaluation to Interpreter",
       new Integer(KeyEvent.VK_E),
       KeyStroke.getKeyStroke(KeyEvent.VK_E, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private GoToPastConsoleHistory goToPastConsoleHistory =new GoToPastConsoleHistory();
