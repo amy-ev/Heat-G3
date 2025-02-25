@@ -53,7 +53,7 @@ public static void main(String[] args) throws UnsupportedAudioFileException, Lin
 
     AudioManager am = AudioManager.getInstance();
 
-    am.play("src/audio/382310__mountain_man__game-over-arcade.wav");
+    //am.play("src/audio/382310__mountain_man__game-over-arcade.wav");
     //am.stop("src/audio/382310__mountain_man__game-over-arcade.wav");
 
     sm.loadSettings();

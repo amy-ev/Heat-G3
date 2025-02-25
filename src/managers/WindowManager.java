@@ -15,8 +15,7 @@
 
 package managers;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import java.awt.Dimension;
 
 import utils.Resources;
 import view.toolbars.MainMenu;
@@ -51,6 +49,7 @@ public class WindowManager {
   private static Logger log = Logger.getLogger("heat");
   private static WindowManager instance = null;
 
+  AudioManager am = AudioManager.getInstance();
   /* for use in main screen  */
   private JFrame mainScreenFrame;
   private JSplitPane jSplitMain;
@@ -102,7 +101,7 @@ public class WindowManager {
   private void setStatus(int status) {
       currentStatus = status;
       switch (currentStatus) {
-          case COMPILEDERROR: 
+          case COMPILEDERROR:
             log.info("[WindowManager]: setStatusCompiledError");
             toolbar.setCompileStatus(0);
             consoleWindow.setEnabled(false);
