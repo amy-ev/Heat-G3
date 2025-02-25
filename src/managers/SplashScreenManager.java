@@ -23,9 +23,12 @@ public class SplashScreenManager {
             }
         });
 
-        // no button = go to main page
-        JButton noButton = new JButton("No");
-        noButton.addActionListener(e -> splashScreen.dispose());
+        JButton noButton = new JButton(new AbstractAction("No") {
+            public void actionPerformed(ActionEvent e) {
+                splashScreen.dispose();
+                ow.is_visible = true;
+            }
+        });
 
         // splash screen layout
         splashScreen.setSize(420,300);
