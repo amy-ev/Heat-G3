@@ -13,11 +13,11 @@
 
 //import com.incors.plaf.alloy.AlloyLookAndFeel;
 
-import managers.FileManager;
-import managers.InterpreterManager;
-import managers.SettingsManager;
-import managers.WindowManager;
-import managers.UndoManager;
+import managers.*;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -34,7 +34,7 @@ public class Main {
    * Used to run HEAT
    * @param args
    */
-public static void main(String[] args) {
+public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
     Logger log = Logger.getLogger("heat");
     try {
         log.setUseParentHandlers(false);  // turn off logging on stdout console
@@ -50,6 +50,11 @@ public static void main(String[] args) {
 	  
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
+
+    AudioManager am = AudioManager.getInstance();
+
+    am.play("src/audio/382310__mountain_man__game-over-arcade.wav");
+    //am.stop("src/audio/382310__mountain_man__game-over-arcade.wav");
 
     sm.loadSettings();
     WindowManager.setLookAndFeel();

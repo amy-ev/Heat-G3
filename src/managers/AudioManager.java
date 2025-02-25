@@ -3,6 +3,7 @@ package managers;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class AudioManager {
 
@@ -28,5 +29,20 @@ public class AudioManager {
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start();
+        clip.addLineListener(new LineListener() {
+            public void update(LineEvent event){
+                if (event.getType() == LineEvent.Type.STOP){
+                    clip.stop();
+                }
+            }
+        });
+
+
+        //Scanner scanner = new Scanner(System.in);
+    }
+
+    public void stop(String filePath){
+        clip.stop();
+        clip.close();
     }
 }
