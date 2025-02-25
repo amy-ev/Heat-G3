@@ -32,10 +32,10 @@ public class Toolbar {
   private ActionManager am = ActionManager.getInstance();
   
   /* some icons */
-  private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok32");
-  private ImageIcon iiCompileUnknown = Resources.getIcon("buttonquestion32");
-  private ImageIcon iiCompileFail = Resources.getIcon("buttoncancel32");
-  private ImageIcon iiWorking = Resources.getIcon("effect32");
+  private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok16");
+  private ImageIcon iiCompileUnknown = Resources.getIcon("buttonquestion16");
+  private ImageIcon iiCompileFail = Resources.getIcon("buttoncancel16");
+  private ImageIcon iiWorking = Resources.getIcon("effect16");
 
   /* The buttons in use */
   private JButton openButton = new JButton(am.getToolbarOpenFileAction());

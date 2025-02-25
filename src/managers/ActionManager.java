@@ -158,7 +158,7 @@ public class ActionManager {
   
   // for the console window:
   private SendEvaluationAction sendEvaluationAction = new SendEvaluationAction("Send",
-      Resources.getIcon("effect32"), "Sends Evaluation to Interpreter",
+      Resources.getIcon("effect16"), "Sends Evaluation to Interpreter",
       new Integer(KeyEvent.VK_E),
       KeyStroke.getKeyStroke(KeyEvent.VK_E, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private GoToPastConsoleHistory goToPastConsoleHistory =new GoToPastConsoleHistory();
