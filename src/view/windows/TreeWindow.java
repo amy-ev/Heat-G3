@@ -104,13 +104,13 @@ public class TreeWindow
         ToolTipManager.sharedInstance().registerComponent(tree);
         tree.setCellRenderer(new MyRenderer());
 
-        /*
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setOpenIcon(Resources.getIcon("fileopen16"));
         renderer.setClosedIcon(Resources.getIcon("fileopen16"));
         renderer.setLeafIcon(Resources.getIcon("effect16"));
+        tree.putClientProperty("JTree.lineStyle", "Angled");
         tree.setCellRenderer(renderer);
-        */
+
         //  popups
         popMenu = new JPopupMenu();
         jMenuItemGoTo = new JMenuItem("Go to definition");
