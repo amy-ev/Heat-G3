@@ -49,7 +49,6 @@ public class WindowManager {
   private static Logger log = Logger.getLogger("heat");
   private static WindowManager instance = null;
 
-  AudioManager am = AudioManager.getInstance();
   /* for use in main screen  */
   private JFrame mainScreenFrame;
   private JSplitPane jSplitMain;

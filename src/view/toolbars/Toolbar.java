@@ -17,10 +17,16 @@ package view.toolbars;
 
 import managers.ActionManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
+
+import managers.AudioManager;
 import utils.Resources;
+
+import java.io.IOException;
 
 
 /**
@@ -30,6 +36,7 @@ public class Toolbar {
   /* The toolbar */
   private JToolBar toolBar = new JToolBar();
   private ActionManager am = ActionManager.getInstance();
+  private AudioManager audm = AudioManager.getInstance();
   
   /* some icons */
   private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok22");
@@ -130,10 +137,21 @@ public class Toolbar {
    */
   public void setCompileStatus(int status) {
 	  switch (status) {
-	  	case 0: statusButton.setIcon(iiCompileFail); break;
-	  	case 1: statusButton.setIcon(iiCompileSuccess); break;
-	  	case 2: statusButton.setIcon(iiCompileUnknown); break;
-	  	case 3: statusButton.setIcon(iiWorking); break;
+	  	case 0:
+            statusButton.setIcon(iiCompileFail);
+            audm.play("audio/572936__bloodpixelhero__error.wav");
+            System.out.println("compile_fail audio played");
+          break;
+	  	case 1:
+            statusButton.setIcon(iiCompileSuccess);
+            audm.play("audio/572936__bloodpixelhero__error.wav");
+            System.out.println("compile_success audio played");
+          break;
+	  	case 2:
+            statusButton.setIcon(iiCompileUnknown);
+          break;
+	  	case 3: statusButton.setIcon(iiWorking);
+          break;
 	  }
   } 
   

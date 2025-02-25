@@ -24,19 +24,22 @@ public class AudioManager {
         return instance;
     }
     // play selected audio
-    public void play(String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-        clip.addLineListener(new LineListener() {
-            public void update(LineEvent event){
-                if (event.getType() == LineEvent.Type.STOP){
-                    clip.stop();
+    public void play(String filePath) {
+        try{
+            audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            clip.addLineListener(new LineListener() {
+                public void update(LineEvent event){
+                    if (event.getType() == LineEvent.Type.STOP){
+                        clip.stop();
+                    }
                 }
-            }
-        });
-
+            });
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
 
         //Scanner scanner = new Scanner(System.in);
     }
