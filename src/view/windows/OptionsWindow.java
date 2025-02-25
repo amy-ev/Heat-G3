@@ -304,7 +304,7 @@ public class OptionsWindow {
       jTextFieldLibraryPath.setText(selectedFile.getAbsolutePath());
   }
 
-  //
+  // boolean used to check when the options window has been opened 
   public boolean isVisible(){
     return is_visible;
   }

@@ -54,7 +54,6 @@ public class SplashScreenManager {
 
     // identify whether the options pane is active
     public boolean owIsActive(){
-        System.out.println(ow.is_visible);
         return ow.is_visible;
 
     }
