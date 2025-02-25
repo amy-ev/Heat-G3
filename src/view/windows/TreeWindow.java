@@ -107,7 +107,7 @@ public class TreeWindow
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setOpenIcon(Resources.getIcon("fileopen16"));
         renderer.setClosedIcon(Resources.getIcon("fileopen16"));
-        renderer.setLeafIcon(Resources.getIcon("effect16"));
+        renderer.setLeafIcon(Resources.getIcon("module16"));
         tree.putClientProperty("JTree.lineStyle", "Angled");
         tree.setCellRenderer(renderer);
 
