@@ -20,6 +20,7 @@ import managers.ActionManager;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.*;
 
 // import com.apple.eawt.Application;
 
@@ -30,7 +31,15 @@ import javax.swing.JMenuItem;
  * The menus used within HEAT
  */
 public class MainMenu {
-  private JMenuBar jMenuBar = new JMenuBar();
+  private JMenuBar jMenuBar = new JMenuBar() {
+    @Override
+    protected void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      if (getParent() != null) {
+        getParent().repaint(); // Forces GlassPane to repaint when hovering over menu items
+      }
+    }
+  };
 
   /* Program menu items */
   private JMenu jMenuFile = new JMenu();
@@ -81,6 +90,7 @@ public class MainMenu {
    */
   public void jbInit() throws Exception {
     ActionManager am = ActionManager.getInstance();
+
 
     /* File Menu */
     jMenuFile.setText("Program");

@@ -15,14 +15,15 @@
 
 package view.windows;
 
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.LinkListener;
+import utils.Settings;
+
+import java.awt.*;
 import java.util.logging.Logger;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -94,6 +95,29 @@ public class AboutWindow {
     jPanel2.add(jbClose, null);
     jpMain.add(jPanel2, BorderLayout.SOUTH);
     jpMain.add(jEditorPane1, BorderLayout.CENTER);
+
+    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+
+    // Checks if the overlay display setting is true && !null and displays the overlay if so
+    if (displayOverlay != null && displayOverlay != "false") {
+      JPanel glassPane = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          Graphics2D g2d = (Graphics2D) g.create();
+          g2d.setColor(new Color(0, 0, 0, 100)); // Controls overlay colour
+          g2d.fillRect(0, 0, getWidth(), getHeight());
+          g2d.dispose();
+        }
+      };
+      // Creates transparency, ensures interactivity of underlying elements, assigns to main window frame
+      glassPane.setOpaque(false);
+      glassPane.setLayout(null);
+      jpMain.setGlassPane(glassPane);
+      glassPane.setVisible(true);
+    }
   }
 
   public void show() {

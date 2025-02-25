@@ -15,19 +15,15 @@
 
 package managers;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
-import java.awt.Dimension;
+// Importing settings for visual display overlay
+import utils.Settings;
+
+import javax.swing.*;
 
 import utils.Resources;
 import view.toolbars.MainMenu;
@@ -339,6 +335,29 @@ public class WindowManager {
     mainScreenFrame.setTitle("HEAT - Haskell Educational Advancement Tool");
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
+
+    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+
+    // Checks if the overlay display setting is true && !null and displays the overlay if so
+    if (displayOverlay != null && displayOverlay != "false") {
+        JPanel glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(new Color(0, 0, 0, 100)); // Controls overlay colour
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+                g2d.dispose();
+            }
+        };
+        // Creates transparency, ensures interactivity of underlying elements, assigns to main window frame
+        glassPane.setOpaque(false);
+        glassPane.setLayout(null);
+        mainScreenFrame.setGlassPane(glassPane);
+        glassPane.setVisible(true);
+    }
     
     // BorderLayout borderLayout1 = new BorderLayout();
 
