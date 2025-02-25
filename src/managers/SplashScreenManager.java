@@ -1,38 +1,62 @@
 package managers;
 
+import view.windows.OptionsWindow;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SplashScreenManager {
 
     private static SplashScreenManager instance = null;
+    OptionsWindow ow = new OptionsWindow();
+
     JFrame splashScreen = new JFrame("Splash Screen");
     public SplashScreenManager(){
-        //JFrame splashScreen = new JFrame();
-        JButton yesButton = new JButton("Yes");
+
+        // yes button = close splash screen and show the options pane
+        JButton yesButton = new JButton(new AbstractAction("Yes") {
+            public void actionPerformed(ActionEvent e) {
+                splashScreen.dispose();
+                ow.show();
+            }
+        });
+
+        // no button = go to main page
         JButton noButton = new JButton("No");
+        noButton.addActionListener(e -> splashScreen.dispose());
 
-
-        splashScreen.setSize(500,500);
+        // splash screen layout
+        splashScreen.setSize(420,300);
         splashScreen.setLocationRelativeTo(null);
-        //splashScreen.setLayout(new GridLayout());
+        splashScreen.setLayout(new GridLayout());
         splashScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // TODO: set button dimensions
         splashScreen.add(yesButton);
         splashScreen.add(noButton);
 
-//    yesButton.addActionListener(new ActionListener() {
-//
-//    });
         splashScreen.setVisible(true);
     }
+
+    // create the splash screen if there is not already an instance
     public static SplashScreenManager getInstance() {
         if (instance == null)
             instance = new SplashScreenManager();
+
         return instance;
     }
 
+    // identify where the jframe is active
     public boolean isActive(){
         return splashScreen.isActive();
     }
+
+    // identify whether the options pane is active
+    public boolean owIsActive(){
+        System.out.println(ow.is_visible);
+        return ow.is_visible;
+
+    }
 }
+

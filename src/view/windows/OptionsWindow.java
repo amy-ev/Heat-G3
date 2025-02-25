@@ -62,7 +62,8 @@ public class OptionsWindow {
 
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
-  
+
+  public boolean is_visible = false;
   
   /**
    * Creates a new OptionsWindow object.
@@ -175,6 +176,7 @@ public class OptionsWindow {
     panelOptions = new JPanel(new BorderLayout());
     panelOptions.add(tabOptions,BorderLayout.CENTER);
     panelOptions.add(panelButtons,BorderLayout.PAGE_END);
+
   }
 
  
@@ -192,6 +194,7 @@ public class OptionsWindow {
     dialog.setSize(600, 400);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
     dialog.setVisible(true);
+    is_visible = true;
   }
 
   /**
@@ -300,4 +303,10 @@ public class OptionsWindow {
     if (selectedFile != null)
       jTextFieldLibraryPath.setText(selectedFile.getAbsolutePath());
   }
+
+  //
+  public boolean isVisible(){
+    return is_visible;
+  }
 }
+
