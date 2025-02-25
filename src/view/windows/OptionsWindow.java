@@ -133,7 +133,9 @@ public class OptionsWindow {
     jTextFieldTestPositive = new JTextField();
     testPositive.add(jTextFieldTestPositive);
     panelTest.add(testPositive);
-    
+
+
+    // changing tab into the accessibility tab
     // panel for setting font sizes
     JPanel panelFontSizes = new JPanel(new GridLayout(0,1));
     jcbOutputFontSize = new JComboBox();
@@ -154,9 +156,10 @@ public class OptionsWindow {
     
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
+    tabOptions.addTab("Accessibility Options", panelFontSizes);
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
     tabOptions.addTab("Property Tests", panelTest);
-    tabOptions.addTab("Font Sizes", panelFontSizes);
+
     
     // buttons for applying options and cancellation
     JButton buttonApply = new JButton("Apply");
@@ -191,7 +194,7 @@ public class OptionsWindow {
     dialog.setModal(true);
     dialog.getContentPane().add(panelOptions);      //(jTabbedPane1);
     dialog.setMinimumSize(new Dimension(500,350));
-    dialog.setSize(600, 400);
+    dialog.setSize(1000, 800); // 600 400
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
     dialog.setVisible(true);
     is_visible = true;
@@ -203,6 +206,7 @@ public class OptionsWindow {
   public void close() {
     if (dialog != null)
       dialog.dispose();
+      //is_visible = false;
   }
 
   /**
@@ -304,7 +308,7 @@ public class OptionsWindow {
       jTextFieldLibraryPath.setText(selectedFile.getAbsolutePath());
   }
 
-  // boolean used to check when the options window has been opened 
+  // boolean used to check when the options window has been opened
   public boolean isVisible(){
     return is_visible;
   }

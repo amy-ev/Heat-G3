@@ -15,8 +15,7 @@
 
 package managers;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
@@ -27,7 +26,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import java.awt.Dimension;
 
 import utils.Resources;
 import view.toolbars.MainMenu;
@@ -339,6 +337,8 @@ public class WindowManager {
     mainScreenFrame.setTitle("HEAT - Haskell Educational Advancement Tool");
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
+
+    mainScreenFrame.setFont(new Font("Courier", Font.BOLD,75));
     
     // BorderLayout borderLayout1 = new BorderLayout();
 
