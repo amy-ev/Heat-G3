@@ -14,6 +14,7 @@
 //import com.incors.plaf.alloy.AlloyLookAndFeel;
 
 import managers.*;
+import view.windows.OptionsWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,37 +52,16 @@ public static void main(String[] args) {
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
 
-//
-//    // TODO: create as a splashScreenManager
-//    // splash screen startup
-//    JFrame splashScreen = new JFrame();
-//    JButton yesButton = new JButton("Yes");
-//    JButton noButton = new JButton("No");
-//
-//
-//    splashScreen.setSize(500,500);
-//    splashScreen.setLocationRelativeTo(null);
-//    splashScreen.setLayout(new GridLayout());
-//
-//    // TODO: set button dimensions
-//
-//
-//    splashScreen.add(yesButton);
-//    splashScreen.add(noButton);
-//
-////    yesButton.addActionListener(new ActionListener() {
-////
-////    });
-//
-//
-//    splashScreen.setVisible(true);
+
     SplashScreenManager splashScreen = SplashScreenManager.getInstance();
+
     // while splash screen is still open do NOT start the program
-
-    while (splashScreen.isActive()){ // isActive also refers to clicking outside of the frame.
-        ;
+    //
+    while(!splashScreen.owIsActive()){
+        while (splashScreen.isActive()){
+            ;
+        }
     }
-
 
     sm.loadSettings();
     WindowManager.setLookAndFeel();
