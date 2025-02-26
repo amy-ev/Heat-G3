@@ -139,12 +139,12 @@ public class Toolbar {
 	  switch (status) {
 	  	case 0:
             statusButton.setIcon(iiCompileFail);
-            audm.play("audio/572936__bloodpixelhero__error.wav");
+            audm.play("src/audio/572936__bloodpixelhero__error.wav");
             System.out.println("compile_fail audio played");
           break;
 	  	case 1:
             statusButton.setIcon(iiCompileSuccess);
-            audm.play("audio/572936__bloodpixelhero__error.wav");
+            audm.play("src/audio/430800__justvic__complete_sound.wav");
             System.out.println("compile_success audio played");
           break;
 	  	case 2:

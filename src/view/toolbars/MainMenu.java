@@ -161,6 +161,7 @@ public class MainMenu {
     jMenuBar.add(jMenuEdit);
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
+
     
     // Mac specific stuff
     // Application app = Application.getApplication();
