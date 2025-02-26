@@ -15,11 +15,12 @@
 
 package view.windows;
 
+import managers.FontManager;
 import managers.WindowManager;
 
 import utils.Search;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,7 @@ import javax.swing.JTextField;
  * Displays a window to perform a search
  */
 public class SearchDialog {
+  private FontManager fm = FontManager.getInstance();
   private JPanel jPanel1 = new JPanel();
   private JTextField jTextField1 = new JTextField();
   private JLabel jLabel1 = new JLabel();
@@ -108,6 +110,12 @@ public class SearchDialog {
     jPanel1.add(jCheckBox1, null);
     jPanel1.add(jButton1, null);
   }
+  public void setFontSize(int ptSize){
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setLabelsFont(font, jLabel1);
+    fm.setButtonsFont(font, jButton1);
+
+  }
 
   private void jTextField1_actionPerformed(ActionEvent e) {
     jButton1_actionPerformed(e);
@@ -150,6 +158,7 @@ public class SearchDialog {
     frame.setSize(400, 100);
     frame.setResizable(false);
     frame.setLocationRelativeTo(wm.getMainScreenFrame());
+    frame.pack();
     frame.setVisible(true);
   }
 }
