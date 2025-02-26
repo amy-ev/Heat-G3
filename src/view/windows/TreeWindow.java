@@ -15,12 +15,14 @@
 
 package view.windows;
 
+import managers.FontManager;
 import utils.parser.*;
 import utils.Resources;
 import managers.ActionManager;
 import managers.WindowManager;
 import managers.ParserManager;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -28,8 +30,6 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
@@ -68,7 +68,8 @@ public class TreeWindow
     private int treeChildFunctions = 1;
     private int treeChildAlgebraicTypes = 2;
     private int treeChildTypeSynonyms = 3;
-    
+
+
     /** Creates new form TreeWindow */
     public TreeWindow()
     {
@@ -211,7 +212,6 @@ public class TreeWindow
         }
     }
 
-
     private void updateDatatypes(ArrayList datatypes)
     {
         TreeModel tree = this.tree.getModel();
@@ -235,8 +235,7 @@ public class TreeWindow
         DefaultMutableTreeNode typesNode = (DefaultMutableTreeNode) root.getChildAt(treeChildTypeSynonyms);
         typesNode.removeAllChildren();
 
-        for (int i=0 ; i<types.size(); i++ )
-        {
+        for (int i=0 ; i<types.size(); i++ ) {
             ParsedType type = (ParsedType) types.get(i);
             typesNode.add(new DefaultMutableTreeNode (type));
         }

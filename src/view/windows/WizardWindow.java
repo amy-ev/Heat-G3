@@ -16,18 +16,17 @@
 package view.windows;
 
 import managers.ActionManager;
+import managers.FontManager;
 import managers.WindowManager;
 
 import view.dialogs.FileDialogs;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Dimension;
 
 import java.io.File;
 
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -44,6 +43,12 @@ public class WizardWindow {
   private JDialog dialog;
   
   private WindowManager wm = WindowManager.getInstance();
+  private FontManager fm = FontManager.getInstance();
+
+  // global variables to adjust font
+  private JButton browse = new JButton("Browse");
+  private JButton buttonApply = new JButton("Apply");
+  private JLabel interpreterPathLabel= new JLabel("Full path of the Haskell interpreter ghci (not ghc or winghci!): ");
 
   public WizardWindow() {
     try {
@@ -56,7 +61,7 @@ public class WizardWindow {
   private void jbInit() throws Exception {
     // panel for interpreter options:
     JPanel panelInterpreter = new JPanel(new GridLayout(0,1));
-    JButton browse = new JButton("Browse");
+
     browse.setToolTipText("Browse for file");
     browse.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -64,7 +69,7 @@ public class WizardWindow {
         }
       });
     JPanel panelInterpreterPath = new JPanel();
-    panelInterpreterPath.add(new JLabel("Full path of the Haskell interpreter ghci (not ghc or winghci!): "));
+    panelInterpreterPath.add(interpreterPathLabel);
     panelInterpreterPath.add(browse);
     panelInterpreter.add(panelInterpreterPath);
     jTextFieldInterpreterPath = new JTextField();
@@ -72,7 +77,7 @@ public class WizardWindow {
     panelInterpreter.add(new JSeparator(SwingConstants.HORIZONTAL));
   
     // buttons for applying options and cancellation
-    JButton buttonApply = new JButton("Apply");
+
     buttonApply.setAction(ActionManager.getInstance().getSaveWizardAction());
       JPanel panelButtons = new JPanel();
     panelButtons.add(buttonApply);
@@ -82,6 +87,12 @@ public class WizardWindow {
     panelOptions.add(panelInterpreter,BorderLayout.CENTER);
     panelOptions.add(panelButtons,BorderLayout.PAGE_END);
 
+  }
+
+  public void setFontSize(int ptSize){
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setButtonsFont(font, browse, buttonApply);
+    fm.setLabelsFont(font, interpreterPathLabel);
   }
 
   private void interpreterPath_actionPerformed() {
@@ -103,6 +114,7 @@ public class WizardWindow {
     dialog.getContentPane().add(panelOptions);
     dialog.setMinimumSize(new Dimension(500,200));
     dialog.setSize(400,200);
+    dialog.pack();
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
     dialog.setVisible(true);
   }

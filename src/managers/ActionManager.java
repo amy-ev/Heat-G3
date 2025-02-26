@@ -747,7 +747,7 @@ public class ActionManager {
         wm.getOptionsWindow().setFontSize(globalFontsize);
         wm.getAboutWindow().setFontSize(globalFontsize);
         //wm.getTreeWindow().setFontSize(globalFontsize);
-        //wm.getWizardWindow().setFontSize(globalFontsize);
+        wm.getWizardWindow().setFontSize(globalFontsize);
 
 
         sm.setSetting(Settings.GLOBAL_FONT_SIZE, globalFontSize);
