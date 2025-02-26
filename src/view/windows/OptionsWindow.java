@@ -58,14 +58,28 @@ public class OptionsWindow {
   private JTextField jTextFieldTestPositive;
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
+  private JComboBox jcbGlobalFontSize; // global font settings
 
+
+  // buttons turned into global variables to adjust font
   private JButton buttonApply = new JButton("Apply");
   private JButton buttonCancel = new JButton("Cancel");
   private JButton browse = new JButton("Browse");
   private JButton browseL = new JButton("Browse");
 
-  // GLOBAL SETTINGS
-  private JComboBox jcbGlobalFontSize;
+  // lebels turned into global variables to adjust font
+  private JLabel interpreterPathLabel = new JLabel("Full path of the Haskell interpreter ghci (not ghc or winghci!): ");
+  private JLabel optionsInfoLabel = new JLabel("Command line options for the Haskell interpreter:");
+  private JLabel libraryPathLabel = new JLabel("Directory for additional Haskell libraries: ");
+  private JLabel testLabel = new JLabel("Test function applied to a test property");
+  private JLabel quickCheckLabel = new JLabel("(e.g. \"quickCheck\" for QuickCheck or \"\" (nothing) for Boolean properties)");
+  private JLabel testPositiveLabel1 = new JLabel("String that appears in successful test output");
+  private JLabel testPositiveLabel2 = new JLabel("(e.g. \"+++ OK, passed\" for QuickCheck or \"True\" for Boolean properties)");
+  private JLabel editorFontSizeLabel = new JLabel("Editor font size: ");
+  private JLabel interpreterFontSizeLabel = new JLabel("Interpreter font size:");
+  private JLabel globalFontSizeLabel = new JLabel("Global font size:");
+
+  JTabbedPane tabOptions = new JTabbedPane();
 
   private JDialog dialog;
 
@@ -92,7 +106,6 @@ public class OptionsWindow {
     
     // panel for interpreter options:
     JPanel panelInterpreter = new JPanel(new GridLayout(0,1));
-
     browse.setToolTipText("Browse for file");
     browse.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -100,15 +113,16 @@ public class OptionsWindow {
         }
       });
     JPanel panelInterpreterPath = new JPanel();
-    panelInterpreterPath.add(new JLabel("Full path of the Haskell interpreter ghci (not ghc or winghci!): "));
+    panelInterpreterPath.add(interpreterPathLabel);
     panelInterpreterPath.add(browse);
     panelInterpreter.add(panelInterpreterPath);
     jTextFieldInterpreterPath = new JTextField();
     panelInterpreter.add(jTextFieldInterpreterPath);
     panelInterpreter.add(new JSeparator(SwingConstants.HORIZONTAL));
     // panelInterpreter.add(new JLabel("")); // some vertical space
+
     JPanel panelOptionsInfo = new JPanel();
-    panelOptionsInfo.add(new JLabel("Command line options for the Haskell interpreter:"));
+    panelOptionsInfo.add(optionsInfoLabel);
     panelInterpreter.add(panelOptionsInfo);
     jTextFieldOptions = new JTextField();
     panelInterpreter.add(jTextFieldOptions);
@@ -122,7 +136,7 @@ public class OptionsWindow {
         }
       });
     JPanel panelLibraryPath = new JPanel();
-    panelLibraryPath.add(new JLabel("Directory for additional Haskell libraries: "));
+    panelLibraryPath.add(libraryPathLabel);
     panelLibraryPath.add(browseL);
     panelInterpreter.add(panelLibraryPath);
     jTextFieldLibraryPath = new JTextField();
@@ -131,16 +145,16 @@ public class OptionsWindow {
     // panel for test settings
     JPanel panelTest = new JPanel(new GridLayout(0,1));
     JPanel testFunction = new JPanel(new GridLayout(0,1));
-    testFunction.add(new JLabel("Test function applied to a test property"));
-    testFunction.add(new JLabel("(e.g. \"quickCheck\" for QuickCheck or \"\" (nothing) for Boolean properties)"));
+    testFunction.add(testLabel);
+    testFunction.add(quickCheckLabel);
     jTextFieldTestFunction = new JTextField();
     testFunction.add(jTextFieldTestFunction);
     panelTest.add(testFunction);
     // panelTest.add(new JLabel(""));  // some vertical space
     panelTest.add(new JSeparator(SwingConstants.HORIZONTAL));
     JPanel testPositive = new JPanel(new GridLayout(0,1));
-    testPositive.add(new JLabel("String that appears in successful test output"));
-    testPositive.add(new JLabel("(e.g. \"+++ OK, passed\" for QuickCheck or \"True\" for Boolean properties)"));
+    testPositive.add(testPositiveLabel1);
+    testPositive.add(testPositiveLabel2);
     jTextFieldTestPositive = new JTextField();
     testPositive.add(jTextFieldTestPositive);
     panelTest.add(testPositive);
@@ -157,20 +171,20 @@ public class OptionsWindow {
       jcbGlobalFontSize.addItem(String.valueOf(i));
     }
     JPanel editorFontSize = new JPanel();
-    editorFontSize.add(new JLabel("Editor font size: "));
+    editorFontSize.add(editorFontSizeLabel);
     editorFontSize.add(jcbCodeFontSize);
     JPanel interpreterFontSize = new JPanel();
-    interpreterFontSize.add(new JLabel("Interpreter font size:"));
+    interpreterFontSize.add(interpreterFontSizeLabel);
     interpreterFontSize.add(jcbOutputFontSize);
     JPanel globalFontSize = new JPanel();
-    globalFontSize.add(new JLabel("Global font size:"));
+    globalFontSize.add(globalFontSizeLabel);
     globalFontSize.add(jcbGlobalFontSize);
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
     panelFontSizes.add(globalFontSize);
     
     // combine panels on tabbed pane
-    JTabbedPane tabOptions = new JTabbedPane();
+
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
     tabOptions.addTab("Property Tests", panelTest);
     tabOptions.addTab("Font Sizes", panelFontSizes);
@@ -211,8 +225,10 @@ public class OptionsWindow {
 
   public void setFontSize(int ptSize) {
     Font font = new Font("Arial", Font.PLAIN, ptSize);
-    fm.setOptionsFont(font, buttonApply, buttonCancel, browse);
-    //.repaint();
+    fm.setOptionButtonsFont(font, buttonApply, buttonCancel, browse);
+    fm.setOptionLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel);
+    fm.setOptionTabsFont(font, tabOptions);
+    fm.setComboBoxFont(font, jcbCodeFontSize, jcbOutputFontSize, jcbGlobalFontSize);
   }
 
   /**
@@ -226,6 +242,7 @@ public class OptionsWindow {
     dialog.getContentPane().add(panelOptions);      //(jTabbedPane1);
     dialog.setMinimumSize(new Dimension(500,350));
     dialog.setSize(600, 400);
+    dialog.pack();
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
     dialog.setVisible(true);
   }

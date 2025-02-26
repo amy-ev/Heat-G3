@@ -745,6 +745,11 @@ public class ActionManager {
         wm.getMainMenu().setFontSize(globalFontsize);
         wm.getToolbar().setFontSize(globalFontsize);
         wm.getOptionsWindow().setFontSize(globalFontsize);
+        //wm.getAboutWindow().setFontSize(globalFontsize);
+        //wm.getTreeWindow().setFontSize(globalFontsize);
+        //wm.getWizardWindow().setFontSize(globalFontsize);
+
+
         sm.setSetting(Settings.GLOBAL_FONT_SIZE, globalFontSize);
     } catch (NumberFormatException nfe) {
         log.warning("[ActionManager] - Failed to parse " +
@@ -764,7 +769,7 @@ public class ActionManager {
       }
     }
   } /* end SaveOptionsAction */
-  
+
   /*
    * Save Action of Wizard Window for Settings
    */
