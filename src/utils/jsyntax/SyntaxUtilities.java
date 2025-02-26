@@ -14,6 +14,9 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.util.Map;
+
+
+
 /**
  * Class with several utility functions used by jEdit's syntax colorizing
  * subsystem.
@@ -178,18 +181,26 @@ public class SyntaxUtilities {
   }
 
   public static void applyTheme(String themeType){
+    System.out.println("Applying Theme: " + themeType);
 
-    System.out.print("Applying theme " + themeType + "\n"); //this line use for debugging
+    //Update the current theme with theme that user use
     currentTheme = SyntaxColourBlindTheme.getTheme(themeType);
 
-    //
     for (Map.Entry<String, Color> entry : currentTheme.entrySet()) {
       System.out.println("  - " + entry.getKey() + " -> " + entry.getValue());
       setSyntaxColor(entry.getKey(), entry.getValue());
     }
 
+    //Force syntax styles to be applied again
+    WindowManager.getInstance().getEditorWindow().updateSyntaxStyles();
+
+    // Force UI refresh
     refreshEditor();
   }
+
+
+
+
 
 
   public static void refreshEditor(){

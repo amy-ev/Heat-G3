@@ -51,6 +51,7 @@ public class SyntaxThemeSelectionPanel extends JPanel {
         });
 
 
+
         add(defaultThemeButton);
         add(protanopiaThemeButton);
         add(deuteranopiaThemeButton);

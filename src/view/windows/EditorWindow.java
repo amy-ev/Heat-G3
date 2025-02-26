@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import utils.Settings;
 import utils.jsyntax.JEditTextArea;
 import utils.jsyntax.JEditTextAreaWithMouseWheel;
+import utils.jsyntax.SyntaxUtilities;
 import utils.jsyntax.tokenmarker.HaskellTokenMarker;
 import utils.jsyntax.tokenmarker.LHSHaskellTokenMarker;
 
@@ -249,7 +250,13 @@ public class EditorWindow {
     jtaCodeView.setHorizontalScrollBarEnabled(enabled);
     setEnabled(false);
 }
- 
+    //This new method use for updating syntax style to the editor
+    public void updateSyntaxStyles() {
+        if (jtaCodeView != null) {
+            jtaCodeView.getPainter().setStyles(SyntaxUtilities.getDefaultSyntaxStyles());
+            jtaCodeView.repaint(); // Force refresh
+        }
+    }
 
   /**
    * Changes the font size
@@ -294,5 +301,7 @@ public class EditorWindow {
   public static JEditTextArea getTextPane() {
     return jtaCodeView;
   }
+
+
 
 }
