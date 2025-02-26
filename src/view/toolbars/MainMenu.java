@@ -40,6 +40,7 @@ public class MainMenu {
   private SettingsManager sm = SettingsManager.getInstance();
 
   private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
   /* Program menu items */
   private JMenu jMenuFile = new JMenu();
   private JMenuItem jMenuItemOpen = new JMenuItem();
@@ -87,9 +88,6 @@ public class MainMenu {
     }
   }
 
-  // TESTING
-  private static Logger log = Logger.getLogger("heat");
-  private Font globalFont = new Font(Font.SERIF, Font.PLAIN, 20);
   /**
    * Initialises the menus GUI compenetes
    *
@@ -187,9 +185,7 @@ public class MainMenu {
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
 
-
     String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
-
 
     if ((fontSizeStr != null) && (fontSizeStr != "")) {
       try {
@@ -208,16 +204,14 @@ public class MainMenu {
     // app.setQuitHandler(null);
   }
 
-
-
   // Set font size for MainMenu items
   public void setFontSize(int ptSize) {
-    Font font = new Font("monospaced", Font.PLAIN, ptSize);
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
     fm.setJMenuFont(font, jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
     fm.setJMenuFont(font, jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
     fm.setJMenuFont(font, jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
     fm.setJMenuFont(font,jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
-    jMenuFile.repaint();
+    //jMenuFile.repaint();
   }
 
   /**

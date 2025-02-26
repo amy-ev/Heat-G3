@@ -20,6 +20,7 @@
 package view.windows;
 
 import managers.ActionManager;
+import managers.FontManager;
 import managers.SettingsManager;
 import managers.WindowManager;
 
@@ -27,13 +28,12 @@ import utils.Settings;
 
 import view.dialogs.FileDialogs;
 
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -51,13 +51,18 @@ import javax.swing.SwingConstants;
 public class OptionsWindow {
 
   private JPanel panelOptions;
-  private JTextField jTextFieldInterpreterPath; 
+  private JTextField jTextFieldInterpreterPath;
   private JTextField jTextFieldOptions;
   private JTextField jTextFieldLibraryPath;
   private JTextField jTextFieldTestFunction;
   private JTextField jTextFieldTestPositive;
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
+
+  private JButton buttonApply = new JButton("Apply");
+  private JButton buttonCancel = new JButton("Cancel");
+  private JButton browse = new JButton("Browse");
+  private JButton browseL = new JButton("Browse");
 
   // GLOBAL SETTINGS
   private JComboBox jcbGlobalFontSize;
@@ -66,7 +71,10 @@ public class OptionsWindow {
 
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
-  
+  private FontManager fm = FontManager.getInstance();
+
+  private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
   
   /**
    * Creates a new OptionsWindow object.
@@ -84,7 +92,7 @@ public class OptionsWindow {
     
     // panel for interpreter options:
     JPanel panelInterpreter = new JPanel(new GridLayout(0,1));
-    JButton browse = new JButton("Browse");
+
     browse.setToolTipText("Browse for file");
     browse.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -106,7 +114,7 @@ public class OptionsWindow {
     panelInterpreter.add(jTextFieldOptions);
     panelInterpreter.add(new JSeparator(SwingConstants.HORIZONTAL));
     // panelInterpreter.add(new JLabel("")); // some vertical space
-    JButton browseL = new JButton("Browse");
+
     browseL.setToolTipText("Browse for directory");
     browseL.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -168,11 +176,12 @@ public class OptionsWindow {
     tabOptions.addTab("Font Sizes", panelFontSizes);
     
     // buttons for applying options and cancellation
-    JButton buttonApply = new JButton("Apply");
+
     buttonApply.setAction(ActionManager.getInstance().getSaveOptionsAction());
-    JButton buttonCancel = new JButton("Cancel");
+
     buttonCancel.setToolTipText("Close options dialog without applying any changes");
     buttonCancel.addActionListener(new ActionListener() {
+
         public void actionPerformed(ActionEvent e) {
           close();
         }
@@ -185,9 +194,26 @@ public class OptionsWindow {
     panelOptions = new JPanel(new BorderLayout());
     panelOptions.add(tabOptions,BorderLayout.CENTER);
     panelOptions.add(panelButtons,BorderLayout.PAGE_END);
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
   }
 
- 
+  public void setFontSize(int ptSize) {
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setOptionsFont(font, buttonApply, buttonCancel, browse);
+    //.repaint();
+  }
 
   /**
    * Displays the options window

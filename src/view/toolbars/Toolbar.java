@@ -105,8 +105,9 @@ public class Toolbar {
 
     //fm.setToolBarFont(statusButton);
   }
+
   public void setFontSize(int ptSize) {
-    Font font = new Font("monospaced", Font.PLAIN, ptSize);
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
     fm.setToolBarFont(font, statusButton);
     statusButton.repaint();
   }

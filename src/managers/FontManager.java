@@ -40,4 +40,10 @@ public class FontManager {
         }
     }
 
+    public void setOptionsFont(Font cFont, JButton... args){
+        for (JButton arg : args) {
+            arg.setFont(cFont);
+        }
+    }
+
 }
