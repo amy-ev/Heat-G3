@@ -3,7 +3,10 @@ package managers;
 import view.windows.OptionsWindow;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -38,13 +41,13 @@ public class SplashScreenManager {
 
         // Title Panel
         JLabel titleLabel = new JLabel("Accessibility Options");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
         titleLabel.setForeground(Color.BLACK);
+        titleLabel.setBorder(new EmptyBorder(0, 0, 25, 0));
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.setOpaque(false);
         titlePanel.add(titleLabel);
-
         contentPanel.add(titlePanel, BorderLayout.NORTH);
 
         // Settings Panel
@@ -102,20 +105,6 @@ public class SplashScreenManager {
         // Global font size
         settingsContainer.add(createSettingPanel("Global Font Size", jcbGlobalFontSize), gbc);
 
-        // Column Separator
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.gridheight = 6;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        JLabel verticalSeparator = new JLabel();
-        verticalSeparator.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 0, Color.BLACK));
-        settingsContainer.add(verticalSeparator, gbc);
-
-        // Reset grid constraints
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-
         // Right Column
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -138,22 +127,37 @@ public class SplashScreenManager {
                                 this::applySyntaxHighlighting)), gbc);
 
         contentPanel.add(settingsContainer, BorderLayout.CENTER);
+        gbc.gridy++;
 
         // Buttons Panel
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        // Border with extra for padding
         buttonPanel.setOpaque(false);
+        buttonPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 0, 0, Color.LIGHT_GRAY),
+                BorderFactory.createEmptyBorder(10, 0, 0, 0)
+        ));
+        // Create buttons
+        JButton yesButton = new JButton("Apply");
+        JButton noButton = new JButton("Continue");
 
-        JButton yesButton = new JButton("Yes");
-        JButton noButton = new JButton("No");
-
+        // Set fonts
         yesButton.setFont(new Font("Arial", Font.BOLD, 16));
         noButton.setFont(new Font("Arial", Font.BOLD, 16));
 
+        // Set preferred size to make buttons wider
+        Dimension buttonSize = new Dimension(200, 40);
+        yesButton.setPreferredSize(buttonSize);
+        noButton.setPreferredSize(buttonSize);
+
+        // Apply action listener
         yesButton.addActionListener(e -> {
             splashScreen.dispose();
             ow.show();
         });
 
+        // Continue action listener
         noButton.addActionListener(e -> {
             splashScreen.dispose();
             ow.is_visible = true;
@@ -178,30 +182,46 @@ public class SplashScreenManager {
     }
 
     /**
-     * Creates a labeled setting panel (Title + Component)
+     * Creates a Settings panel item with title and component.
+     * @param title
+     * @param component
+     * @return
      */
     private JPanel createSettingPanel(String title, JComponent component) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setOpaque(false);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.LIGHT_GRAY, 1),
+                new EmptyBorder(10, 10, 10, 15)
+        ));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 20, 5, 15);
+        gbc.insets = new Insets(5, 10, 5, 10);
 
-        // Label (Title)
+        // Title Label with Increased Font Size
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Label
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0;
-        panel.add(new JLabel(title), gbc);
+        panel.add(titleLabel, gbc);
 
-        // Component (Toggle Button / Dropdown)
+        // Component - Toggle Button | Dropdown
         gbc.gridx = 1;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(component, gbc);
 
+        // Apply global 14-point size for components
+        component.setFont(new Font("Arial", Font.PLAIN, 14));
+
         return panel;
     }
+
+
 
     /**
      * Creates a title component with description
@@ -220,7 +240,7 @@ public class SplashScreenManager {
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setOpaque(false);
-        titlePanel.setBorder(new EmptyBorder(0, 20, 5, 0));
+        titlePanel.setBorder(new EmptyBorder(0, 0, 5, 0));
 
         titlePanel.add(titleLabel);
         titlePanel.add(descriptionLabel);
