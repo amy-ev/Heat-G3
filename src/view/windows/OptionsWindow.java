@@ -225,8 +225,8 @@ public class OptionsWindow {
 
   public void setFontSize(int ptSize) {
     Font font = new Font("Arial", Font.PLAIN, ptSize);
-    fm.setOptionButtonsFont(font, buttonApply, buttonCancel, browse);
-    fm.setOptionLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel);
+    fm.setButtonsFont(font, buttonApply, buttonCancel, browse);
+    fm.setLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel);
     fm.setOptionTabsFont(font, tabOptions);
     fm.setComboBoxFont(font, jcbCodeFontSize, jcbOutputFontSize, jcbGlobalFontSize);
   }

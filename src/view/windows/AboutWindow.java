@@ -15,14 +15,14 @@
 
 package view.windows;
 
+import managers.FontManager;
 import managers.WindowManager;
 
 import utils.LinkListener;
+
+import java.awt.*;
 import java.util.logging.Logger;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,6 +35,8 @@ import javax.swing.JEditorPane;
 
 
 public class AboutWindow {
+  FontManager fm = FontManager.getInstance();
+
   private JPanel jpMain = new JPanel();
   private JPanel jPanel1 = new JPanel();
   private JLabel jlHeat = new JLabel();
@@ -52,6 +54,11 @@ public class AboutWindow {
   private java.net.URL htmURL;
   private String indexFile = "html/about.html";
 
+  public void setFontSize(int ptSize){
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setLabelsFont(font,jlHeat, jLabel1 );
+    fm.setButtonsFont(font, jbClose);
+  }
   public AboutWindow() {
     try {
       jbInit();

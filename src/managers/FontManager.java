@@ -2,9 +2,7 @@ package managers;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
-import org.w3c.dom.css.RGBColor;
 import utils.Settings;
 
 
@@ -37,13 +35,13 @@ public class FontManager {
 
         }
     }
-    public void setOptionButtonsFont(Font cFont, JButton... args){
+    public void setButtonsFont(Font cFont, JButton... args){
         for (JButton arg : args) {
             arg.setFont(cFont);
         }
     }
 
-    public void setOptionLabelsFont(Font cFont, JLabel... args) {
+    public void setLabelsFont(Font cFont, JLabel... args) {
         for (JLabel arg : args) {
             arg.setFont(cFont);
         }
@@ -60,10 +58,5 @@ public class FontManager {
         }
     }
 
-    public void setOptionPaneFont(Font cFont, JOptionPane... args){
-        for (JOptionPane arg : args) {
-            arg.setFont(cFont);
-        }
-    }
 
 }
