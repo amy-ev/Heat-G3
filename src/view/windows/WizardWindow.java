@@ -17,8 +17,10 @@ package view.windows;
 
 import managers.ActionManager;
 import managers.FontManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
+import utils.Settings;
 import view.dialogs.FileDialogs;
 
 import java.awt.*;
@@ -26,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -38,7 +41,11 @@ import javax.swing.SwingConstants;
 
 public class WizardWindow {
   private JPanel panelOptions;
-  private JTextField jTextFieldInterpreterPath; 
+  private JTextField jTextFieldInterpreterPath;
+  private SettingsManager sm = SettingsManager.getInstance();
+
+  private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
  
   private JDialog dialog;
   
@@ -86,6 +93,20 @@ public class WizardWindow {
     panelOptions = new JPanel(new BorderLayout());
     panelOptions.add(panelInterpreter,BorderLayout.CENTER);
     panelOptions.add(panelButtons,BorderLayout.PAGE_END);
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
 
   }
 

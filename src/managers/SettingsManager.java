@@ -35,7 +35,7 @@ public class SettingsManager {
   /* Properties file containing settings */
   private Properties heatSettings = new Properties();
   private File settingsFile;
-  private boolean newSettingsFile = false;
+  private boolean newSettingsFile = true;
   private boolean haveChanges = false;
 
   protected SettingsManager() {

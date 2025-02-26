@@ -16,9 +16,11 @@
 package view.windows;
 
 import managers.FontManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.LinkListener;
+import utils.Settings;
 
 import java.awt.*;
 import java.util.logging.Logger;
@@ -36,6 +38,9 @@ import javax.swing.JEditorPane;
 
 public class AboutWindow {
   FontManager fm = FontManager.getInstance();
+  private SettingsManager sm = SettingsManager.getInstance();
+
+  private int fontSize = 12;
 
   private JPanel jpMain = new JPanel();
   private JPanel jPanel1 = new JPanel();
@@ -101,6 +106,20 @@ public class AboutWindow {
     jPanel2.add(jbClose, null);
     jpMain.add(jPanel2, BorderLayout.SOUTH);
     jpMain.add(jEditorPane1, BorderLayout.CENTER);
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
   }
 
   public void show() {
