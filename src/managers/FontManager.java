@@ -21,7 +21,8 @@ public class FontManager {
 
     public void setFonts(JMenuItem... args){
         for (JMenuItem arg : args) {
-            arg.setFont((new Font("", Font.PLAIN, 30)));
+            Font f = new Font("sans-serif", Font.PLAIN, 30);
+            arg.setFont(f);
         }
     }
 }

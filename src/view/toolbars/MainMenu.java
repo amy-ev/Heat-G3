@@ -45,6 +45,11 @@ public class MainMenu {
 
   /* Edit menu items */
   private JMenu jMenuEdit = new JMenu();
+
+  // converted undo and redo abstract action objects into jMenuItems for font size adjustments.
+  private JMenuItem jMenuItemUndo = new JMenuItem();
+  private JMenuItem jMenuItemRedo = new JMenuItem();
+
   private JMenuItem jMenuItemCopy = new JMenuItem();
   private JMenuItem jMenuItemCut = new JMenuItem();
   private JMenuItem jMenuItemPaste = new JMenuItem();
@@ -109,13 +114,15 @@ public class MainMenu {
     jMenuFile.addSeparator();
     jMenuFile.add(jMenuItemExit);
 
-    //set Fonts
-    fm.setFonts(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
 
     /* Edit Menu */
     jMenuEdit.setText("Edit");
-    jMenuEdit.add(undoAction);
-    jMenuEdit.add(redoAction);
+    // changed the undoAction into a jMenuItem and attached its action to allow for font size adjustment
+    jMenuItemUndo.setAction(undoAction);
+    jMenuItemRedo.setAction(redoAction);
+    //jMenuEdit.add(undoAction);
+    //jMenuEdit.add(redoAction);
+
     jMenuEdit.addSeparator();
     jMenuEdit.setMnemonic('e');
     jMenuItemCut.setText("Cut");
@@ -130,6 +137,8 @@ public class MainMenu {
     jMenuItemSearch.setText("Find");
     jMenuItemSearch.setAction(am.getSearchAction());
     jMenuItemPaste.setMnemonic('f');
+    jMenuEdit.add(jMenuItemUndo);
+    jMenuEdit.add(jMenuItemRedo);
     jMenuEdit.add(jMenuItemCut);
     jMenuEdit.add(jMenuItemCopy);
     jMenuEdit.add(jMenuItemPaste);
@@ -167,7 +176,14 @@ public class MainMenu {
     jMenuBar.add(jMenuEdit);
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
-    
+
+    //set fonts for toolbar
+    fm.setFonts(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    fm.setFonts(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
+    fm.setFonts(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
+    fm.setFonts(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
+
+
     // Mac specific stuff
     // Application app = Application.getApplication();
     // app.setAboutHandler(null);
