@@ -51,6 +51,7 @@ public static void main(String[] args) {
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
 
+
     sm.loadSettings();
     WindowManager.setLookAndFeel();
     wm.createGUI();

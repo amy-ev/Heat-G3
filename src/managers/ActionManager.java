@@ -702,6 +702,10 @@ public class ActionManager {
       String libraryPath = wm.getOptionsWindow().getLibraryPath();
       String outputFontSize = wm.getOptionsWindow().getOuputFontSize();
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
+
+      //GLOBAL FONT SETTINGS
+      String globalFontSize = wm.getOptionsWindow().getGlobalFontSize();
+
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
@@ -735,6 +739,16 @@ public class ActionManager {
         log.warning("[ActionManager] - Failed to parse " +
           Settings.CODE_FONT_SIZE + " setting from options window");
       }
+      // GLOBAL FONT SETTINGS
+      try {
+        int globalFontsize = Integer.parseInt(globalFontSize);
+        wm.getMainMenu().setFontSize(globalFontsize);
+        sm.setSetting(Settings.GLOBAL_FONT_SIZE, globalFontSize);
+    } catch (NumberFormatException nfe) {
+        log.warning("[ActionManager] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting from options window");
+    }
+
     
       wm.getOptionsWindow().close();
       sm.saveSettings();

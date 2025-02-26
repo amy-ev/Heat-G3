@@ -17,11 +17,14 @@ package view.toolbars;
 
 import managers.ActionManager;
 import managers.FontManager;
+import managers.SettingsManager;
+import utils.Settings;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.*;
+import java.util.logging.Logger;
 
 // import com.apple.eawt.Application;
 
@@ -82,6 +85,9 @@ public class MainMenu {
     }
   }
 
+  // TESTING
+  private static Logger log = Logger.getLogger("heat");
+  private Font globalFont = new Font(Font.SERIF, Font.PLAIN, 20);
   /**
    * Initialises the menus GUI compenetes
    *
@@ -89,6 +95,8 @@ public class MainMenu {
    */
   public void jbInit() throws Exception {
     ActionManager am = ActionManager.getInstance();
+    SettingsManager sm = SettingsManager.getInstance();
+
 
     /* File Menu */
     jMenuFile.setText("Program");
@@ -178,10 +186,24 @@ public class MainMenu {
     jMenuBar.add(jMenuHelp);
 
     //set fonts for toolbar
-    //fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
     //fm.setJMenuFont(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
     //fm.setJMenuFont(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
     //fm.setJMenuFont(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
+
+    // GLOBAL FONT SETTINGS
+//    String globalFontSize = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+//
+//    if ((globalFontSize != null) && (globalFontSize != "")) {
+//      try {
+//        int size = Integer.parseInt(globalFontSize);
+//        globalFont = new Font(Font.MONOSPACED, Font.BOLD, size);
+//      } catch (NumberFormatException nfe) {
+//        log.warning("[ConsoleWindow] - Failed to parse " +
+//                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+//      }
+//    }
+//    jMenuFile.setFont(globalFont);
 
 
     // Mac specific stuff
@@ -189,6 +211,12 @@ public class MainMenu {
     // app.setAboutHandler(null);
     // app.setPreferencesHandler(null);
     // app.setQuitHandler(null);
+  }
+
+  public void setFontSize(int ptSize) {
+    Font font = new Font("monospaced", Font.PLAIN, ptSize);
+    jMenuFile.setFont(font);
+    jMenuFile.repaint();
   }
 
   /**

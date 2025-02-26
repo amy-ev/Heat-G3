@@ -684,7 +684,7 @@ public class WindowManager {
    */
   public static void setLookAndFeel() {
     try {
-         Font boldFont = new Font("Serif", Font.BOLD, 70);
+         //Font boldFont = new Font("Serif", Font.BOLD, 70);
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 //         UIManager.put("Menu.font", new FontUIResource(boldFont));

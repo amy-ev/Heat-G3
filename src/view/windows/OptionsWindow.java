@@ -58,6 +58,9 @@ public class OptionsWindow {
   private JTextField jTextFieldTestPositive;
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
+
+  // GLOBAL SETTINGS
+  private JComboBox jcbGlobalFontSize;
   private JDialog dialog;
 
   private SettingsManager sm = SettingsManager.getInstance();
@@ -137,10 +140,12 @@ public class OptionsWindow {
     JPanel panelFontSizes = new JPanel(new GridLayout(0,1));
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
+    jcbGlobalFontSize = new JComboBox();
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
       jcbOutputFontSize.addItem(String.valueOf(i));
       jcbCodeFontSize.addItem(String.valueOf(i));
+      jcbGlobalFontSize.addItem(String.valueOf(i));
     }
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(new JLabel("Editor font size: "));
@@ -148,8 +153,12 @@ public class OptionsWindow {
     JPanel interpreterFontSize = new JPanel();
     interpreterFontSize.add(new JLabel("Interpreter font size:"));
     interpreterFontSize.add(jcbOutputFontSize);
+    JPanel globalFontSize = new JPanel();
+    globalFontSize.add(new JLabel("Global font size:"));
+    globalFontSize.add(jcbGlobalFontSize);
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
+    panelFontSizes.add(globalFontSize);
     
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
@@ -213,6 +222,8 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
+    // GLOBAL SETTINGS
+    jcbGlobalFontSize.setSelectedItem(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
   }
 
  
@@ -268,6 +279,16 @@ public class OptionsWindow {
   public String getCodeFontSize() {
     return (String) jcbCodeFontSize.getSelectedItem();
   }
+
+  /**
+   * Returns the desired font size for global
+   *
+   * @return the window font size
+   */
+
+  public String getGlobalFontSize() { return (String) jcbGlobalFontSize.getSelectedItem();}
+
+
 
   private void jButton2_actionPerformed(ActionEvent e) {
     close();
