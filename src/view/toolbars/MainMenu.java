@@ -178,10 +178,10 @@ public class MainMenu {
     jMenuBar.add(jMenuHelp);
 
     //set fonts for toolbar
-    fm.setFonts(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
-    fm.setFonts(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
-    fm.setFonts(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
-    fm.setFonts(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
+    //fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    //fm.setJMenuFont(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
+    //fm.setJMenuFont(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
+    //fm.setJMenuFont(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
 
 
     // Mac specific stuff

@@ -20,7 +20,11 @@ import managers.ActionManager;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
+
+import managers.FontManager;
 import utils.Resources;
+
+import java.awt.*;
 
 
 /**
@@ -30,6 +34,7 @@ public class Toolbar {
   /* The toolbar */
   private JToolBar toolBar = new JToolBar();
   private ActionManager am = ActionManager.getInstance();
+  private FontManager fm = FontManager.getInstance();
   
   /* some icons */
   private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok22");
@@ -97,6 +102,8 @@ public class Toolbar {
     statusButton.setText("Status");
     statusButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
     setCompileStatus(1);
+
+    fm.setToolBarFont(statusButton);
   }
 
   /**

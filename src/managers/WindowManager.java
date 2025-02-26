@@ -15,8 +15,7 @@
 
 package managers;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
@@ -27,7 +26,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import java.awt.Dimension;
+import javax.swing.plaf.FontUIResource;
 
 import utils.Resources;
 import view.toolbars.MainMenu;
@@ -685,7 +684,12 @@ public class WindowManager {
    */
   public static void setLookAndFeel() {
     try {
+         Font boldFont = new Font("Serif", Font.BOLD, 70);
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+//         UIManager.put("Menu.font", new FontUIResource(boldFont));
+//         UIManager.put("MenuItem.font", new FontUIResource(boldFont));
+
     } catch (Exception e) {
       log.warning("[WindowManager] Unable to set look and feel");
     }

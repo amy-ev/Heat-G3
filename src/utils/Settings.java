@@ -47,6 +47,12 @@ public class Settings {
    */
   public static final String CODE_FONT_SIZE = "CODE_FONT_SIZE";
 
+
+  /**
+   * The font size used across UI
+   */
+  public static final String GLOBAL_FONT_SIZE = "GLOBAL_FONT_SIZE";
+
   /*
    * For Boolean unit tests or QuickCheck
    */

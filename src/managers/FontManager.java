@@ -7,11 +7,11 @@ import java.util.Arrays;
 public class FontManager {
 
     private static FontManager instance = null;
+    public Font customFont = new Font("Arial", Font.PLAIN, 30);
 
     // prevent instantiation
     protected FontManager() {
     }
-
 
     public static FontManager getInstance() {
         if (instance == null)
@@ -19,10 +19,17 @@ public class FontManager {
         return instance;
     }
 
-    public void setFonts(JMenuItem... args){
+    public void setJMenuFont(JMenuItem... args){
         for (JMenuItem arg : args) {
-            Font f = new Font("sans-serif", Font.PLAIN, 30);
-            arg.setFont(f);
+            arg.setFont(customFont);
         }
     }
+
+    public void setToolBarFont(JButton... args){
+        for (JButton arg : args) {
+            arg.setFont(customFont);
+
+        }
+    }
+
 }
