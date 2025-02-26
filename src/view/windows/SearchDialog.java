@@ -15,6 +15,7 @@
 
 package view.windows;
 
+import managers.OverlayManager;
 import managers.WindowManager;
 
 import utils.Search;
@@ -59,7 +60,11 @@ public class SearchDialog {
    * @throws Exception
    */
   private void jbInit() throws Exception {
-    
+
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addFrameOverlay(frame);
+
     jPanel1.setSize(new Dimension(383, 72));
     jTextField1.setMinimumSize(new Dimension(6, 50));
     jTextField1.setSize(new Dimension(100, 20));

@@ -20,6 +20,7 @@
 package view.windows;
 
 import managers.ActionManager;
+import managers.OverlayManager;
 import managers.SettingsManager;
 import managers.WindowManager;
 
@@ -185,13 +186,22 @@ public class OptionsWindow {
   public void show() {
     getProperties();
 
+    int width = 600;
+    int height = 400;
+
     dialog = new JDialog(wm.getMainScreenFrame(), "Options");
     dialog.setModal(true);
     dialog.getContentPane().add(panelOptions);      //(jTabbedPane1);
-    dialog.setMinimumSize(new Dimension(500,350));
-    dialog.setSize(600, 400);
+    dialog.setMinimumSize(new Dimension(width,height));
+    dialog.setSize(width, height);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
-    dialog.setVisible(true);
+
+
+
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addPanelOverlay(dialog, panelOptions, width, height);
+
   }
 
   /**

@@ -20,9 +20,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 
-// Importing settings for visual display overlay
-import utils.Settings;
-
 import javax.swing.*;
 
 import utils.Resources;
@@ -336,40 +333,9 @@ public class WindowManager {
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
 
-    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
-    SettingsManager sm = SettingsManager.getInstance();
-    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
-
-    // Grab the colour settings for the overlay and assign to String objects
-    String overlayRed = sm.getSetting(Settings.OVERLAY_RED);
-    String overlayGreen = sm.getSetting(Settings.OVERLAY_GREEN);
-    String overlayBlue = sm.getSetting(Settings.OVERLAY_BLUE);
-    String overlayAlpha = sm.getSetting(Settings.OVERLAY_ALPHA);
-
-    // Checks if the overlay display setting is true && !null and displays the overlay if so
-    if (displayOverlay != null && displayOverlay != "false") {
-        JPanel glassPane = new JPanel() {
-            // Parse String objects for int value of overlay colours
-            int red = Integer.parseInt(overlayRed);
-            int green = Integer.parseInt(overlayGreen);
-            int blue = Integer.parseInt(overlayBlue);
-            int alpha = Integer.parseInt(overlayAlpha);
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g.create();
-                g2d.setColor(new Color(red, green, blue, alpha)); // Controls overlay colour
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-                g2d.dispose();
-            }
-        };
-        // Creates transparency, ensures interactivity of underlying elements, assigns to main window frame
-        glassPane.setOpaque(false);
-        glassPane.setLayout(null);
-        mainScreenFrame.setGlassPane(glassPane);
-        glassPane.setVisible(true);
-    }
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addFrameOverlay(mainScreenFrame);
     
     // BorderLayout borderLayout1 = new BorderLayout();
 
