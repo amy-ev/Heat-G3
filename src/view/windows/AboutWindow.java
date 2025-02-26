@@ -104,54 +104,12 @@ public class AboutWindow {
     dialog.getContentPane().add(jpMain);
     dialog.setSize(400,400);
     dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
+  }
 
+  public void updateDisplayOverlayToggle(String toggle) {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, jpMain);
-
-//    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
-//    SettingsManager sm = SettingsManager.getInstance();
-//    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
-//
-//    // Checks if the overlay display setting is true && !null and displays the overlay if so
-//    if (displayOverlay != null && displayOverlay != "false") {
-//      JPanel overlayPanel = new JPanel() {
-//        @Override
-//        protected void paintComponent(Graphics g) {
-//          super.paintComponent(g);
-//          Graphics2D g2d = (Graphics2D) g.create();
-//          g2d.setColor(new Color(0, 0, 0, 100)); // Semi-transparent black
-//          g2d.fillRect(0, 0, getWidth(), getHeight());
-//          g2d.dispose();
-//        }
-//      };
-//
-//      overlayPanel.setOpaque(false); // Ensure transparency
-//      overlayPanel.setLayout(null); // Allow interaction with underlying components
-//      overlayPanel.setBounds(0, 0, 400, 400); // Match panel size
-//
-//      // Use a JLayeredPane to stack the overlay above mainPanel
-//      JLayeredPane layeredPane = new JLayeredPane();
-//      layeredPane.setPreferredSize(new Dimension(400, 400));
-//      jpMain.setBounds(0, 0, 400, 300);
-//      layeredPane.add(jpMain, JLayeredPane.DEFAULT_LAYER);
-//      layeredPane.add(overlayPanel, JLayeredPane.PALETTE_LAYER); // Higher layer
-//
-//      dialog.addComponentListener(new ComponentAdapter() {
-//        @Override
-//        public void componentResized(ComponentEvent e) {
-//          int width = dialog.getContentPane().getWidth();
-//          int height = dialog.getContentPane().getHeight();
-//          jpMain.setBounds(0, 0, width, height);
-//          overlayPanel.setBounds(0, 0, width, height);
-//        }
-//      });
-//
-//      dialog.add(layeredPane, BorderLayout.CENTER);
-//      dialog.setVisible(true);
-//    } else {
-//      dialog.setVisible(true);
-//    }
+    om.addPanelOverlay(dialog, jpMain, toggle);
   }
 
 

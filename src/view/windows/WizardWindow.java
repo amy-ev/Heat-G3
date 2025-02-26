@@ -105,10 +105,12 @@ public class WizardWindow {
     dialog.setMinimumSize(new Dimension(500,200));
     dialog.setSize(400,200);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
+  }
 
+  public void updateDisplayOverlayToggle(String toggle) {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, panelOptions);
+    om.addPanelOverlay(dialog, panelOptions, toggle);
   }
 
   public void close() {

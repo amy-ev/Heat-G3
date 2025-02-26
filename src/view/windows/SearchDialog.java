@@ -62,8 +62,8 @@ public class SearchDialog {
   private void jbInit() throws Exception {
 
     // Call the OverlayManager and apply an overlay if setting is true
-    OverlayManager om = OverlayManager.getInstance();
-    om.addFrameOverlay(frame);
+//    OverlayManager om = OverlayManager.getInstance();
+//    om.addFrameOverlay(frame);
 
     jPanel1.setSize(new Dimension(383, 72));
     jTextField1.setMinimumSize(new Dimension(6, 50));

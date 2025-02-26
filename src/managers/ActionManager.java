@@ -704,6 +704,10 @@ public class ActionManager {
       String displayOverlayToggle = wm.getOptionsWindow().getDisplayOverlayToggle();
 
       wm.updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getOptionsWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+
+
 
       if (!(sm.getSetting(Settings.INTERPRETER_PATH).equals(interpreterPath)
               && sm.getSetting(Settings.INTERPRETER_OPTS).equals(interpreterOpts)

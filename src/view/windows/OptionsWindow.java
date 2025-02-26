@@ -201,12 +201,15 @@ public class OptionsWindow {
     dialog.setMinimumSize(new Dimension(500,350));
     dialog.setSize(600,400);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
+//    dialog.setVisible(true);
 
+  }
 
-
+  public void updateDisplayOverlayToggle(String toggle) {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, panelOptions);
+    om.addPanelOverlay(dialog, panelOptions, toggle);
+    dialog.setVisible(true);
 
   }
 
