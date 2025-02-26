@@ -16,10 +16,12 @@
 package view.toolbars;
 
 import managers.ActionManager;
+import managers.FontManager;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.*;
 
 // import com.apple.eawt.Application;
 
@@ -31,6 +33,7 @@ import javax.swing.JMenuItem;
  */
 public class MainMenu {
   private JMenuBar jMenuBar = new JMenuBar();
+  private FontManager fm = FontManager.getInstance();
 
   /* Program menu items */
   private JMenu jMenuFile = new JMenu();
@@ -105,6 +108,9 @@ public class MainMenu {
     jMenuFile.add(jMenuItemOptions);
     jMenuFile.addSeparator();
     jMenuFile.add(jMenuItemExit);
+
+    //set Fonts
+    fm.setFonts(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
 
     /* Edit Menu */
     jMenuEdit.setText("Edit");

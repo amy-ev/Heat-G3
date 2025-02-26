@@ -1,5 +1,7 @@
 package managers;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
 
 public class FontManager {
@@ -17,16 +19,9 @@ public class FontManager {
         return instance;
     }
 
-    // test --------
-    public void setFont(Object... args){
-            System.out.println(Arrays.toString(args));
-
+    public void setFonts(JMenuItem... args){
+        for (JMenuItem arg : args) {
+            arg.setFont((new Font("", Font.PLAIN, 30)));
+        }
     }
-
-
-    public static void main(String[] args) {
-        FontManager fm = FontManager.getInstance();
-        fm.setFont(1, "2", "3", "hello", 20.5);
-    }
-    // test end --------
 }
