@@ -61,6 +61,7 @@ public class OptionsWindow {
 
   // GLOBAL SETTINGS
   private JComboBox jcbGlobalFontSize;
+
   private JDialog dialog;
 
   private SettingsManager sm = SettingsManager.getInstance();

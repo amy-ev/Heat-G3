@@ -37,7 +37,9 @@ import java.util.logging.Logger;
 public class MainMenu {
   private JMenuBar jMenuBar = new JMenuBar();
   private FontManager fm = FontManager.getInstance();
+  private SettingsManager sm = SettingsManager.getInstance();
 
+  private int fontSize = 12;
   /* Program menu items */
   private JMenu jMenuFile = new JMenu();
   private JMenuItem jMenuItemOpen = new JMenuItem();
@@ -185,12 +187,28 @@ public class MainMenu {
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
 
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
     // Mac specific stuff
     // Application app = Application.getApplication();
     // app.setAboutHandler(null);
     // app.setPreferencesHandler(null);
     // app.setQuitHandler(null);
   }
+
+
 
   // Set font size for MainMenu items
   public void setFontSize(int ptSize) {
