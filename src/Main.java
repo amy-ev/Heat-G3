@@ -69,7 +69,6 @@ public static void main(String[] args) {
     wm.createGUI();
 
 
-
     if (sm.isNewSettingsFile())
       wm.showWizardWindow();
       // will also start interpreter process

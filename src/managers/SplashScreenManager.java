@@ -3,10 +3,8 @@ package managers;
 import view.windows.OptionsWindow;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -28,38 +26,43 @@ public class SplashScreenManager {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this); // Stretch to fill width
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
             }
         };
-        backgroundPanel.setPreferredSize(new Dimension(800, 300)); // Adjust height if needed
+        backgroundPanel.setPreferredSize(new Dimension(800, 125));
 
         // Panel for Title, Settings, and Buttons
         JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.WHITE);
-        contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        contentPanel.setBackground(new Color(240,240,240));
+        //contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Title Panel
+        // Title Label
         JLabel titleLabel = new JLabel("Accessibility Options");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
         titleLabel.setForeground(Color.BLACK);
-        titleLabel.setBorder(new EmptyBorder(0, 0, 25, 0));
+        titleLabel.setBorder(new EmptyBorder(10, 10, 20, 0));
 
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.setOpaque(false);
+        // Title Panel with Bottom Border
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        titlePanel.setOpaque(true);
+        titlePanel.setBackground(Color.WHITE);
+        titlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
         titlePanel.add(titleLabel);
+
+        // Add to Content Panel
         contentPanel.add(titlePanel, BorderLayout.NORTH);
 
         // Settings Panel
         JPanel settingsContainer = new JPanel(new GridBagLayout());
         settingsContainer.setOpaque(false);
-        settingsContainer.setBorder(new EmptyBorder(10, 0, 20, 0));
+        settingsContainer.setBorder(new EmptyBorder(20, 0, 20, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 10, 5, 10);
-        gbc.weightx = 1;  // Column spacing setting
+        gbc.weightx = 1;
 
         // Left Column
         gbc.gridx = 0;
@@ -133,11 +136,13 @@ public class SplashScreenManager {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         // Border with extra for padding
-        buttonPanel.setOpaque(false);
+        buttonPanel.setOpaque(true);
+        buttonPanel.setBackground(Color.WHITE);
         buttonPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 0, 0, Color.LIGHT_GRAY),
                 BorderFactory.createEmptyBorder(10, 0, 0, 0)
         ));
+        buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         // Create buttons
         JButton yesButton = new JButton("Apply");
         JButton noButton = new JButton("Continue");
@@ -154,7 +159,8 @@ public class SplashScreenManager {
         // Apply action listener
         yesButton.addActionListener(e -> {
             splashScreen.dispose();
-            ow.show();
+            ow.is_visible = true;
+            // TODO add the options window logic here
         });
 
         // Continue action listener
@@ -183,16 +189,17 @@ public class SplashScreenManager {
 
     /**
      * Creates a Settings panel item with title and component.
-     * @param title
-     * @param component
-     * @return
+     * @param title title i.e "Settings item"
+     * @param component component i.e "Dropdown"
+     * @return panel
      */
     private JPanel createSettingPanel(String title, JComponent component) {
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setOpaque(false);
+        panel.setOpaque(true);
+        panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(Color.LIGHT_GRAY, 1),
-                new EmptyBorder(10, 10, 10, 15)
+                new EmptyBorder(8, 10, 8, 10)
         ));
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -201,7 +208,7 @@ public class SplashScreenManager {
 
         // Title Label with Increased Font Size
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
         // Label
         gbc.gridx = 0;
@@ -216,7 +223,7 @@ public class SplashScreenManager {
         panel.add(component, gbc);
 
         // Apply global 14-point size for components
-        component.setFont(new Font("Arial", Font.PLAIN, 14));
+        component.setFont(new Font("Arial", Font.BOLD, 16));
 
         return panel;
     }
@@ -225,17 +232,20 @@ public class SplashScreenManager {
 
     /**
      * Creates a title component with description
-     * @param titleText
-     * @param descriptionText
-     * @return
+     * @param titleText title text for panel
+     * @param descriptionText description text for panel
+     * @return titlePanel
      */
     private JPanel createTitlePanel(String titleText, String descriptionText) {
         JLabel titleLabel = new JLabel(titleText);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
         JLabel descriptionLabel = new JLabel(descriptionText);
-        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         descriptionLabel.setForeground(Color.DARK_GRAY);
+
+        // Add padding
+        descriptionLabel.setBorder(new EmptyBorder(8, 0, 0, 0));
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
