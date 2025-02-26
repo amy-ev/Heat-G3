@@ -186,7 +186,7 @@ public class MainMenu {
     jMenuBar.add(jMenuHelp);
 
     //set fonts for toolbar
-    fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    //fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
     //fm.setJMenuFont(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
     //fm.setJMenuFont(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
     //fm.setJMenuFont(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
@@ -215,7 +215,9 @@ public class MainMenu {
 
   public void setFontSize(int ptSize) {
     Font font = new Font("monospaced", Font.PLAIN, ptSize);
-    jMenuFile.setFont(font);
+    fm.setJMenuFont(font, jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    fm.setJMenuFont(font, jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
+    //jMenuFile.setFont(font);
     jMenuFile.repaint();
   }
 

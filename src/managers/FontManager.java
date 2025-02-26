@@ -27,7 +27,7 @@ public class FontManager {
         return instance;
     }
 
-    public void setJMenuFont(JMenuItem... args){
+    public void setJMenuFont(Font cfont, JMenuItem... args){
         for (JMenuItem arg : args) {
             arg.setFont(cfont);
         }
