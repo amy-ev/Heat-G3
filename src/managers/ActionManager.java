@@ -743,6 +743,8 @@ public class ActionManager {
       try {
         int globalFontsize = Integer.parseInt(globalFontSize);
         wm.getMainMenu().setFontSize(globalFontsize);
+        wm.getToolbar().setFontSize(globalFontsize);
+        //wm.getOptionsWindow().setFontSize(globalFontsize);
         sm.setSetting(Settings.GLOBAL_FONT_SIZE, globalFontSize);
     } catch (NumberFormatException nfe) {
         log.warning("[ActionManager] - Failed to parse " +

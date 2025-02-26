@@ -185,27 +185,6 @@ public class MainMenu {
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
 
-    //set fonts for toolbar
-    //fm.setJMenuFont(jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
-    //fm.setJMenuFont(jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
-    //fm.setJMenuFont(jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
-    //fm.setJMenuFont(jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
-
-    // GLOBAL FONT SETTINGS
-//    String globalFontSize = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
-//
-//    if ((globalFontSize != null) && (globalFontSize != "")) {
-//      try {
-//        int size = Integer.parseInt(globalFontSize);
-//        globalFont = new Font(Font.MONOSPACED, Font.BOLD, size);
-//      } catch (NumberFormatException nfe) {
-//        log.warning("[ConsoleWindow] - Failed to parse " +
-//                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
-//      }
-//    }
-//    jMenuFile.setFont(globalFont);
-
-
     // Mac specific stuff
     // Application app = Application.getApplication();
     // app.setAboutHandler(null);
@@ -213,11 +192,13 @@ public class MainMenu {
     // app.setQuitHandler(null);
   }
 
+  // Set font size for MainMenu items
   public void setFontSize(int ptSize) {
     Font font = new Font("monospaced", Font.PLAIN, ptSize);
     fm.setJMenuFont(font, jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
     fm.setJMenuFont(font, jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
-    //jMenuFile.setFont(font);
+    fm.setJMenuFont(font, jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
+    fm.setJMenuFont(font,jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
     jMenuFile.repaint();
   }
 

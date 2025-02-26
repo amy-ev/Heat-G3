@@ -12,10 +12,10 @@ public class FontManager {
     private static FontManager instance = null;
     //private String cFont = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
 
-    public Font customFont = new Font("Arial", Font.PLAIN, 30);
-    private int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+    //public Font customFont = new Font("Arial", Font.PLAIN, 30);
 
-    private Font cfont = new Font("Arial", Font.PLAIN, fontsize);
+    private int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+    private Font cFont = new Font("Arial", Font.PLAIN, fontsize);
 
     // prevent instantiation
     protected FontManager() {
@@ -27,15 +27,15 @@ public class FontManager {
         return instance;
     }
 
-    public void setJMenuFont(Font cfont, JMenuItem... args){
+    public void setJMenuFont(Font cFont, JMenuItem... args){
         for (JMenuItem arg : args) {
-            arg.setFont(cfont);
+            arg.setFont(cFont);
         }
     }
 
-    public void setToolBarFont(JButton... args){
+    public void setToolBarFont(Font cFont, JButton... args){
         for (JButton arg : args) {
-            arg.setFont(customFont);
+            arg.setFont(cFont);
 
         }
     }

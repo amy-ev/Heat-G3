@@ -103,9 +103,13 @@ public class Toolbar {
     statusButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
     setCompileStatus(1);
 
-    fm.setToolBarFont(statusButton);
+    //fm.setToolBarFont(statusButton);
   }
-
+  public void setFontSize(int ptSize) {
+    Font font = new Font("monospaced", Font.PLAIN, ptSize);
+    fm.setToolBarFont(font, statusButton);
+    statusButton.repaint();
+  }
   /**
    * Returns the toolbar
    *

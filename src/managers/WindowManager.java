@@ -310,6 +310,15 @@ public class WindowManager {
     return mainMenu;
   }
 
+    /**
+     * Returns the {@link Toolbar} used in GUI
+     *
+     * @return the {@link Toolbar} object from GUI
+     */
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
   /**
    * Returns the {@link SearchDialog} used in GUI
    *
