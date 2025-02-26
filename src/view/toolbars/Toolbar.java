@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
 import utils.Resources;
+import utils.jsyntax.SyntaxThemeSelectionPanel; //test
 
 
 /**
@@ -88,6 +89,11 @@ public class Toolbar {
     toolBar.addSeparator();
     toolBar.add(treeWindowButton);
     toolBar.add(outputWindowButton);
+
+    //testing syntaxhighlight panel
+    SyntaxThemeSelectionPanel themePanel = new SyntaxThemeSelectionPanel();
+    toolBar.add(themePanel);
+
     toolBar.add(javax.swing.Box.createHorizontalGlue());
     toolBar.add(statusButton);
     statusButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));

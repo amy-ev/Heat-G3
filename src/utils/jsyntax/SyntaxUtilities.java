@@ -7,10 +7,13 @@ package utils.jsyntax;
  * this notice remains intact in all source distributions of this package.
  */
 
+import managers.WindowManager;
 import utils.jsyntax.tokenmarker.*;
+
+import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-
+import java.util.Map;
 /**
  * Class with several utility functions used by jEdit's syntax colorizing
  * subsystem.
@@ -19,6 +22,7 @@ import java.awt.*;
  * @version $Id: SyntaxUtilities.java,v 1.9 1999/12/13 03:40:30 sp Exp $
  */
 public class SyntaxUtilities {
+  private static Map<String, Color> currentTheme = SyntaxColourBlindTheme.DEFAULT_THEME;
   /**
    * Checks if a subregion of a <code>Segment</code> is equal to a string.
    * 
@@ -90,17 +94,21 @@ public class SyntaxUtilities {
   public static SyntaxStyle[] getDefaultSyntaxStyles() {
     SyntaxStyle[] styles = new SyntaxStyle[Token.ID_COUNT];
     /* Comments */
-    styles[Token.COMMENT1] = new SyntaxStyle(new Color(0, 153, 0), false, false);
-    styles[Token.COMMENT2] = new SyntaxStyle(new Color(0, 153, 0), false, false);
+    styles[Token.COMMENT1] = new SyntaxStyle(getSyntaxColor("comment"), false, false);
+    styles[Token.COMMENT2] = new SyntaxStyle(getSyntaxColor("comment"), false, false);
     /* Keywords */
-    styles[Token.KEYWORD1] = new SyntaxStyle(Color.black, false, true);
-    styles[Token.KEYWORD2] = new SyntaxStyle(Color.magenta, false, false);
-    styles[Token.KEYWORD3] = new SyntaxStyle(Color.blue, false, true);
-    styles[Token.LITERAL1] = new SyntaxStyle(new Color(0x650099), false, false);
-    styles[Token.LITERAL2] = new SyntaxStyle(Color.PINK, false, true);
-    styles[Token.LABEL] = new SyntaxStyle(new Color(0x990033), false, true);
-    styles[Token.OPERATOR] = new SyntaxStyle(Color.black, false, false);
-    styles[Token.INVALID] = new SyntaxStyle(Color.black, false, false);
+    styles[Token.KEYWORD1] = new SyntaxStyle(getSyntaxColor("keyword"), false, true);
+    styles[Token.KEYWORD2] = new SyntaxStyle(getSyntaxColor("keyword"), false, false);
+    styles[Token.KEYWORD3] = new SyntaxStyle(getSyntaxColor("keyword"), false, true);
+    /* Literal which include string and number highlight */
+    styles[Token.LITERAL1] = new SyntaxStyle(getSyntaxColor("string"), false, false);
+    styles[Token.LITERAL2] = new SyntaxStyle(getSyntaxColor("string"), false, true);
+    /* Label */
+    styles[Token.LABEL] = new SyntaxStyle(getSyntaxColor("label"), false, true);
+    /* Operator which include the Operator like +,- */
+    styles[Token.OPERATOR] = new SyntaxStyle(getSyntaxColor("operator"), false, false);
+    /* Invalid include errors */
+    styles[Token.INVALID] = new SyntaxStyle(getSyntaxColor("invalid"), false, false);
 
     return styles;
   }
@@ -142,9 +150,11 @@ public class SyntaxUtilities {
           gfx.setColor(defaultColor);
         if (!defaultFont.equals(gfx.getFont()))
           gfx.setFont(defaultFont);
-      } else
+      } else {
+        //
+        styles[id] = new SyntaxStyle(getSyntaxColor(tokens.id + ""), false, false);
         styles[id].setGraphicsFlags(gfx, defaultFont);
-
+      }
       line.count = length;
       x = Utilities.drawTabbedText(line, x, y, gfx, expander, 0);
       line.offset += length;
@@ -156,7 +166,47 @@ public class SyntaxUtilities {
     return x;
   }
 
+  public static void setSyntaxColor(String type, Color color) {
+      currentTheme.put(type, color);
+  }
+
+  /*
+    This method will retrieve the color for the given color types (keyword, string, etc)
+   */
+  public static Color getSyntaxColor(String type) {
+    return currentTheme.getOrDefault(type, Color.black);
+  }
+
+  public static void applyTheme(String themeType){
+
+    System.out.print("Applying theme " + themeType + "\n"); //this line use for debugging
+    currentTheme = SyntaxColourBlindTheme.getTheme(themeType);
+
+    //
+    for (Map.Entry<String, Color> entry : currentTheme.entrySet()) {
+      System.out.println("  - " + entry.getKey() + " -> " + entry.getValue());
+      setSyntaxColor(entry.getKey(), entry.getValue());
+    }
+
+    refreshEditor();
+  }
+
+
+  public static void refreshEditor(){
+    System.out.println("Refreshing Editor...");
+
+    for (Window window : Window.getWindows()) {
+      SwingUtilities.updateComponentTreeUI(window);
+      window.repaint(); //Ensure UI is fully repainted
+    }
+
+  }
+
+
+
   // private members
   private SyntaxUtilities() {
   }
+
+
 }

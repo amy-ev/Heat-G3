@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 
 import utils.Resources;
+import utils.jsyntax.SyntaxThemeSelectionPanel;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
 import view.windows.AboutWindow;
@@ -339,7 +340,6 @@ public class WindowManager {
     mainScreenFrame.setTitle("HEAT - Haskell Educational Advancement Tool");
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
-    
     // BorderLayout borderLayout1 = new BorderLayout();
 
     /* create windows and toolbars */
@@ -355,6 +355,9 @@ public class WindowManager {
 
     mainMenu = new MainMenu();
     toolbar = new Toolbar();
+
+
+
 
     /* setup main container components */
     // JPanel mainScreenPanel = new JPanel();

@@ -289,11 +289,10 @@ public class EditorWindow {
   /**
    * Returns the {@link JEditTextArea} component
    *
-   * @return the {@link JEditTextArea} component 
+   * @return the {@link JEditTextArea} component
    */
   public static JEditTextArea getTextPane() {
     return jtaCodeView;
   }
-  
- 
+
 }
