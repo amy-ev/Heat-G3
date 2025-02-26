@@ -332,10 +332,6 @@ public class WindowManager {
     mainScreenFrame.setTitle("HEAT - Haskell Educational Advancement Tool");
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
-
-    // Call the OverlayManager and apply an overlay if setting is true
-    OverlayManager om = OverlayManager.getInstance();
-    om.addFrameOverlay(mainScreenFrame);
     
     // BorderLayout borderLayout1 = new BorderLayout();
 
@@ -414,6 +410,12 @@ public class WindowManager {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+      // Call the OverlayManager and apply an overlay if setting is true
+      OverlayManager om = OverlayManager.getInstance();
+      om.addFrameOverlay(mainScreenFrame, toggle);
   }
   
  /* show the main frame */

@@ -701,6 +701,10 @@ public class ActionManager {
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
+      String displayOverlayToggle = wm.getOptionsWindow().getDisplayOverlayToggle();
+
+      wm.updateDisplayOverlayToggle(displayOverlayToggle);
+
       if (!(sm.getSetting(Settings.INTERPRETER_PATH).equals(interpreterPath)
               && sm.getSetting(Settings.INTERPRETER_OPTS).equals(interpreterOpts)
               && sm.getSetting(Settings.LIBRARY_PATH).equals(libraryPath))) {

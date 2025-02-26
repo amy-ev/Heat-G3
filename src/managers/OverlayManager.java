@@ -37,7 +37,7 @@ public class OverlayManager {
         return instance;
     }
 
-    public void addFrameOverlay(JFrame frame) {
+    public void addFrameOverlay(JFrame frame, String toggle) {
         // Checks if the overlay display setting is true && !null and displays the overlay if so
         if (displayOverlay != null && displayOverlay != "false") {
             JPanel glassPane = new JPanel() {
@@ -59,7 +59,12 @@ public class OverlayManager {
         }
     }
 
-    public void addPanelOverlay(JDialog dialog, JPanel panel, int dialogWidth, int dialogHeight) {
+    public void addPanelOverlay(JDialog dialog, JPanel panel) {
+
+        dialog.pack();
+
+        int dialogWidth = dialog.getContentPane().getWidth();
+        int dialogHeight = dialog.getContentPane().getHeight();
 
         // Checks if the overlay display setting is true && !null and displays the overlay if so
         if (displayOverlay != null && displayOverlay != "false") {

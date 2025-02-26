@@ -59,6 +59,7 @@ public class OptionsWindow {
   private JTextField jTextFieldTestPositive;
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
+  private JComboBox jcbDisplayOverlayToggle;
   private JDialog dialog;
 
   private SettingsManager sm = SettingsManager.getInstance();
@@ -138,11 +139,18 @@ public class OptionsWindow {
     JPanel panelFontSizes = new JPanel(new GridLayout(0,1));
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
+
+    jcbDisplayOverlayToggle = new JComboBox();
+
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
       jcbOutputFontSize.addItem(String.valueOf(i));
       jcbCodeFontSize.addItem(String.valueOf(i));
     }
+
+    jcbDisplayOverlayToggle.addItem("On");
+    jcbDisplayOverlayToggle.addItem("Off");
+
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(new JLabel("Editor font size: "));
     editorFontSize.add(jcbCodeFontSize);
@@ -151,6 +159,7 @@ public class OptionsWindow {
     interpreterFontSize.add(jcbOutputFontSize);
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
+    panelFontSizes.add(jcbDisplayOverlayToggle);
     
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
@@ -186,21 +195,18 @@ public class OptionsWindow {
   public void show() {
     getProperties();
 
-    int width = 600;
-    int height = 400;
-
     dialog = new JDialog(wm.getMainScreenFrame(), "Options");
     dialog.setModal(true);
     dialog.getContentPane().add(panelOptions);      //(jTabbedPane1);
-    dialog.setMinimumSize(new Dimension(width,height));
-    dialog.setSize(width, height);
+    dialog.setMinimumSize(new Dimension(500,350));
+    dialog.setSize(600,400);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
 
 
 
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, panelOptions, width, height);
+    om.addPanelOverlay(dialog, panelOptions);
 
   }
 
@@ -223,6 +229,8 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
+
+    jcbDisplayOverlayToggle.setSelectedItem(sm.getSetting(Settings.OVERLAY_DISPLAY));
   }
 
  
@@ -277,6 +285,10 @@ public class OptionsWindow {
    */
   public String getCodeFontSize() {
     return (String) jcbCodeFontSize.getSelectedItem();
+  }
+
+  public String getDisplayOverlayToggle() {
+    return (String) jcbDisplayOverlayToggle.getSelectedItem();
   }
 
   private void jButton2_actionPerformed(ActionEvent e) {

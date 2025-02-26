@@ -98,20 +98,16 @@ public class AboutWindow {
   }
 
   public void show() {
-
-    int width = 400;
-    int height = 400;
-
     dialog = new JDialog(WindowManager.getInstance().getMainScreenFrame(),
             "About HEAT");
     dialog.setModal(true);
     dialog.getContentPane().add(jpMain);
-    dialog.setSize(width, height);
+    dialog.setSize(400,400);
     dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
 
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, jpMain, width, height);
+    om.addPanelOverlay(dialog, jpMain);
 
 //    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
 //    SettingsManager sm = SettingsManager.getInstance();

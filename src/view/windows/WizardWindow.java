@@ -99,20 +99,16 @@ public class WizardWindow {
   }
 
   public void show() {
-
-    int width = 500;
-    int height = 200;
-
     dialog = new JDialog(wm.getMainScreenFrame(), "Initial Setup");
     dialog.setModal(true);
     dialog.getContentPane().add(panelOptions);
-    dialog.setMinimumSize(new Dimension(width,height));
+    dialog.setMinimumSize(new Dimension(500,200));
     dialog.setSize(400,200);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
 
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
-    om.addPanelOverlay(dialog, panelOptions, width, height);
+    om.addPanelOverlay(dialog, panelOptions);
   }
 
   public void close() {
