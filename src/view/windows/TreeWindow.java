@@ -23,7 +23,6 @@ import utils.Resources;
 import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeModel;
@@ -36,9 +35,19 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.BoxLayout;
+import javax.swing.ToolTipManager;
+
 public class TreeWindow
 {
-    FontManager fm = FontManager.getInstance();
     private JPanel treePanel;
     private JButton collapseButton;
     private JButton expandButton;
@@ -57,7 +66,6 @@ public class TreeWindow
     private int treeChildFunctions = 1;
     private int treeChildAlgebraicTypes = 2;
     private int treeChildTypeSynonyms = 3;
-
 
     /** Creates new form TreeWindow */
     public TreeWindow()
@@ -148,7 +156,6 @@ public class TreeWindow
         top.add(new DefaultMutableTreeNode("Functions / constants"));
         top.add(new DefaultMutableTreeNode("Algebraic data types"));
         top.add(new DefaultMutableTreeNode("Type synonyms"));
-        //System.out.println(to);
     }
 
     /**
@@ -202,6 +209,7 @@ public class TreeWindow
         }
     }
 
+
     private void updateDatatypes(ArrayList datatypes)
     {
         TreeModel tree = this.tree.getModel();
@@ -225,7 +233,8 @@ public class TreeWindow
         DefaultMutableTreeNode typesNode = (DefaultMutableTreeNode) root.getChildAt(treeChildTypeSynonyms);
         typesNode.removeAllChildren();
 
-        for (int i=0 ; i<types.size(); i++ ) {
+        for (int i=0 ; i<types.size(); i++ )
+        {
             ParsedType type = (ParsedType) types.get(i);
             typesNode.add(new DefaultMutableTreeNode (type));
         }
@@ -403,26 +412,27 @@ public class TreeWindow
         return mr;
     }
 
-
     class MyRenderer extends DefaultTreeCellRenderer
     {
         SettingsManager sm = SettingsManager.getInstance();
+        FontManager fm = FontManager.getInstance();
+
         public void setFontSize(int ptSize){
             Font font = new Font("Arial", Font.PLAIN, ptSize);
-            fm.setComponentFont(font, this);
+            fm.setComponentFont(font,this);
 
         }
+
         public MyRenderer() {
         }
 
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
         {
             ArrayList tests;
-
-            // call setFontSize to alter components within the tree
             int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
             setFontSize(fontsize);
 
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
             Object object = node.getUserObject();
             if (isNotComponent(object))
