@@ -251,25 +251,21 @@ public class EditorWindow {
     setEnabled(false);
 }
     //This new method use for updating syntax style to the editor
+
     public void updateSyntaxStyles() {
         if (jtaCodeView != null) {
             System.out.println("Updating syntax styles...");
 
-            // Apply the new syntax styles
             jtaCodeView.getPainter().setStyles(SyntaxUtilities.getDefaultSyntaxStyles());
-
-            // Ensure the token marker is reapplied
-            jtaCodeView.setTokenMarker(jtaCodeView.getTokenMarker());
-
-            // Force the editor to refresh and reprocess tokens
-            jtaCodeView.repaint(); // Repaint the editor
-            jtaCodeView.invalidate();  // Mark it for re-layout
+            jtaCodeView.refreshSyntaxHighlighting(); // Forces re-tokenization and repaint
 
             System.out.println("Syntax styles updated!");
         }
     }
 
-  /**
+
+
+    /**
    * Changes the font size
    *
    * @param ptSize The new size
