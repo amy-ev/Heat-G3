@@ -162,8 +162,12 @@ public class SyntaxUtilities {
           gfx.setFont(defaultFont);
       } else {
         //
-        styles[id] = new SyntaxStyle(getSyntaxColor(tokens.id + ""), false, false);
-        styles[id].setGraphicsFlags(gfx, defaultFont);
+        SyntaxStyle style = styles[id];
+        if (style == null){
+          System.out.print("Error Style for Token ID " + id + "is null");
+          style = new SyntaxStyle(Color.BLACK, false, false);
+        }
+       style.setGraphicsFlags(gfx, defaultFont);
       }
       line.count = length;
       x = Utilities.drawTabbedText(line, x, y, gfx, expander, 0);
