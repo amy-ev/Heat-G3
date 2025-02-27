@@ -53,5 +53,14 @@ public class Settings {
   public static final String TEST_FUNCTION = "TEST_FUNCTION";
   
   public static final String TEST_POSITIVE = "TEST_POSITIVE";
+
+  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+
+  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+
+  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+
+  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+
   
 }

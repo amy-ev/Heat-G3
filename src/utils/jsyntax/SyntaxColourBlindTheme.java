@@ -70,7 +70,7 @@ public class SyntaxColourBlindTheme {
 
     public static Map<String, Color> getTheme(String type) {
         return switch (type) {
-            case "Protanopia" -> PROTANOPIA_THEME;
+            case "PROTANOPIA_THEME" -> PROTANOPIA_THEME;
             case "Deuteranopia" -> DEUTERANOPIA_THEME;
             case "Tritanopia" -> TRITANOPIA_THEME;
             default -> DEFAULT_THEME;

@@ -157,7 +157,7 @@ public class OptionsWindow {
     });
 
     protanopiaThemeButton.addActionListener(e -> {
-      applyTheme("Protanopia");
+      applyTheme("PROTANOPIA_THEME");
       SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
       SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
     });
