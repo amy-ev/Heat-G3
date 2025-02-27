@@ -60,6 +60,7 @@ public class OptionsWindow {
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
   private JComboBox jcbDisplayOverlayToggle;
+  private JComboBox jcbDisplayOverlayColour;
   private JDialog dialog;
 
   private SettingsManager sm = SettingsManager.getInstance();
@@ -141,6 +142,7 @@ public class OptionsWindow {
     jcbCodeFontSize = new JComboBox();
 
     jcbDisplayOverlayToggle = new JComboBox();
+    jcbDisplayOverlayColour = new JComboBox();
 
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
@@ -148,8 +150,16 @@ public class OptionsWindow {
       jcbCodeFontSize.addItem(String.valueOf(i));
     }
 
+    // Adds the toggle option for the visual disturbance overlay
     jcbDisplayOverlayToggle.addItem("On");
     jcbDisplayOverlayToggle.addItem("Off");
+
+    // Adds the colour options for the visual disturbance overlay
+    jcbDisplayOverlayColour.addItem("Red");
+    jcbDisplayOverlayColour.addItem("Green");
+    jcbDisplayOverlayColour.addItem("Blue");
+    jcbDisplayOverlayColour.addItem("Yellow");
+    jcbDisplayOverlayColour.addItem("Purple");
 
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(new JLabel("Editor font size: "));
@@ -160,6 +170,7 @@ public class OptionsWindow {
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
     panelFontSizes.add(jcbDisplayOverlayToggle);
+    panelFontSizes.add(jcbDisplayOverlayColour);
     
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
@@ -240,6 +251,7 @@ public class OptionsWindow {
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
 
     jcbDisplayOverlayToggle.setSelectedItem(sm.getSetting(Settings.OVERLAY_DISPLAY));
+    jcbDisplayOverlayColour.setSelectedItem(sm.getSetting(Settings.OVERLAY_COLOUR));
   }
 
  
@@ -298,6 +310,31 @@ public class OptionsWindow {
 
   public String getDisplayOverlayToggle() {
     return (String) jcbDisplayOverlayToggle.getSelectedItem();
+  }
+
+  public String getDisplayOverlayColour() {
+    String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
+    System.out.println("Chosen colour is:" + colour);
+    String chosenColour = "";
+    switch (colour) {
+      case "Red":
+        chosenColour = "255,0,0,50";
+        break;
+      case "Green":
+        chosenColour = "0,255,0,50";
+        break;
+      case "Blue":
+        chosenColour = "0,0,255,50";
+        break;
+      case "Yellow":
+        chosenColour = "255,255,0,50";
+        break;
+      case "Purple":
+        chosenColour = "255,0,255,50";
+        break;
+    }
+    System.out.println("Returned colour is:" + chosenColour);
+    return chosenColour;
   }
 
   private void jButton2_actionPerformed(ActionEvent e) {

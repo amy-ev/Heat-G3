@@ -701,8 +701,13 @@ public class ActionManager {
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
+      // Get the settings for the visual disturbance overlay
       String displayOverlayToggle = wm.getOptionsWindow().getDisplayOverlayToggle();
+      String displayOverlayColour = wm.getOptionsWindow().getDisplayOverlayColour();
+
+      // Set the settings for the visual disturbance overlay
       sm.setSetting(Settings.OVERLAY_DISPLAY, displayOverlayToggle);
+      sm.setSetting(Settings.OVERLAY_COLOUR, displayOverlayColour);
 
 
 

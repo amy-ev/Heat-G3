@@ -35,7 +35,7 @@ public class SettingsManager {
   /* Properties file containing settings */
   private Properties heatSettings = new Properties();
   private File settingsFile;
-  private boolean newSettingsFile = true;
+  private boolean newSettingsFile = false;
   private boolean haveChanges = false;
 
   protected SettingsManager() {
@@ -106,10 +106,7 @@ public class SettingsManager {
     newSettings.setProperty(Settings.TEST_POSITIVE,"True");
     newSettings.setProperty(Settings.OVERLAY_DISPLAY,"Off");
 
-    newSettings.setProperty(Settings.OVERLAY_RED,"0");
-    newSettings.setProperty(Settings.OVERLAY_GREEN,"255");
-    newSettings.setProperty(Settings.OVERLAY_BLUE,"0");
-    newSettings.setProperty(Settings.OVERLAY_ALPHA,"50");
+    newSettings.setProperty(Settings.OVERLAY_COLOUR,"0,255,0,50");
     return newSettings;
   }
   

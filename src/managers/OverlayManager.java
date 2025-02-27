@@ -14,18 +14,6 @@ public class OverlayManager {
     private SettingsManager sm = SettingsManager.getInstance();
     private String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
 
-    // Grab the colour settings for the overlay and assign to String objects
-    private String overlayRed = sm.getSetting(Settings.OVERLAY_RED);
-    private String overlayGreen = sm.getSetting(Settings.OVERLAY_GREEN);
-    private String overlayBlue = sm.getSetting(Settings.OVERLAY_BLUE);
-    private String overlayAlpha = sm.getSetting(Settings.OVERLAY_ALPHA);
-
-    // Parse String objects for int value of overlay colours
-    private int red = Integer.parseInt(overlayRed);
-    private int green = Integer.parseInt(overlayGreen);
-    private int blue = Integer.parseInt(overlayBlue);
-    private int alpha = Integer.parseInt(overlayAlpha);
-
     protected OverlayManager() {
         /* Exists to prevent instantiation */
     }
@@ -38,6 +26,17 @@ public class OverlayManager {
     }
 
     public void addFrameOverlay(JFrame frame, String toggle) {
+        // Grab the colour settings for the overlay and assign to String objects
+        String overlayColour = sm.getSetting(Settings.OVERLAY_COLOUR);
+
+        // Split the String object holding the RGB values for the colour
+        String[] rgbValues = overlayColour.split(",");
+
+        // Parse the split string values into integers
+        int red = Integer.parseInt(rgbValues[0]);
+        int green = Integer.parseInt(rgbValues[1]);
+        int blue = Integer.parseInt(rgbValues[2]);
+        int alpha = Integer.parseInt(rgbValues[3]);
 
 //        String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
         // Checks if the overlay display setting is true && !null and displays the overlay if so
@@ -64,6 +63,18 @@ public class OverlayManager {
     }
 
     public void addPanelOverlay(JDialog dialog, JPanel panel, String toggle) {
+
+        // Grab the colour settings for the overlay and assign to String objects
+        String overlayColour = sm.getSetting(Settings.OVERLAY_COLOUR);
+
+        // Split the String object holding the RGB values for the colour
+        String[] rgbValues = overlayColour.split(",");
+
+        // Parse the split string values into integers
+        int red = Integer.parseInt(rgbValues[0]);
+        int green = Integer.parseInt(rgbValues[1]);
+        int blue = Integer.parseInt(rgbValues[2]);
+        int alpha = Integer.parseInt(rgbValues[3]);
 
 //        String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
         dialog.pack();
@@ -106,17 +117,10 @@ public class OverlayManager {
                     overlayPanel.setBounds(0, 0, width, height);
                 }
             });
-
-//            dialog.add(layeredPane, BorderLayout.CENTER);
-//            dialog.setVisible(true);
             dialog.setLayeredPane(layeredPane);
         } else {
             JLayeredPane layeredPane = dialog.getLayeredPane();
             dialog.remove(layeredPane);
-//            dialog.setLayeredPane(new JLayeredPane());
-//            dialog.revalidate();
-//            dialog.repaint();
-//            dialog.setVisible(true);
         }
     }
 }
