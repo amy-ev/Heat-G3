@@ -363,10 +363,47 @@ public class OptionsWindow {
       return (String) jcbSyntaxThemes.getSelectedItem();
   }
 
+  public String getDisplayOverlayToggle() {
+    return (String) jcbDisplayOverlayToggle.getSelectedItem();
+  }
+
+  
+  public String getDisplayOverlayColour() {
+    // Grabs the string from the combo box to do switch statement check
+    String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
+
+    // Empty string to add colour value string to which is set as the setting in OVERLAY_COLOUR
+    String chosenColour = "";
+
+    // Switch case to assign OVERLAY_COLOUR based upon user selection
+    switch (colour) {
+      case "Red":
+        chosenColour = "255,0,0,50";
+        break;
+      case "Green":
+        chosenColour = "0,255,0,50";
+        break;
+      case "Blue":
+        chosenColour = "0,0,255,50";
+        break;
+      case "Yellow":
+        chosenColour = "255,255,0,50";
+        break;
+      case "Purple":
+        chosenColour = "255,0,255,50";
+        break;
+    }
+    return chosenColour;
+  }
+
 
   private void jButton2_actionPerformed(ActionEvent e) {
     close();
   }
+
+
+
+
 
 //  private void jbUpdate_actionPerformed(ActionEvent e) {
 //    close();
