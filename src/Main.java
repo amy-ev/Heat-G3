@@ -27,7 +27,6 @@ import java.util.logging.Level;
 import java.io.File;
 
 /**
- * 
  * Main HEAT class
  */
 public class Main {
@@ -62,14 +61,16 @@ public static void main(String[] args) {
 
     // while splash screen is still open do NOT start the program
 
-    // TODO Fix
+    // TODO FIX - MY OUTPUT WINDOW WONT SHOW SO I CANT DO IT RIGHT NOW
     showSplash(splashWindow);
 
     while (splashWindow.isActive()){
+        //System.out.println(splashWindow.isActive());
         ;
     }
 
     while (splashScreen.isActive()){
+        //System.out.println(splashScreen.isActive());
         ;
     }
 
