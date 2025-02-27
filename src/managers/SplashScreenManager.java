@@ -19,6 +19,7 @@ public class SplashScreenManager {
     public SplashScreenManager() {
         // Setup main frame
         splashScreen.setLayout(new BorderLayout());
+        splashScreen.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/logo1.png")));
 
         // Background Image Panel
         JPanel backgroundPanel = new JPanel() {
