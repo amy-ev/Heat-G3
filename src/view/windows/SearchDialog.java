@@ -169,6 +169,8 @@ public class SearchDialog {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
     om.addFrameOverlay(frame, toggle);
+    frame.pack();
+    frame.repaint();
   }
 
 }

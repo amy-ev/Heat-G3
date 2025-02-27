@@ -106,10 +106,13 @@ public class AboutWindow {
     dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
 
     SettingsManager sm = SettingsManager.getInstance();
+//    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+//    if (displayOverlay != null && displayOverlay != "Off") {
+//      updateDisplayOverlayToggle(displayOverlay);
+//    }
+
     String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
-    if (displayOverlay != null && displayOverlay != "Off") {
-      updateDisplayOverlayToggle(displayOverlay);
-    }
+    updateDisplayOverlayToggle(displayOverlay);
 
     dialog.setVisible(true);
   }
@@ -118,6 +121,12 @@ public class AboutWindow {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
     om.addPanelOverlay(dialog, jpMain, toggle);
+    dialog.pack();
+    dialog.repaint();
+  }
+
+  public boolean isOpen() {
+    return dialog != null && dialog.isShowing();
   }
 
 

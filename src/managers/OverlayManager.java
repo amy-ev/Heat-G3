@@ -58,6 +58,7 @@ public class OverlayManager {
             frame.setGlassPane(glassPane);
             glassPane.setVisible(true);
         } else {
+            // Sets the glass pane to false to hide the overlay
             frame.getGlassPane().setVisible(false);
         }
     }
@@ -79,6 +80,7 @@ public class OverlayManager {
 //        String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
         dialog.pack();
 
+        // Get the width and height of the dialog, ensures compatability with different size dialogs
         int dialogWidth = dialog.getContentPane().getWidth();
         int dialogHeight = dialog.getContentPane().getHeight();
 
@@ -117,10 +119,12 @@ public class OverlayManager {
                     overlayPanel.setBounds(0, 0, width, height);
                 }
             });
+            // Adds the layered pane to the dialog
             dialog.setLayeredPane(layeredPane);
         } else {
-            JLayeredPane layeredPane = dialog.getLayeredPane();
-            dialog.remove(layeredPane);
+          // This grabs the layered pane and removes it
+          JLayeredPane layeredPane = dialog.getLayeredPane();
+          dialog.remove(layeredPane);
         }
     }
 }

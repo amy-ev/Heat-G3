@@ -422,6 +422,8 @@ public class WindowManager {
       // Call the OverlayManager and apply an overlay if setting is true
       OverlayManager om = OverlayManager.getInstance();
       om.addFrameOverlay(mainScreenFrame, toggle);
+      mainScreenFrame.pack();
+      mainScreenFrame.repaint();
   }
   
  /* show the main frame */

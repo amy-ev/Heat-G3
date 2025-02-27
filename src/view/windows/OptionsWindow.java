@@ -219,12 +219,10 @@ public class OptionsWindow {
     dialog.setVisible(true);
   }
 
+  // This method updates the visual disturbance overlay based upon new user settings
   public void updateDisplayOverlayToggle(String toggle) {
-    // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
     om.addPanelOverlay(dialog, panelOptions, toggle);
-//    dialog.setVisible(true);
-
   }
 
   /**
@@ -250,6 +248,7 @@ public class OptionsWindow {
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
 
+    // Get and set the visual disturbance overlay settings
     jcbDisplayOverlayToggle.setSelectedItem(sm.getSetting(Settings.OVERLAY_DISPLAY));
     jcbDisplayOverlayColour.setSelectedItem(sm.getSetting(Settings.OVERLAY_COLOUR));
   }
@@ -313,9 +312,13 @@ public class OptionsWindow {
   }
 
   public String getDisplayOverlayColour() {
+    // Grabs the string from the combo box to do switch statement check
     String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
-    System.out.println("Chosen colour is:" + colour);
+
+    // Empty string to add colour value string to which is set as the setting in OVERLAY_COLOUR
     String chosenColour = "";
+
+    // Switch case to assign OVERLAY_COLOUR based upon user selection
     switch (colour) {
       case "Red":
         chosenColour = "255,0,0,50";
@@ -333,7 +336,6 @@ public class OptionsWindow {
         chosenColour = "255,0,255,50";
         break;
     }
-    System.out.println("Returned colour is:" + chosenColour);
     return chosenColour;
   }
 

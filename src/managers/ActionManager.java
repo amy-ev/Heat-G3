@@ -743,14 +743,23 @@ public class ActionManager {
           Settings.CODE_FONT_SIZE + " setting from options window");
       }
 
-        System.out.println("Reached wm toggle");
+      // The about and wizard windows should never be open at the same time as options
+      // This code acts as a fail safe should that happen to prevent exception
+      AboutWindow aboutWindow = wm.getAboutWindow();
+      WizardWindow wizardWindow = wm.getWizardWindow();
+      if(aboutWindow.isOpen()) {
+          wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      }
+      if(wizardWindow.isOpen()) {
+          wm.getWizardWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      }
+
+      // This calls the various windows to update
       wm.updateDisplayOverlayToggle(displayOverlayToggle);
-        System.out.println("Reached aw toggle");
-//      wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
-        System.out.println("Reached om toggle");
+      wm.getHelpWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getSearchWindow().updateDisplayOverlayToggle(displayOverlayToggle);
       wm.getOptionsWindow().updateDisplayOverlayToggle(displayOverlayToggle);
 
-      System.out.println("Reached close");
       wm.getOptionsWindow().close();
       sm.saveSettings();
       

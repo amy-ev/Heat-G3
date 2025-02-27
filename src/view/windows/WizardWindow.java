@@ -119,6 +119,12 @@ public class WizardWindow {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
     om.addPanelOverlay(dialog, panelOptions, toggle);
+    dialog.pack();
+    dialog.repaint();
+  }
+
+  public boolean isOpen() {
+    return dialog != null && dialog.isShowing();
   }
 
   public void close() {
