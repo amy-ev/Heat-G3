@@ -25,6 +25,7 @@ import managers.ParserManager;
 import java.awt.*;
 import java.util.ArrayList;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeModel;
@@ -37,19 +38,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.JPopupMenu;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.BoxLayout;
-import javax.swing.ToolTipManager;
-
 public class TreeWindow
 {
+    FontManager fm = FontManager.getInstance();
     private JPanel treePanel;
     private JButton collapseButton;
     private JButton expandButton;
@@ -159,6 +150,7 @@ public class TreeWindow
         top.add(new DefaultMutableTreeNode("Functions / constants"));
         top.add(new DefaultMutableTreeNode("Algebraic data types"));
         top.add(new DefaultMutableTreeNode("Type synonyms"));
+        //System.out.println(to);
     }
     
     /**
@@ -408,15 +400,28 @@ public class TreeWindow
         tree.addMouseListener(ml);
     }
 
+
     class MyRenderer extends DefaultTreeCellRenderer
     {
         public MyRenderer() {
         }
 
+//        static void Font(){
+//            FontManager fm = FontManager.getInstance();
+//            class SetFont{
+//                public void setFontSize(int ptSize, JComponent c) {
+//                    Font font = new Font("Arial", Font.PLAIN, ptSize);
+//                    fm.setComponentFont(font, c);
+//                }
+//            }
+//            new SetFont().setFontSize(ptSize, c);
+//        }
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
         {
           ArrayList tests;
-          super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+          // MADE INTO VARIABLE
+          Component  c = super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+          c.setFont(new Font("Arial", Font.PLAIN, 20));
           DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
           Object object = node.getUserObject();
           if (isNotComponent(object))

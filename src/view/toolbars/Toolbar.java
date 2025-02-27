@@ -22,9 +22,12 @@ import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
 
 import managers.FontManager;
+import managers.SettingsManager;
 import utils.Resources;
+import utils.Settings;
 
 import java.awt.*;
+import java.util.logging.Logger;
 
 
 /**
@@ -35,7 +38,10 @@ public class Toolbar {
   private JToolBar toolBar = new JToolBar();
   private ActionManager am = ActionManager.getInstance();
   private FontManager fm = FontManager.getInstance();
-  
+  private SettingsManager sm = SettingsManager.getInstance();
+
+  private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
   /* some icons */
   private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok22");
   private ImageIcon iiCompileUnknown = Resources.getIcon("buttonquestion22");
@@ -103,10 +109,22 @@ public class Toolbar {
     statusButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
     setCompileStatus(1);
 
-    //fm.setToolBarFont(statusButton);
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+      //fm.setToolBarFont(statusButton);
+    }
   }
 
-  public void setFontSize(int ptSize) {
+  public void setFontSize(int ptSize){
     Font font = new Font("Arial", Font.PLAIN, ptSize);
     fm.setToolBarFont(font, statusButton);
     statusButton.repaint();

@@ -58,5 +58,10 @@ public class FontManager {
         }
     }
 
+    public void setComponentFont(Font cFont, JComponent... args){
+        for (JComponent arg : args) {
+            arg.setFont(cFont);
+        }
+    }
 
 }

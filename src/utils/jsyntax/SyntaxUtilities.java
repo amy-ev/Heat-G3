@@ -88,6 +88,7 @@ public class SyntaxUtilities {
    * the default syntax styles.
    */
   public static SyntaxStyle[] getDefaultSyntaxStyles() {
+
     SyntaxStyle[] styles = new SyntaxStyle[Token.ID_COUNT];
     /* Comments */
     styles[Token.COMMENT1] = new SyntaxStyle(new Color(0, 153, 0), false, false);
