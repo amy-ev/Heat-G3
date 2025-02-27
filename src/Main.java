@@ -1,4 +1,4 @@
-/** 
+/**
  *
  * Copyright (c) 2005 University of Kent
  * Computing Laboratory, Canterbury, Kent, CT2 7NP, U.K
@@ -30,7 +30,7 @@ import java.io.File;
  * Main HEAT class
  */
 public class Main {
-  
+
   /**
    * Used to run HEAT
    * @param args
@@ -46,14 +46,16 @@ public static void main(String[] args) {
     } catch (Exception e) {
         System.out.println("Could not install file handler for logging.");
     }
-    
+
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", ""); // set name of main menu on Mac
     System.setProperty("apple.laf.useScreenMenuBar", "true");  // on Mac separate menu from window
-	  
+
+    // Show splash image
+    showSplash();
+
+    // Create managers
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
-
-
     SplashScreenManager splashScreen = SplashScreenManager.getInstance();
 
     // while splash screen is still open do NOT start the program
@@ -79,12 +81,12 @@ public static void main(String[] args) {
       InterpreterManager im = InterpreterManager.getInstance();
       im.startProcess(false);
     }
-    
+
     if (args.length > 0) {
     	wm.openFile(new java.io.File(args[0]));
         wm.showAll();
         /* Make edit area active */
-        wm.getEditorWindow().grabFocus(); 
+        wm.getEditorWindow().grabFocus();
     } else {
         wm.getEditorWindow().setEditorContent("Use menu to open an existing or create a new program in the editor.");
         wm.setCloseEnabled(false);
@@ -94,5 +96,29 @@ public static void main(String[] args) {
     }
     wm.setVisible();
    }
+
+    /**
+     * Shows the splash image on load
+     */
+    public static void showSplash() {
+        JWindow splashWindow = new JWindow();
+        splashWindow.getContentPane().add(
+                new JLabel(new ImageIcon("src/icons/splash.png")),
+                BorderLayout.CENTER
+        );
+        splashWindow.setSize(420, 300);
+        splashWindow.setLocationRelativeTo(null);
+        splashWindow.setVisible(true);
+
+        // Keep the splash screen visible for 1.2 secs
+        try {
+            Thread.sleep(1200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        splashWindow.setVisible(false);
+        splashWindow.dispose();
+    }
 }
-  
+

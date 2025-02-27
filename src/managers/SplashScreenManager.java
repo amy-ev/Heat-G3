@@ -12,7 +12,7 @@ public class SplashScreenManager {
 
     private static SplashScreenManager instance = null;
     private final JFrame splashScreen = new JFrame("Accessibility Options");
-    private final OptionsWindow ow = new OptionsWindow();
+    public final OptionsWindow ow = new OptionsWindow();
 
     public SplashScreenManager() {
         // Setup main frame
@@ -228,8 +228,6 @@ public class SplashScreenManager {
         return panel;
     }
 
-
-
     /**
      * Creates a title component with description
      * @param titleText title text for panel
@@ -273,7 +271,7 @@ public class SplashScreenManager {
      * Handle filter toggle
      * @param isEnabled
      */
-    private void handleFilterToggle(boolean isEnabled) {
+    public void handleFilterToggle(boolean isEnabled) {
         if (isEnabled) {
             System.out.println("Visual Disturbance Filter ENABLED.");
             // Add logic to apply the filter
@@ -283,19 +281,19 @@ public class SplashScreenManager {
         }
     }
 
-    private void handleAudioToggle(boolean isEnabled) {
+    public void handleAudioToggle(boolean isEnabled) {
         if (isEnabled) {
-            System.out.println("Audi Response ENABLED.");
+            System.out.println("Audio Response ENABLED.");
             // Add logic for response
         } else {
-            System.out.println("Audi Response DISABLED.");
+            System.out.println("Audio Response DISABLED.");
         }
     }
 
     /**
      * Adjusts UI scaling
      */
-    private void applyUIScaling(java.awt.event.ActionEvent e) {
+    public void applyUIScaling(java.awt.event.ActionEvent e) {
         JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
         String selectedOption = (String) comboBox.getSelectedItem();
 
@@ -311,7 +309,7 @@ public class SplashScreenManager {
     /**
      * Adjusts Syntax Highlighting
      */
-    private void applySyntaxHighlighting(java.awt.event.ActionEvent e) {
+    public void applySyntaxHighlighting(java.awt.event.ActionEvent e) {
         JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
         String selectedOption = (String) comboBox.getSelectedItem();
         System.out.println("Syntax Highlighting changed to: " + selectedOption);
