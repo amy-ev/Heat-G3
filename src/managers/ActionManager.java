@@ -724,7 +724,6 @@ public class ActionManager {
       sm.setSetting(Settings.TEST_POSITIVE, wm.getOptionsWindow().getTestPositive().trim());
 
       // Colour-blind set theme settings
-
         wm.getSyntaxUtilities().applyTheme(syntaxTheme);
         sm.setSetting(Settings.SYNTAX_THEME, syntaxTheme);
 

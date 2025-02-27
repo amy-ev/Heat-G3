@@ -213,10 +213,7 @@ public class EditorWindow {
           Settings.CODE_FONT_SIZE + " setting, check value in settings file");
       }
 
-
     }
-
-
 
 
     
