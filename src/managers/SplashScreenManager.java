@@ -6,7 +6,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class SplashScreenManager {
 
@@ -35,7 +37,6 @@ public class SplashScreenManager {
         // Panel for Title, Settings, and Buttons
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(new Color(240,240,240));
-        //contentPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         // Title Label
         JLabel titleLabel = new JLabel("Accessibility Options");
@@ -72,14 +73,6 @@ public class SplashScreenManager {
         settingsContainer.add(createTitlePanel("Font Settings"), gbc);
         gbc.gridy++;
 
-//        // UI scaling dropdown
-//        settingsContainer.add(
-//                createSettingPanel(
-//                        "UI Scaling", createDropdown(
-//                                new String[]{"Default", "Large", "Extra Large"},  this::applyUIScaling),
-//                        "src/icons/accessibility_icons/ui-scaling.png"), gbc);
-//        gbc.gridy++;
-
         // Font Size Settings
         JComboBox<String> jcbOutputFontSize = new JComboBox<>();
         JComboBox<String> jcbCodeFontSize = new JComboBox<>();
@@ -114,16 +107,13 @@ public class SplashScreenManager {
         settingsContainer.add(createTitlePanel("Visual Settings"), gbc);
         gbc.gridy++;
 
-        // Visual disturbance filter toggle
-        JToggleButton filterToggle = new JToggleButton("Enable Filter");
-        filterToggle.addActionListener(e -> handleFilterToggle(filterToggle.isSelected()));
-        settingsContainer.add(createSettingPanel("Visual Disturbance Filter", filterToggle,
-                "src/icons/accessibility_icons/vs-filter.png"), gbc);
-        gbc.gridy++;
-
         // Audio response toggle
-        JToggleButton audioResponse = new JToggleButton("Enable Audio Response");
-        audioResponse.addActionListener(e -> handleAudioToggle(audioResponse.isSelected()));
+        JToggleButton audioResponse = new JToggleButton("Enable");
+        audioResponse.addActionListener(e -> {
+            boolean isSelected = audioResponse.isSelected();
+            handleAudioToggle(isSelected);
+            audioResponse.setText(isSelected ? "Disable" : "Enable");
+        });
         settingsContainer.add(createSettingPanel("Audio Response", audioResponse,
                 "src/icons/accessibility_icons/audio-resp.png"), gbc);
         gbc.gridy++;
@@ -137,6 +127,25 @@ public class SplashScreenManager {
                         "src/icons/accessibility_icons/syntax-hl.png"), gbc);
 
         contentPanel.add(settingsContainer, BorderLayout.CENTER);
+        gbc.gridy++;
+
+        // Visual disturbance filter toggle
+        JToggleButton filterToggle = new JToggleButton("Enable");
+        filterToggle.addActionListener(e -> {
+            boolean isSelected = filterToggle.isSelected();
+            handleFilterToggle(isSelected);
+            if (isSelected) {
+                filterToggle.setText("Disable");
+                addVisualDisturbanceSettings(settingsContainer, gbc);
+            } else {
+                filterToggle.setText("Enable");
+                removeVisualDisturbanceSettings(settingsContainer);
+            }
+            // Resize the frame
+            splashScreen.pack();
+        });
+        settingsContainer.add(createSettingPanel("Visual Disturbance Filter", filterToggle,
+                "src/icons/accessibility_icons/vs-filter.png"), gbc);
         gbc.gridy++;
 
         // Buttons Panel
@@ -281,6 +290,47 @@ public class SplashScreenManager {
         return dropdown;
     }
 
+    public void handleVFToggle(String colour) {
+        System.out.println(colour + " Filter selected.");
+        //TODO logic to apply visual disturbance filter
+    }
+
+    // Add visual disturbance settings
+    private void addVisualDisturbanceSettings(JPanel settingsContainer, GridBagConstraints gbc) {
+        GridBagConstraints newGbc = (GridBagConstraints) gbc.clone();
+        newGbc.gridy++;
+
+        String[] colourOptions = {"Red", "Green", "Blue", "Yellow"};
+        JComboBox<String> colourComboBox = new JComboBox<>(colourOptions);
+        colourComboBox.setRenderer(new ColourRenderer());
+        colourComboBox.addActionListener(e -> {
+            String selectedColour = (String) colourComboBox.getSelectedItem();
+            handleVFToggle(selectedColour);
+
+            // TODO add logic for the setting
+        });
+
+        JPanel panel = createSettingPanel("Select Filter Colour", colourComboBox,
+                "src/icons/accessibility_icons/vs-filter-colour.png");
+        panel.setName("VisualDisturbancePanel");
+
+        settingsContainer.add(panel, newGbc);
+        settingsContainer.revalidate();
+        settingsContainer.repaint();
+    }
+
+    // Remove visual disturbance settings
+    private void removeVisualDisturbanceSettings(JPanel settingsContainer) {
+        for (Component component : settingsContainer.getComponents()) {
+            if (component instanceof JPanel && "VisualDisturbancePanel".equals(component.getName())) {
+                settingsContainer.remove(component);
+                settingsContainer.revalidate();
+                settingsContainer.repaint();
+                break;
+            }
+        }
+    }
+
     /**
      * Handle filter toggle
      * @param isEnabled
@@ -288,19 +338,20 @@ public class SplashScreenManager {
     public void handleFilterToggle(boolean isEnabled) {
         if (isEnabled) {
             System.out.println("Visual Disturbance Filter ENABLED.");
-            // Add logic to apply the filter
+            // ToDO Add logic to apply the filter
         } else {
             System.out.println("Visual Disturbance Filter DISABLED.");
-            // Add logic to remove the filter
+            // TODO Add logic to remove the filter
         }
     }
 
     public void handleAudioToggle(boolean isEnabled) {
         if (isEnabled) {
             System.out.println("Audio Response ENABLED.");
-            // Add logic for response
+            // TODO Add logic for response
         } else {
             System.out.println("Audio Response DISABLED.");
+            // TODO Add logic to disable
         }
     }
 
@@ -310,12 +361,6 @@ public class SplashScreenManager {
     public void applyUIScaling(java.awt.event.ActionEvent e) {
         JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
         String selectedOption = (String) comboBox.getSelectedItem();
-
-        int fontSize = switch (selectedOption) {
-            case "Large" -> 18;
-            case "Extra Large" -> 24;
-            default -> 14;
-        };
 
         // TODO add the settings
     }
@@ -351,5 +396,56 @@ public class SplashScreenManager {
      */
     public boolean owIsActive() {
         return ow.is_visible;
+    }
+
+
+    /**
+     * Custom class to handle the coloured icons
+     */
+    private class ColourRenderer extends JLabel implements ListCellRenderer<String> {
+        @Override
+        public Component getListCellRendererComponent(JList<? extends String> list, String value, int index,
+                                                      boolean isSelected, boolean cellHasFocus) {
+            setText(value);
+            setOpaque(true);
+            setBackground(isSelected ? Color.LIGHT_GRAY : Color.WHITE);
+            setForeground(Color.BLACK);
+
+            switch (value) {
+                case "Red":
+                    setIcon(createColourIcon(new Color(255,0,0,50)));
+                    break;
+                case "Green":
+                    setIcon(createColourIcon(new Color(0,255,0,50)));
+                    break;
+                case "Blue":
+                    setIcon(createColourIcon(new Color(0,0,255,50)));
+                    break;
+                case "Yellow":
+                    setIcon(createColourIcon(new Color(255,255,0,50)));
+                    break;
+                case "Purple":
+                    setIcon(createColourIcon(new Color(255,0,255,50)));
+                    break;
+
+            }
+
+            return this;
+        }
+
+        private Icon createColourIcon(Color colour) {
+            int width = 32;
+            int height = 32;
+            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = image.createGraphics();
+            g.setColor(colour);
+            g.fillRect(0, 0, width, height);
+            g.dispose();
+            return new ImageIcon(image);
+        }
+    }
+
+    public static void main(String[] args) {
+        SplashScreenManager.getInstance();
     }
 }

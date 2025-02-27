@@ -110,9 +110,9 @@ public static void main(String[] args) {
         splashWindow.setLocationRelativeTo(null);
         splashWindow.setVisible(true);
 
-        // Keep the splash screen visible for 1.2 secs
+        // Keep the splash screen visible for 1.5 secs
         try {
-            Thread.sleep(1200);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
