@@ -161,7 +161,11 @@ public class SyntaxUtilities {
         if (!defaultFont.equals(gfx.getFont()))
           gfx.setFont(defaultFont);
       } else {
-        //
+
+        /*
+          This code will update colour from our syntaxThemeSelectionPanel
+          and paint it in to the editor
+         */
         SyntaxStyle style = styles[id];
         if (style == null){
           System.out.print("Error Style for Token ID " + id + "is null");

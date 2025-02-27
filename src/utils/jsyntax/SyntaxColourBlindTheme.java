@@ -25,7 +25,7 @@ public class SyntaxColourBlindTheme {
         DEFAULT_THEME.put("keyword3", new Color(139, 0, 139)); // Dark Magenta
         DEFAULT_THEME.put("literal1", new Color(153, 76, 0));  // Brown
         DEFAULT_THEME.put("literal2", new Color(255, 140, 0)); // Dark Orange
-        DEFAULT_THEME.put("comment1", new Color(0, 102, 0));   // Green
+        DEFAULT_THEME.put("comment1", new Color(8, 255, 0));   // Blight Green
         DEFAULT_THEME.put("comment2", new Color(34, 139, 34)); // Forest Green
         DEFAULT_THEME.put("label", new Color(128, 0, 128));    // Purple
         DEFAULT_THEME.put("operator", new Color(0, 0, 0));     // Black
