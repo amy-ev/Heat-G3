@@ -103,7 +103,7 @@ public class SettingsManager {
     newSettings.setProperty(Settings.OUTPUT_FONT_SIZE, "12");
     newSettings.setProperty(Settings.CODE_FONT_SIZE, "14");
 
-    newSettings.setProperty(Settings.GLOBAL_FONT_SIZE, "50");
+    newSettings.setProperty(Settings.GLOBAL_FONT_SIZE, "16");
 
     newSettings.setProperty(Settings.INTERPRETER_OPTS,"");
     newSettings.setProperty(Settings.TEST_FUNCTION,"");

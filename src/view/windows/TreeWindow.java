@@ -420,7 +420,6 @@ public class TreeWindow
         public void setFontSize(int ptSize){
             Font font = new Font("Arial", Font.PLAIN, ptSize);
             fm.setComponentFont(font,this);
-
         }
 
         public MyRenderer() {
