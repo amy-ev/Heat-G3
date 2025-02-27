@@ -15,15 +15,16 @@
 
 package view.windows;
 
+import managers.OverlayManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
+import java.awt.*;
 import java.util.logging.Logger;
 
 import utils.Resources;
+import utils.Settings;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -245,7 +246,20 @@ public class HelpWindow {
     frame.getContentPane().add(jPanel0);
     frame.setSize(670, 435);
     frame.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     frame.setVisible(true);
+  }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addFrameOverlay(frame, toggle);
+    frame.pack();
+    frame.repaint();
   }
 
   private void jClose_actionPerformed(ActionEvent e) {

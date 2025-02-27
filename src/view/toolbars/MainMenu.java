@@ -35,7 +35,17 @@ import java.util.logging.Logger;
  * The menus used within HEAT
  */
 public class MainMenu {
-  private JMenuBar jMenuBar = new JMenuBar();
+    // MAYBE FIX
+  private JMenuBar jMenuBar = new JMenuBar() {
+    @Override
+    protected void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      if (getParent() != null) {
+        getParent().repaint(); // Forces GlassPane to repaint when hovering over menu items
+      }
+    }
+  };
+  //private JMenuBar jMenuBar = new JMenuBar();
   private FontManager fm = FontManager.getInstance();
   private SettingsManager sm = SettingsManager.getInstance();
 
@@ -121,7 +131,6 @@ public class MainMenu {
     jMenuFile.add(jMenuItemOptions);
     jMenuFile.addSeparator();
     jMenuFile.add(jMenuItemExit);
-
 
     /* Edit Menu */
     jMenuEdit.setText("Edit");

@@ -30,11 +30,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
 import java.io.File;
 
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
@@ -716,6 +712,17 @@ public class ActionManager {
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
+      // Get the settings for the visual disturbance overlay
+      String displayOverlayToggle = wm.getOptionsWindow().getDisplayOverlayToggle();
+      String displayOverlayColour = wm.getOptionsWindow().getDisplayOverlayColour();
+
+      // Set the settings for the visual disturbance overlay
+      sm.setSetting(Settings.OVERLAY_DISPLAY, displayOverlayToggle);
+      sm.setSetting(Settings.OVERLAY_COLOUR, displayOverlayColour);
+
+
+
+
       if (!(sm.getSetting(Settings.INTERPRETER_PATH).equals(interpreterPath)
               && sm.getSetting(Settings.INTERPRETER_OPTS).equals(interpreterOpts)
               && sm.getSetting(Settings.LIBRARY_PATH).equals(libraryPath))) {
@@ -768,6 +775,24 @@ public class ActionManager {
                 Settings.GLOBAL_FONT_SIZE + " setting from options window");
     }
 
+
+
+      // The about and wizard windows should never be open at the same time as options
+      // This code acts as a fail safe should that happen to prevent exception
+      AboutWindow aboutWindow = wm.getAboutWindow();
+      WizardWindow wizardWindow = wm.getWizardWindow();
+      if(aboutWindow.isOpen()) {
+          wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      }
+      if(wizardWindow.isOpen()) {
+          wm.getWizardWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      }
+
+      // This calls the various windows to update
+      wm.updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getHelpWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getSearchWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+      wm.getOptionsWindow().updateDisplayOverlayToggle(displayOverlayToggle);
 
       wm.getOptionsWindow().close();
       sm.saveSettings();

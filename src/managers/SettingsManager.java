@@ -102,13 +102,16 @@ public class SettingsManager {
       System.getProperty("user.home"));
     newSettings.setProperty(Settings.OUTPUT_FONT_SIZE, "12");
     newSettings.setProperty(Settings.CODE_FONT_SIZE, "14");
-
+    // GLOBAL FONT SETTING
     newSettings.setProperty(Settings.GLOBAL_FONT_SIZE, "16");
-
     newSettings.setProperty(Settings.INTERPRETER_OPTS,"");
     newSettings.setProperty(Settings.TEST_FUNCTION,"");
     newSettings.setProperty(Settings.TEST_POSITIVE,"True");
+    // SYNTAX SETTINGS
     newSettings.setProperty(Settings.SYNTAX_THEME, "DEFAULT_THEME");
+    // OVERLAY SETTINGS
+    newSettings.setProperty(Settings.OVERLAY_DISPLAY,"Off");
+    newSettings.setProperty(Settings.OVERLAY_COLOUR,"0,255,0,50");
     return newSettings;
   }
   

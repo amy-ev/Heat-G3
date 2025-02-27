@@ -53,6 +53,17 @@ public class Settings {
    */
   public static final String GLOBAL_FONT_SIZE = "GLOBAL_FONT_SIZE";
 
+  /**
+   * To determine if the visual disturbance overlay is on (Boolean)
+   */
+  public static final String OVERLAY_DISPLAY = "OVERLAY_DISPLAY";
+
+  /**
+   * The colours used for the visual disturbance overlay
+   */
+  public static final String OVERLAY_COLOUR = "OVERLAY_COLOUR";
+
+
   /*
    * For Boolean unit tests or QuickCheck
    */

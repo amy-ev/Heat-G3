@@ -20,15 +20,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 
 import utils.Resources;
+import utils.Settings;
 import utils.jsyntax.SyntaxUtilities;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
@@ -337,7 +333,11 @@ public class WindowManager {
   public TreeWindow getTreeWindow(){
       return treeWindow;
   }
-
+    /**
+     * Returns the {@link SyntaxUtilities} used in GUI
+     *
+     * @return the {@link SyntaxUtilities} object from GUI
+     */
   public SyntaxUtilities getSyntaxUtilities() {
       return syntaxUtilities;
   }
@@ -383,7 +383,13 @@ public class WindowManager {
 	
     jSplitMain.setOneTouchExpandable(true);
     jSplitTree.setOneTouchExpandable(true);
-   
+
+    // OVERLAY SETTINGS
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    if (!displayOverlay.equals("Off")) {
+        updateDisplayOverlayToggle(displayOverlay);
+    }
 
     try {
       /* handle closing screen */
@@ -432,7 +438,16 @@ public class WindowManager {
       e.printStackTrace();
     }
   }
-  
+
+  // OVERLAY SETTINGS
+  public void updateDisplayOverlayToggle(String toggle) {
+      // Call the OverlayManager and apply an overlay if setting is true
+      OverlayManager om = OverlayManager.getInstance();
+      om.addFrameOverlay(mainScreenFrame, toggle);
+      mainScreenFrame.pack();
+      mainScreenFrame.repaint();
+  }
+
  /* show the main frame */
  public void setVisible() {
       mainScreenFrame.setVisible(true);

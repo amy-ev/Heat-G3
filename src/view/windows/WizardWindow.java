@@ -18,6 +18,8 @@ package view.windows;
 import managers.ActionManager;
 import managers.FontManager;
 import managers.SettingsManager;
+import managers.OverlayManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.Settings;
@@ -137,7 +139,25 @@ public class WizardWindow {
     dialog.setSize(400,200);
     dialog.pack();
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
+
+    // OVERLAY SETTINGS
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     dialog.setVisible(true);
+  }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addPanelOverlay(dialog, panelOptions, toggle);
+    dialog.pack();
+    dialog.repaint();
+  }
+
+  public boolean isOpen() {
+    return dialog != null && dialog.isShowing();
   }
 
   public void close() {

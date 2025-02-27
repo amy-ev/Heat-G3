@@ -40,6 +40,7 @@ public static void main(String[] args) {
     try {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Set look and feel
         log.setUseParentHandlers(false);  // turn off logging on stdout console
+        log.setUseParentHandlers(false);  // turn off logging on stdout console
         FileHandler handler = new FileHandler(System.getProperty("user.home") + File.separator + "heat.log");
         handler.setFormatter(new SimpleFormatter());
         log.addHandler(handler);

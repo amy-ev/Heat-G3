@@ -17,6 +17,8 @@ package view.windows;
 
 import managers.FontManager;
 import managers.SettingsManager;
+import managers.OverlayManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.LinkListener;
@@ -29,11 +31,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JEditorPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+import javax.swing.*;
 
 
 public class AboutWindow {
@@ -53,7 +54,7 @@ public class AboutWindow {
   private JButton jbClose = new JButton();
   private FlowLayout flowLayout2 = new FlowLayout();
   private JEditorPane jEditorPane1 = new JEditorPane();
-  
+
   private static Logger log = Logger.getLogger("heat");
   private static File localFile = new File("html/about.html");
   private java.net.URL htmURL;
@@ -129,8 +130,31 @@ public class AboutWindow {
     dialog.getContentPane().add(jpMain);
     dialog.setSize(400, 400);
     dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+//    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+//    if (displayOverlay != null && displayOverlay != "Off") {
+//      updateDisplayOverlayToggle(displayOverlay);
+//    }
+
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     dialog.setVisible(true);
   }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addPanelOverlay(dialog, jpMain, toggle);
+    dialog.pack();
+    dialog.repaint();
+  }
+
+  public boolean isOpen() {
+    return dialog != null && dialog.isShowing();
+  }
+
 
   private void jbClose_actionPerformed(ActionEvent e) {
     dialog.dispose();
