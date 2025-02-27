@@ -69,21 +69,16 @@ public class SplashScreenManager {
         gbc.gridy = 0;
 
         // Left Column Title with Description
-        settingsContainer.add(createTitlePanel("Font Settings", "Customise font size and readability."), gbc);
+        settingsContainer.add(createTitlePanel("Font Settings"), gbc);
         gbc.gridy++;
 
-        // Visual disturbance filter toggle
-        JToggleButton filterToggle = new JToggleButton("Enable Filter");
-        filterToggle.addActionListener(e -> handleFilterToggle(filterToggle.isSelected()));
-        settingsContainer.add(createSettingPanel("Visual Disturbance Filter", filterToggle), gbc);
-        gbc.gridy++;
-
-        // UI scaling dropdown
-        settingsContainer.add(
-                createSettingPanel(
-                        "UI Scaling", createDropdown(
-                                new String[]{"Default", "Large", "Extra Large"}, this::applyUIScaling)), gbc);
-        gbc.gridy++;
+//        // UI scaling dropdown
+//        settingsContainer.add(
+//                createSettingPanel(
+//                        "UI Scaling", createDropdown(
+//                                new String[]{"Default", "Large", "Extra Large"},  this::applyUIScaling),
+//                        "src/icons/accessibility_icons/ui-scaling.png"), gbc);
+//        gbc.gridy++;
 
         // Font Size Settings
         JComboBox<String> jcbOutputFontSize = new JComboBox<>();
@@ -98,28 +93,39 @@ public class SplashScreenManager {
         }
 
         // Editor Font Size
-        settingsContainer.add(createSettingPanel("Editor Font Size", jcbCodeFontSize), gbc);
+        settingsContainer.add(createSettingPanel("Editor Font Size", jcbCodeFontSize,
+                "src/icons/accessibility_icons/editor-fs.png"), gbc);
         gbc.gridy++;
 
         // Interpreter Font Size
-        settingsContainer.add(createSettingPanel("Interpreter Font Size", jcbOutputFontSize), gbc);
+        settingsContainer.add(createSettingPanel("Interpreter Font Size", jcbOutputFontSize,
+                "src/icons/accessibility_icons/inter-fs.png"), gbc);
         gbc.gridy++;
 
         // Global font size
-        settingsContainer.add(createSettingPanel("Global Font Size", jcbGlobalFontSize), gbc);
+        settingsContainer.add(createSettingPanel("Global Font Size", jcbGlobalFontSize,
+                "src/icons/accessibility_icons/global-fs.png"), gbc);
 
         // Right Column
         gbc.gridx = 1;
         gbc.gridy = 0;
 
         // Right Column Title with Description
-        settingsContainer.add(createTitlePanel("Visual Settings", "Adjust screen contrast and effects."), gbc);
+        settingsContainer.add(createTitlePanel("Visual Settings"), gbc);
+        gbc.gridy++;
+
+        // Visual disturbance filter toggle
+        JToggleButton filterToggle = new JToggleButton("Enable Filter");
+        filterToggle.addActionListener(e -> handleFilterToggle(filterToggle.isSelected()));
+        settingsContainer.add(createSettingPanel("Visual Disturbance Filter", filterToggle,
+                "src/icons/accessibility_icons/vs-filter.png"), gbc);
         gbc.gridy++;
 
         // Audio response toggle
         JToggleButton audioResponse = new JToggleButton("Enable Audio Response");
         audioResponse.addActionListener(e -> handleAudioToggle(audioResponse.isSelected()));
-        settingsContainer.add(createSettingPanel("Audio Response", audioResponse), gbc);
+        settingsContainer.add(createSettingPanel("Audio Response", audioResponse,
+                "src/icons/accessibility_icons/audio-resp.png"), gbc);
         gbc.gridy++;
 
         // Syntax highlighting dropdown
@@ -127,7 +133,8 @@ public class SplashScreenManager {
                 createSettingPanel(
                         "Syntax Highlighting", createDropdown(
                                 new String[]{"Default", "High Contrast", "Colorblind Mode"},
-                                this::applySyntaxHighlighting)), gbc);
+                                this::applySyntaxHighlighting),
+                        "src/icons/accessibility_icons/syntax-hl.png"), gbc);
 
         contentPanel.add(settingsContainer, BorderLayout.CENTER);
         gbc.gridy++;
@@ -148,8 +155,8 @@ public class SplashScreenManager {
         JButton noButton = new JButton("Continue");
 
         // Set fonts
-        yesButton.setFont(new Font("Arial", Font.BOLD, 16));
-        noButton.setFont(new Font("Arial", Font.BOLD, 16));
+        yesButton.setFont(new Font("Arial", Font.BOLD, 24));
+        noButton.setFont(new Font("Arial", Font.BOLD, 24));
 
         // Set preferred size to make buttons wider
         Dimension buttonSize = new Dimension(200, 40);
@@ -193,37 +200,53 @@ public class SplashScreenManager {
      * @param component component i.e "Dropdown"
      * @return panel
      */
-    private JPanel createSettingPanel(String title, JComponent component) {
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setOpaque(true);
+    private JPanel createSettingPanel(String title, JComponent component, String iconPath) {
+        JPanel panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(getBackground());
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+            }
+        };
+        panel.setOpaque(false);
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(Color.LIGHT_GRAY, 1),
-                new EmptyBorder(8, 10, 8, 10)
+                new LineBorder(Color.LIGHT_GRAY, 1, true),
+                new EmptyBorder(16, 20, 16, 20)
         ));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.insets = new Insets(10, 20, 10, 20);
+
+        // Icon
+        JLabel iconLabel = new JLabel(new ImageIcon(iconPath));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panel.add(iconLabel, gbc);
 
         // Title Label with Increased Font Size
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
         // Label
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 0;
         panel.add(titleLabel, gbc);
 
         // Component - Toggle Button | Dropdown
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(component, gbc);
 
-        // Apply global 14-point size for components
-        component.setFont(new Font("Arial", Font.BOLD, 16));
+        // Apply global size for components
+        component.setFont(new Font("Arial", Font.BOLD, 24));
 
         return panel;
     }
@@ -231,19 +254,11 @@ public class SplashScreenManager {
     /**
      * Creates a title component with description
      * @param titleText title text for panel
-     * @param descriptionText description text for panel
      * @return titlePanel
      */
-    private JPanel createTitlePanel(String titleText, String descriptionText) {
+    private JPanel createTitlePanel(String titleText) {
         JLabel titleLabel = new JLabel(titleText);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-
-        JLabel descriptionLabel = new JLabel(descriptionText);
-        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        descriptionLabel.setForeground(Color.DARK_GRAY);
-
-        // Add padding
-        descriptionLabel.setBorder(new EmptyBorder(8, 0, 0, 0));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
@@ -251,7 +266,6 @@ public class SplashScreenManager {
         titlePanel.setBorder(new EmptyBorder(0, 0, 5, 0));
 
         titlePanel.add(titleLabel);
-        titlePanel.add(descriptionLabel);
 
         return titlePanel;
     }
@@ -262,7 +276,7 @@ public class SplashScreenManager {
     private JComboBox<String> createDropdown(String[] options, ActionListener actionListener) {
         JComboBox<String> dropdown = new JComboBox<>(options);
         dropdown.setPreferredSize(new Dimension(150, 25));
-        dropdown.setFont(new Font("Arial", Font.BOLD, 14));
+        dropdown.setFont(new Font("Arial", Font.BOLD, 24));
         dropdown.addActionListener(actionListener);
         return dropdown;
     }
@@ -299,7 +313,7 @@ public class SplashScreenManager {
 
         int fontSize = switch (selectedOption) {
             case "Large" -> 18;
-            case "Extra Large" -> 22;
+            case "Extra Large" -> 24;
             default -> 14;
         };
 
