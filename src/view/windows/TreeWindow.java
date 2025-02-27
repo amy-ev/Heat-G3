@@ -52,7 +52,7 @@ public class TreeWindow
     private ActionManager am;
 
     private TreePath path;
-    
+
     private int treeChildProperties = 0;
     private int treeChildFunctions = 1;
     private int treeChildAlgebraicTypes = 2;
@@ -64,11 +64,11 @@ public class TreeWindow
     {
         try
         {
-             initComponents();
+            initComponents();
         }
         catch (Exception e)
         {
-             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -87,8 +87,8 @@ public class TreeWindow
 
         // TREE
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Summary");
-    	createNodes(top);
-    	tree = new JTree(top);
+        createNodes(top);
+        tree = new JTree(top);
         tree.setRowHeight(18);
         tree.setRootVisible(false);
         ToolTipManager.sharedInstance().registerComponent(tree);
@@ -150,13 +150,13 @@ public class TreeWindow
         top.add(new DefaultMutableTreeNode("Type synonyms"));
         //System.out.println(to);
     }
-    
+
     /**
      * Repaint properties of tree as soon as possible
      *
      */
     public void repaintProperties() {
-    	tree.repaint();
+        tree.repaint();
     }
 
     /**
@@ -164,7 +164,7 @@ public class TreeWindow
      */
     public void refreshTree()
     {
-    	java.util.logging.Logger.getLogger("heat").warning("refresh tree");
+        java.util.logging.Logger.getLogger("heat").warning("refresh tree");
         update(ParserManager.getParser());
     }
 
@@ -176,18 +176,18 @@ public class TreeWindow
         updateProps(parser.getTests());
         this.tree.updateUI();
     }
-    
+
     private void updateProps(ArrayList tests){
-      TreeModel tree = this.tree.getModel();
-      DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getRoot();
-      DefaultMutableTreeNode testsNode = (DefaultMutableTreeNode) root.getChildAt(treeChildProperties);
-      testsNode.removeAllChildren();
-      for (int i=0; i<tests.size(); i++ ){
-        ParsedTest test=(ParsedTest)tests.get(i);
-        testsNode.add(new DefaultMutableTreeNode(test));
-      }
+        TreeModel tree = this.tree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getRoot();
+        DefaultMutableTreeNode testsNode = (DefaultMutableTreeNode) root.getChildAt(treeChildProperties);
+        testsNode.removeAllChildren();
+        for (int i=0; i<tests.size(); i++ ){
+            ParsedTest test=(ParsedTest)tests.get(i);
+            testsNode.add(new DefaultMutableTreeNode(test));
+        }
     }
-    
+
     private void updateFunctions(ArrayList elements)
     {
         TreeModel tree = this.tree.getModel();
@@ -329,9 +329,9 @@ public class TreeWindow
 
     private void getObjectDefinitionLocation(DefaultMutableTreeNode node)
     {
-            ParsedComponent component = getSelectedObject(node);
-            if(component != null)
-                WindowManager.getInstance().getEditorWindow().focusLine(component.getLocation()+1);
+        ParsedComponent component = getSelectedObject(node);
+        if(component != null)
+            WindowManager.getInstance().getEditorWindow().focusLine(component.getLocation()+1);
     }
 
     private ParsedComponent getSelectedObject(DefaultMutableTreeNode node)
@@ -358,41 +358,41 @@ public class TreeWindow
                     Object object = ((DefaultMutableTreeNode)selPath.getLastPathComponent()).getUserObject();
                     if (e.getClickCount() == 1)
                     {
-                      if (e.getButton() == MouseEvent.BUTTON3)
-                      {
-                        tree.setSelectionPath(selPath);
-                        if (!(object.getClass().getName().equals("java.lang.String")))
+                        if (e.getButton() == MouseEvent.BUTTON3)
                         {
-                          if ((object.getClass().getName().equals("utils.parser.ParsedFunction")))
-                          {
-                            if (((ParsedFunction)object).hasTests())
+                            tree.setSelectionPath(selPath);
+                            if (!(object.getClass().getName().equals("java.lang.String")))
                             {
+                                if ((object.getClass().getName().equals("utils.parser.ParsedFunction")))
+                                {
+                                    if (((ParsedFunction)object).hasTests())
+                                    {
 //                              jMenuTests.removeAll();
 //                              jMenuTests.setEnabled(true);
 //                              tests = ((ParsedFunction)object).getTests();
 //                              for (int i=0; i<tests.size(); i++)
 //                                jMenuTests.add(new JMenuItem(am.getRunTestAction(
 //                                  ((ParsedTest)tests.get(i)).getName(),(ParsedTest) tests.get(i))));
+                                    }
+                                    else
+                                    {
+                                        jMenuTests.setEnabled(false);
+                                        jMenuTests.removeAll();
+                                    }
+                                }
+                                path = selPath;
                             }
-                            else
-                            {
-                              jMenuTests.setEnabled(false);
-                              jMenuTests.removeAll();
-                             }
-                           }
-                           path = selPath;
-                        } 
-                      }
+                        }
                     }
                     else if(e.getClickCount() == 2)
                     {
-                      if (e.getButton() == MouseEvent.BUTTON1){
-                        if (!(object.getClass().getName().equals("java.lang.String")))
-                          goGetLine(selPath);
-                      }	
+                        if (e.getButton() == MouseEvent.BUTTON1){
+                            if (!(object.getClass().getName().equals("java.lang.String")))
+                                goGetLine(selPath);
+                        }
                     }
                 }
-               
+
             }
         };
         tree.addMouseListener(ml);
@@ -417,54 +417,54 @@ public class TreeWindow
 
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
         {
-          ArrayList tests;
+            ArrayList tests;
 
-          // call setFontSize to alter components within the tree
-          int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
-          setFontSize(fontsize);
+            // call setFontSize to alter components within the tree
+            int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+            setFontSize(fontsize);
 
-          DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
-          Object object = node.getUserObject();
-          if (isNotComponent(object))
-          {
-             if (leaf)
-               setIcon(Resources.getIcon("tree_folder_16"));
-             else
-             {
-               setClosedIcon(Resources.getIcon("tree_folder_full_16"));
-               setOpenIcon(Resources.getIcon("fileopen16"));
-             }
-             setToolTipText(null);
-          }
-          else{
-            if (node.getParent().toString().matches("Properties")){
-              tests=ParserManager.getInstance().getParser().getTests();
-              ParsedTest test=(ParsedTest)object;
-              setIcon(Resources.getIcon(((ParsedTest)tests
-              	.get(tests.indexOf(test))).getState()));
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
+            Object object = node.getUserObject();
+            if (isNotComponent(object))
+            {
+                if (leaf)
+                    setIcon(Resources.getIcon("tree_folder_16"));
+                else
+                {
+                    setClosedIcon(Resources.getIcon("tree_folder_full_16"));
+                    setOpenIcon(Resources.getIcon("fileopen16"));
+                }
+                setToolTipText(null);
             }
-            else
-              setIcon(Resources.getIcon("module16"));
-          }
-          if (leaf && isParsedType(object)) {
-            ParsedType type = (ParsedType)object;
-            setToolTipText(type.getName() + " = " + type.getValue());
-          }
-          if (leaf && isParsedDatatype(object)) {
-            ParsedDatatype datatype = (ParsedDatatype)object;
-            setToolTipText(datatype.getName() + " = " + datatype.getValue());
-          }
-          if (leaf && isParsedElement(object)) {
-            ParsedFunction element = (ParsedFunction)object;
-            String display = "";
-            String parameters[] = element.getValue();
-            for (int i = 0; i < parameters.length-1; i++){
-              display = display.concat((String)parameters[i] + " -> ");
+            else{
+                if (node.getParent().toString().matches("Properties")){
+                    tests=ParserManager.getInstance().getParser().getTests();
+                    ParsedTest test=(ParsedTest)object;
+                    setIcon(Resources.getIcon(((ParsedTest)tests
+                            .get(tests.indexOf(test))).getState()));
+                }
+                else
+                    setIcon(Resources.getIcon("module16"));
             }
-            display = display.concat(parameters[parameters.length-1]);
-            setToolTipText(element.getName() + " :: " + display);
-          }
-          return this;
+            if (leaf && isParsedType(object)) {
+                ParsedType type = (ParsedType)object;
+                setToolTipText(type.getName() + " = " + type.getValue());
+            }
+            if (leaf && isParsedDatatype(object)) {
+                ParsedDatatype datatype = (ParsedDatatype)object;
+                setToolTipText(datatype.getName() + " = " + datatype.getValue());
+            }
+            if (leaf && isParsedElement(object)) {
+                ParsedFunction element = (ParsedFunction)object;
+                String display = "";
+                String parameters[] = element.getValue();
+                for (int i = 0; i < parameters.length-1; i++){
+                    display = display.concat((String)parameters[i] + " -> ");
+                }
+                display = display.concat(parameters[parameters.length-1]);
+                setToolTipText(element.getName() + " :: " + display);
+            }
+            return this;
         }
 
         protected boolean isNotComponent(Object object) {
@@ -480,35 +480,36 @@ public class TreeWindow
             return false;
         }
         protected boolean isParsedDatatype(Object object) {
-             if((object.getClass().getName().equals("utils.parser.ParsedDatatype"))) {
+            if((object.getClass().getName().equals("utils.parser.ParsedDatatype"))) {
                 return true;
             }
             return false;
         }
         protected boolean isParsedElement(Object object) {
-          if ((object.getClass().getName().equals("utils.parser.ParsedFunction"))) {
-            return true;
-          }
-          return false;
-        }
-    }
-    
-    /**
-     * Runs all the tests that are in the Properties tree node
-     * 
-     */
-    public void runTests(){
-      ConsoleWindow cw = WindowManager.getInstance().getConsoleWindow();
-      cw.readyToReceiveTestResults();
-      TreeModel tree = this.tree.getModel();
-      DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getRoot();
-      DefaultMutableTreeNode testsNode = (DefaultMutableTreeNode) root.getChildAt(treeChildProperties);
-      if (!testsNode.isLeaf())
-        for (int i=0;i<testsNode.getLeafCount();i++){
-    	  ParsedTest test = (ParsedTest) ((DefaultMutableTreeNode) testsNode
-    			              .getChildAt(i)).getUserObject();
-    	  cw.runTest(test); 
+            if ((object.getClass().getName().equals("utils.parser.ParsedFunction"))) {
+                return true;
+            }
+            return false;
         }
     }
 
+    /**
+     * Runs all the tests that are in the Properties tree node
+     *
+     */
+    public void runTests(){
+        ConsoleWindow cw = WindowManager.getInstance().getConsoleWindow();
+        cw.readyToReceiveTestResults();
+        TreeModel tree = this.tree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getRoot();
+        DefaultMutableTreeNode testsNode = (DefaultMutableTreeNode) root.getChildAt(treeChildProperties);
+        if (!testsNode.isLeaf())
+            for (int i=0;i<testsNode.getLeafCount();i++){
+                ParsedTest test = (ParsedTest) ((DefaultMutableTreeNode) testsNode
+                        .getChildAt(i)).getUserObject();
+                cw.runTest(test);
+            }
+    }
+
 }
+

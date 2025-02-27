@@ -56,6 +56,7 @@ public class OptionsWindow {
   private JTextField jTextFieldLibraryPath;
   private JTextField jTextFieldTestFunction;
   private JTextField jTextFieldTestPositive;
+
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
   private JComboBox jcbGlobalFontSize; // global font settings
