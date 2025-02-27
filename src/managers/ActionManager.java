@@ -746,7 +746,7 @@ public class ActionManager {
         wm.getToolbar().setFontSize(globalFontsize);
         wm.getOptionsWindow().setFontSize(globalFontsize);
         wm.getAboutWindow().setFontSize(globalFontsize);
-        //wm.getTreeWindow().setFontSize(globalFontsize);
+        //wm.getTreeWindow().getRenderer(); TreeWindow font changer is stored in the Renderer class
         wm.getWizardWindow().setFontSize(globalFontsize);
         wm.getSearchWindow().setFontSize(globalFontsize);
 

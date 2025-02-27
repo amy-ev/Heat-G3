@@ -15,12 +15,10 @@
 
 package view.windows;
 
-import managers.FontManager;
+import managers.*;
+import utils.Settings;
 import utils.parser.*;
 import utils.Resources;
-import managers.ActionManager;
-import managers.WindowManager;
-import managers.ParserManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -400,28 +398,31 @@ public class TreeWindow
         tree.addMouseListener(ml);
     }
 
+    public MyRenderer getRenderer(){
+        MyRenderer mr = new MyRenderer();
+        return mr;
+    }
+
 
     class MyRenderer extends DefaultTreeCellRenderer
     {
+        SettingsManager sm = SettingsManager.getInstance();
+        public void setFontSize(int ptSize){
+            Font font = new Font("Arial", Font.PLAIN, ptSize);
+            fm.setComponentFont(font, this);
+
+        }
         public MyRenderer() {
         }
 
-//        static void Font(){
-//            FontManager fm = FontManager.getInstance();
-//            class SetFont{
-//                public void setFontSize(int ptSize, JComponent c) {
-//                    Font font = new Font("Arial", Font.PLAIN, ptSize);
-//                    fm.setComponentFont(font, c);
-//                }
-//            }
-//            new SetFont().setFontSize(ptSize, c);
-//        }
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
         {
           ArrayList tests;
-          // MADE INTO VARIABLE
-          Component  c = super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-          c.setFont(new Font("Arial", Font.PLAIN, 20));
+
+          // call setFontSize to alter components within the tree
+          int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+          setFontSize(fontsize);
+
           DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
           Object object = node.getUserObject();
           if (isNotComponent(object))
