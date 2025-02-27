@@ -92,6 +92,8 @@ public class OptionsWindow {
 
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
+
+  public boolean is_visible = false;
   private FontManager fm = FontManager.getInstance();
 
   private int fontSize = 12;
@@ -264,6 +266,7 @@ public class OptionsWindow {
     dialog.pack();
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
     dialog.setVisible(true);
+    is_visible = true;
   }
 
   /**
@@ -272,6 +275,7 @@ public class OptionsWindow {
   public void close() {
     if (dialog != null)
       dialog.dispose();
+      //is_visible = false;
   }
 
   /**
@@ -391,4 +395,10 @@ public class OptionsWindow {
     if (selectedFile != null)
       jTextFieldLibraryPath.setText(selectedFile.getAbsolutePath());
   }
+
+  // boolean used to check when the options window has been opened
+  public boolean isVisible(){
+    return is_visible;
+  }
 }
+

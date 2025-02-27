@@ -67,7 +67,7 @@ public class WindowManager {
   private SearchDialog searchWindow;
   private TreeWindow treeWindow;
   private SyntaxUtilities syntaxUtilities;
- 
+
 
   /* toolbars */
   private MainMenu mainMenu;
@@ -353,6 +353,7 @@ public class WindowManager {
     mainScreenFrame.setTitle("HEAT - Haskell Educational Advancement Tool");
     Image icon = Resources.getIcon("logo").getImage();
     mainScreenFrame.setIconImage(icon);
+    
     // BorderLayout borderLayout1 = new BorderLayout();
 
     /* create windows and toolbars */
@@ -368,9 +369,6 @@ public class WindowManager {
 
     mainMenu = new MainMenu();
     toolbar = new Toolbar();
-
-
-
 
     /* setup main container components */
     // JPanel mainScreenPanel = new JPanel();
