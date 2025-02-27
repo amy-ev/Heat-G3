@@ -703,6 +703,12 @@ public class ActionManager {
       String libraryPath = wm.getOptionsWindow().getLibraryPath();
       String outputFontSize = wm.getOptionsWindow().getOuputFontSize();
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
+
+      // Colour-blind syntax
+      String syntaxTheme = wm.getOptionsWindow().getSyntaxTheme();
+
+
+
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
@@ -717,6 +723,10 @@ public class ActionManager {
       
       sm.setSetting(Settings.TEST_FUNCTION, wm.getOptionsWindow().getTestFunction().trim());
       sm.setSetting(Settings.TEST_POSITIVE, wm.getOptionsWindow().getTestPositive().trim());
+
+      // Colour-blind set theme settings
+        wm.getSyntaxUtilities().applyTheme(syntaxTheme);
+        sm.setSetting(Settings.SYNTAX_THEME, syntaxTheme);
 
       /* Perform any font updates */
       try {

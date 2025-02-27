@@ -1570,6 +1570,14 @@ public class JEditTextArea extends JComponent {
       updateScrollBars();
     }
   }
+  /**
+   * Force syntax highlighting refresh by re-tokenizing the text.
+   */
+  public void refreshSyntaxHighlighting() {
+    System.out.println("Forcing syntax highlighting refresh...");
+    setTokenMarker(getTokenMarker());  // Forces re-tokenization
+    repaint();
+  }
 
   class ScrollLayout implements LayoutManager {
     public void addLayoutComponent(String name, Component comp) {
@@ -1973,5 +1981,9 @@ public class JEditTextArea extends JComponent {
        WindowManager.getInstance().getMainMenu().updateUndoRedo();
        
     }
+
+
+
+
 }
 }

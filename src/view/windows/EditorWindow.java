@@ -25,15 +25,13 @@ import java.util.logging.Logger;
 import utils.Settings;
 import utils.jsyntax.JEditTextArea;
 import utils.jsyntax.JEditTextAreaWithMouseWheel;
+import utils.jsyntax.SyntaxUtilities;
 import utils.jsyntax.tokenmarker.HaskellTokenMarker;
 import utils.jsyntax.tokenmarker.LHSHaskellTokenMarker;
 
 import java.awt.Font;
 import java.awt.event.*;
-import javax.swing.KeyStroke;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
 /**
  * Main window where code is displayed
@@ -49,7 +47,8 @@ public class EditorWindow {
   /* If it has been saved */
   private boolean needsSaving;
   private int fontSize = 12;
-  
+
+  private String syntaxColour = "DEFAULT_THEME";
   /* Popup menu for the display window*/
   private JPopupMenu popMenu = new JPopupMenu("Edit");
   /*Popup menu items*/
@@ -198,6 +197,8 @@ public class EditorWindow {
   private void jbInit() throws Exception {
     SettingsManager sm = SettingsManager.getInstance();
     FileManager fm = FileManager.getInstance();
+
+
     jtaCodeView = new JEditTextAreaWithMouseWheel();
 
     String fontSizeStr = sm.getSetting(Settings.CODE_FONT_SIZE);
@@ -211,7 +212,9 @@ public class EditorWindow {
         log.warning("[DisplayWindow] - Failed to parse " +
           Settings.CODE_FONT_SIZE + " setting, check value in settings file");
       }
+
     }
+
 
     
     jtaCodeView.setTokenMarker(new HaskellTokenMarker());
@@ -249,9 +252,25 @@ public class EditorWindow {
     jtaCodeView.setHorizontalScrollBarEnabled(enabled);
     setEnabled(false);
 }
- 
+    //This new method use for updating syntax style to the editor
 
-  /**
+    public void updateSyntaxStyles() {
+        if (jtaCodeView != null) {
+            System.out.println("Updating syntax styles...");
+
+            jtaCodeView.getPainter().setStyles(SyntaxUtilities.getDefaultSyntaxStyles());
+            jtaCodeView.refreshSyntaxHighlighting(); // Forces re-tokenization and repaint
+
+            System.out.println("Syntax styles updated!");
+
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(jtaCodeView));
+            SwingUtilities.getWindowAncestor(jtaCodeView).repaint();
+        }
+    }
+
+
+
+    /**
    * Changes the font size
    *
    * @param ptSize The new size
@@ -289,11 +308,12 @@ public class EditorWindow {
   /**
    * Returns the {@link JEditTextArea} component
    *
-   * @return the {@link JEditTextArea} component 
+   * @return the {@link JEditTextArea} component
    */
   public static JEditTextArea getTextPane() {
     return jtaCodeView;
   }
-  
- 
+
+
+
 }

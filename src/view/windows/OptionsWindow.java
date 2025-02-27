@@ -27,22 +27,14 @@ import utils.Settings;
 
 import view.dialogs.FileDialogs;
 
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+
+import static utils.jsyntax.SyntaxUtilities.applyTheme;
 
 
 /**
@@ -59,10 +51,17 @@ public class OptionsWindow {
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
   private JDialog dialog;
+  private JComboBox jcbSyntaxThemes;
+
+
 
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
-  
+
+ private JButton defaultThemeButton = new JButton("Default mode");
+ private JButton protanopiaThemeButton = new JButton("Protanopia mode");
+ private JButton deuteranopiaThemeButton = new JButton("Deuteranopia mode");
+ private JButton tritanopiaThemeButton = new JButton("Tritanopia mode");
   
   /**
    * Creates a new OptionsWindow object.
@@ -148,9 +147,21 @@ public class OptionsWindow {
     JPanel interpreterFontSize = new JPanel();
     interpreterFontSize.add(new JLabel("Interpreter font size:"));
     interpreterFontSize.add(jcbOutputFontSize);
+
+    JPanel SyntaxThemeSelectionPanel = new JPanel();
+    SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
+
+    jcbSyntaxThemes = new JComboBox();
+    jcbSyntaxThemes.addItem("PROTANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEUTERANOPIA_THEME");
+    jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEFAULT_THEME");
+    SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
+
+    panelFontSizes.add(SyntaxThemeSelectionPanel);
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
-    
+
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
@@ -213,6 +224,8 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.SYNTAX_THEME));
+
   }
 
  
@@ -269,6 +282,11 @@ public class OptionsWindow {
     return (String) jcbCodeFontSize.getSelectedItem();
   }
 
+  public String getSyntaxTheme() {
+      return (String) jcbSyntaxThemes.getSelectedItem();
+  }
+
+
   private void jButton2_actionPerformed(ActionEvent e) {
     close();
   }
@@ -276,7 +294,6 @@ public class OptionsWindow {
 //  private void jbUpdate_actionPerformed(ActionEvent e) {
 //    close();
 //  }
-
   
   /**
    * Browse for an interpreter file with full path

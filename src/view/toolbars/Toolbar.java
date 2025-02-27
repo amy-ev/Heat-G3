@@ -88,6 +88,8 @@ public class Toolbar {
     toolBar.addSeparator();
     toolBar.add(treeWindowButton);
     toolBar.add(outputWindowButton);
+
+
     toolBar.add(javax.swing.Box.createHorizontalGlue());
     toolBar.add(statusButton);
     statusButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
