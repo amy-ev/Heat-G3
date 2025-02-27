@@ -119,10 +119,10 @@ public class ActionManager {
 
   // run actions
   private CompileAction compileAction = new CompileAction(null,
-		  	Resources.getIcon("reload44"), "Load & compile program", new Integer(KeyEvent.VK_L),
+		  	Resources.getIcon("reload32"), "Load & compile program", new Integer(KeyEvent.VK_L),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_L, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private CompileAction toolbarCompileAction = new CompileAction(null,
-		  	Resources.getIcon("reload44"), "Load program into interpreter and compile it", new Integer(KeyEvent.VK_L),
+		  	Resources.getIcon("reload32"), "Load program into interpreter and compile it", new Integer(KeyEvent.VK_L),
 		    KeyStroke.getKeyStroke(KeyEvent.VK_L, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
   private InterruptAction interruptAction = new InterruptAction(null, 
 		  	Resources.getIcon("stop32"), "Interrupt interpreter", new Integer(KeyEvent.VK_I),
