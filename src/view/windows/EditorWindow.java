@@ -31,10 +31,7 @@ import utils.jsyntax.tokenmarker.LHSHaskellTokenMarker;
 
 import java.awt.Font;
 import java.awt.event.*;
-import javax.swing.KeyStroke;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
 /**
  * Main window where code is displayed
@@ -260,6 +257,9 @@ public class EditorWindow {
             jtaCodeView.refreshSyntaxHighlighting(); // Forces re-tokenization and repaint
 
             System.out.println("Syntax styles updated!");
+
+            SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(jtaCodeView));
+            SwingUtilities.getWindowAncestor(jtaCodeView).repaint();
         }
     }
 

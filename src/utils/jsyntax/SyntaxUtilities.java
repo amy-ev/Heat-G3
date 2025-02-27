@@ -211,6 +211,7 @@ public class SyntaxUtilities {
 
     // Force UI refresh
     refreshEditor();
+
   }
 
 

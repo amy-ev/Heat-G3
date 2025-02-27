@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 
 import utils.Resources;
+import utils.jsyntax.SyntaxUtilities;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
 import view.windows.AboutWindow;
@@ -66,6 +67,7 @@ public class WindowManager {
   private PrintWindow printwindow;
   private SearchDialog searchWindow;
   private TreeWindow treeWindow;
+  private SyntaxUtilities syntaxUtilities;
  
 
   /* toolbars */
@@ -326,6 +328,10 @@ public class WindowManager {
    */
   public TreeWindow getTreeWindow(){
       return treeWindow;
+  }
+
+  public SyntaxUtilities getSyntaxUtilities() {
+      return syntaxUtilities;
   }
 
   /**

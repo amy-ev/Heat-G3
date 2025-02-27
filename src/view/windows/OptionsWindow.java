@@ -51,6 +51,7 @@ public class OptionsWindow {
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
   private JDialog dialog;
+  private JComboBox jcbSyntaxThemes;
 
 
 
@@ -150,38 +151,15 @@ public class OptionsWindow {
     JPanel SyntaxThemeSelectionPanel = new JPanel();
     SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
 
-    defaultThemeButton.addActionListener(e -> {
-      applyTheme("default");
-      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
-      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
-    });
-
-    protanopiaThemeButton.addActionListener(e -> {
-      applyTheme("PROTANOPIA_THEME");
-      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
-      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
-    });
-
-    deuteranopiaThemeButton.addActionListener(e -> {
-      applyTheme("Deuteranopia");
-      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
-      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
-    });
-
-    tritanopiaThemeButton.addActionListener(e -> {
-      applyTheme("Tritanopia");
-      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
-      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
-    });
+    jcbSyntaxThemes = new JComboBox();
+    jcbSyntaxThemes.addItem("PROTANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEUTERANOPIA_THEME");
+    jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEFAULT_THEME");
+    SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
 
 
 
-    SyntaxThemeSelectionPanel.add(defaultThemeButton);
-    SyntaxThemeSelectionPanel.add(protanopiaThemeButton);
-    SyntaxThemeSelectionPanel.add(deuteranopiaThemeButton);
-    SyntaxThemeSelectionPanel.add(tritanopiaThemeButton);
-
-    //SyntaxThemeSelectionPanel.setVisible(true);
 
 
 
@@ -253,6 +231,11 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.PROTANOPIA_THEME));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.DEUTERANOPIA_THEME));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.TRITANOPIA_THEME));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.DEFAULT_THEME));
+
   }
 
  
@@ -309,6 +292,21 @@ public class OptionsWindow {
     return (String) jcbCodeFontSize.getSelectedItem();
   }
 
+
+  public String getProtanopiaTheme() {
+      return (String) jcbSyntaxThemes.getSelectedItem();
+  }
+  public String getDeuteranopiaTheme() {
+        return (String) jcbSyntaxThemes.getSelectedItem();
+  }
+  public String getTritanopiaTheme() {
+        return (String) jcbSyntaxThemes.getSelectedItem();
+  }
+  public String getDefaultTheme() {
+      return (String) jcbSyntaxThemes.getSelectedItem();
+  }
+
+
   private void jButton2_actionPerformed(ActionEvent e) {
     close();
   }
@@ -316,7 +314,6 @@ public class OptionsWindow {
 //  private void jbUpdate_actionPerformed(ActionEvent e) {
 //    close();
 //  }
-
   
   /**
    * Browse for an interpreter file with full path

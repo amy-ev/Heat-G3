@@ -56,11 +56,11 @@ public class Settings {
 
   public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
 
-  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+  public static final String  DEUTERANOPIA_THEME = "DEUTERANOPIA_THEME";
 
-  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+  public static final String TRITANOPIA_THEME = "TRITANOPIA_THEME";
 
-  public static final String  PROTANOPIA_THEME = "PROTANOPIA_THEME";
+  public static final String DEFAULT_THEME = "DEFAULT_THEME";
 
   
 }

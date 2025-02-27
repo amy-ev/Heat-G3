@@ -702,6 +702,15 @@ public class ActionManager {
       String libraryPath = wm.getOptionsWindow().getLibraryPath();
       String outputFontSize = wm.getOptionsWindow().getOuputFontSize();
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
+
+      // Colour-blind syntax
+      String protanopiaTheme = wm.getOptionsWindow().getProtanopiaTheme();
+      String deuteranopiaTheme = wm.getOptionsWindow().getDeuteranopiaTheme();
+      String tritanopiaTheme = wm.getOptionsWindow().getTritanopiaTheme();
+      String defaultTheme = wm.getOptionsWindow().getDefaultTheme();
+
+
+
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
@@ -716,6 +725,20 @@ public class ActionManager {
       
       sm.setSetting(Settings.TEST_FUNCTION, wm.getOptionsWindow().getTestFunction().trim());
       sm.setSetting(Settings.TEST_POSITIVE, wm.getOptionsWindow().getTestPositive().trim());
+
+      // Colour-blind set theme settings
+
+        wm.getSyntaxUtilities().applyTheme(protanopiaTheme);
+        sm.setSetting(Settings.PROTANOPIA_THEME, protanopiaTheme);
+
+        wm.getSyntaxUtilities().applyTheme(deuteranopiaTheme);
+        sm.setSetting(Settings.DEUTERANOPIA_THEME, deuteranopiaTheme);
+
+        wm.getSyntaxUtilities().applyTheme(tritanopiaTheme);
+        sm.setSetting(Settings.TRITANOPIA_THEME, tritanopiaTheme);
+
+        wm.getSyntaxUtilities().applyTheme(defaultTheme);
+        sm.setSetting(Settings.DEFAULT_THEME, defaultTheme);
 
       /* Perform any font updates */
       try {

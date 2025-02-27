@@ -105,7 +105,9 @@ public class SettingsManager {
     newSettings.setProperty(Settings.TEST_FUNCTION,"");
     newSettings.setProperty(Settings.TEST_POSITIVE,"True");
     newSettings.setProperty(Settings.PROTANOPIA_THEME, "PROTANOPIA_THEME");
-
+    newSettings.setProperty(Settings.DEUTERANOPIA_THEME, "DEUTERANOPIA_THEME");
+    newSettings.setProperty(Settings.TRITANOPIA_THEME, "TRITANOPIA_THEME");
+    newSettings.setProperty(Settings.DEFAULT_THEME, "DEFAULT_THEME");
     return newSettings;
   }
   
