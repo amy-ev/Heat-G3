@@ -96,25 +96,32 @@ public class SyntaxUtilities {
    */
   public static SyntaxStyle[] getDefaultSyntaxStyles() {
     SyntaxStyle[] styles = new SyntaxStyle[Token.ID_COUNT];
+
     /* Comments */
-    styles[Token.COMMENT1] = new SyntaxStyle(getSyntaxColor("comment"), false, false);
-    styles[Token.COMMENT2] = new SyntaxStyle(getSyntaxColor("comment"), false, false);
+    styles[Token.COMMENT1] = new SyntaxStyle(getSyntaxColor("comment1"), false, false);
+    styles[Token.COMMENT2] = new SyntaxStyle(getSyntaxColor("comment2"), false, false);
+
     /* Keywords */
-    styles[Token.KEYWORD1] = new SyntaxStyle(getSyntaxColor("keyword"), false, true);
-    styles[Token.KEYWORD2] = new SyntaxStyle(getSyntaxColor("keyword"), false, false);
-    styles[Token.KEYWORD3] = new SyntaxStyle(getSyntaxColor("keyword"), false, true);
-    /* Literal which include string and number highlight */
-    styles[Token.LITERAL1] = new SyntaxStyle(getSyntaxColor("string"), false, false);
-    styles[Token.LITERAL2] = new SyntaxStyle(getSyntaxColor("string"), false, true);
+    styles[Token.KEYWORD1] = new SyntaxStyle(getSyntaxColor("keyword1"), false, true);
+    styles[Token.KEYWORD2] = new SyntaxStyle(getSyntaxColor("keyword2"), false, false);
+    styles[Token.KEYWORD3] = new SyntaxStyle(getSyntaxColor("keyword3"), false, true);
+
+    /* Literals (strings and numbers) */
+    styles[Token.LITERAL1] = new SyntaxStyle(getSyntaxColor("literal1"), false, false);
+    styles[Token.LITERAL2] = new SyntaxStyle(getSyntaxColor("literal2"), false, true);
+
     /* Label */
     styles[Token.LABEL] = new SyntaxStyle(getSyntaxColor("label"), false, true);
-    /* Operator which include the Operator like +,- */
+
+    /* Operators */
     styles[Token.OPERATOR] = new SyntaxStyle(getSyntaxColor("operator"), false, false);
-    /* Invalid include errors */
+
+    /* Invalid syntax highlighting */
     styles[Token.INVALID] = new SyntaxStyle(getSyntaxColor("invalid"), false, false);
 
     return styles;
   }
+
 
   /**
    * Paints the specified line onto the graphics context. Note that this method
