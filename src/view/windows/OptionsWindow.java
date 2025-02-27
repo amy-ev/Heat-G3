@@ -25,24 +25,17 @@ import managers.WindowManager;
 
 import utils.Settings;
 
+import utils.jsyntax.SyntaxThemeSelectionPanel;
 import view.dialogs.FileDialogs;
 
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+
+import static utils.jsyntax.SyntaxUtilities.applyTheme;
 
 
 /**
@@ -60,9 +53,15 @@ public class OptionsWindow {
   private JComboBox jcbCodeFontSize;
   private JDialog dialog;
 
+
+
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
-  
+
+ private JButton defaultThemeButton = new JButton("Default mode");
+ private JButton protanopiaThemeButton = new JButton("Protanopia mode");
+ private JButton deuteranopiaThemeButton = new JButton("Deuteranopia mode");
+ private JButton tritanopiaThemeButton = new JButton("Tritanopia mode");
   
   /**
    * Creates a new OptionsWindow object.
@@ -148,9 +147,51 @@ public class OptionsWindow {
     JPanel interpreterFontSize = new JPanel();
     interpreterFontSize.add(new JLabel("Interpreter font size:"));
     interpreterFontSize.add(jcbOutputFontSize);
+
+    JPanel SyntaxThemeSelectionPanel = new JPanel();
+    SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
+
+    defaultThemeButton.addActionListener(e -> {
+      applyTheme("default");
+      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
+      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
+    });
+
+    protanopiaThemeButton.addActionListener(e -> {
+      applyTheme("Protanopia");
+      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
+      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
+    });
+
+    deuteranopiaThemeButton.addActionListener(e -> {
+      applyTheme("Deuteranopia");
+      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
+      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
+    });
+
+    tritanopiaThemeButton.addActionListener(e -> {
+      applyTheme("Tritanopia");
+      SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel));
+      SwingUtilities.getWindowAncestor(SyntaxThemeSelectionPanel).repaint();
+    });
+
+
+
+    SyntaxThemeSelectionPanel.add(defaultThemeButton);
+    SyntaxThemeSelectionPanel.add(protanopiaThemeButton);
+    SyntaxThemeSelectionPanel.add(deuteranopiaThemeButton);
+    SyntaxThemeSelectionPanel.add(tritanopiaThemeButton);
+
+    //SyntaxThemeSelectionPanel.setVisible(true);
+
+
+
+    panelFontSizes.add(SyntaxThemeSelectionPanel);
+
+
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
-    
+
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);

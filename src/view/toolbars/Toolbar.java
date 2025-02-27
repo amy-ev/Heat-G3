@@ -90,9 +90,6 @@ public class Toolbar {
     toolBar.add(treeWindowButton);
     toolBar.add(outputWindowButton);
 
-    //testing syntaxhighlight panel
-    SyntaxThemeSelectionPanel themePanel = new SyntaxThemeSelectionPanel();
-    toolBar.add(themePanel);
 
     toolBar.add(javax.swing.Box.createHorizontalGlue());
     toolBar.add(statusButton);

@@ -11,8 +11,8 @@ import static utils.jsyntax.SyntaxUtilities.applyTheme;
 public class SyntaxThemeSelectionPanel extends JPanel {
 
     public SyntaxThemeSelectionPanel() {
-        setLayout(new FlowLayout());
-        setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+        //setLayout(new FlowLayout());
+        //setBorder(BorderFactory.createLineBorder(Color.RED, 3));
 
 
         JButton defaultThemeButton = new JButton("Default mode");
