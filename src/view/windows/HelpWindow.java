@@ -15,6 +15,7 @@
 
 package view.windows;
 
+import managers.OverlayManager;
 import managers.SettingsManager;
 import managers.WindowManager;
 
@@ -186,41 +187,6 @@ public class HelpWindow {
             log.warning("[HelpWindow] - " + nodeInfo.toString());
         }
       });
-
-    // Get a settings manager instance and assign the OVERLAY_DISPLAY setting to a variable
-    SettingsManager sm = SettingsManager.getInstance();
-    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
-
-    // Grab the colour settings for the overlay and assign to String objects
-    String overlayRed = sm.getSetting(Settings.OVERLAY_RED);
-    String overlayGreen = sm.getSetting(Settings.OVERLAY_GREEN);
-    String overlayBlue = sm.getSetting(Settings.OVERLAY_BLUE);
-    String overlayAlpha = sm.getSetting(Settings.OVERLAY_ALPHA);
-
-    // Checks if the overlay display setting is true && !null and displays the overlay if so
-    if (displayOverlay != null && displayOverlay != "false") {
-      JPanel glassPane = new JPanel() {
-        // Parse String objects for int value of overlay colours
-        int red = Integer.parseInt(overlayRed);
-        int green = Integer.parseInt(overlayGreen);
-        int blue = Integer.parseInt(overlayBlue);
-        int alpha = Integer.parseInt(overlayAlpha);
-
-        @Override
-        protected void paintComponent(Graphics g) {
-          super.paintComponent(g);
-          Graphics2D g2d = (Graphics2D) g.create();
-          g2d.setColor(new Color(red, green, blue, alpha)); // Controls overlay colour
-          g2d.fillRect(0, 0, getWidth(), getHeight());
-          g2d.dispose();
-        }
-      };
-      // Creates transparency, ensures interactivity of underlying elements, assigns to main window frame
-      glassPane.setOpaque(false);
-      glassPane.setLayout(null);
-      frame.setGlassPane(glassPane);
-      glassPane.setVisible(true);
-    }
   }
 
   private void initHelp() {
@@ -280,7 +246,18 @@ public class HelpWindow {
     frame.getContentPane().add(jPanel0);
     frame.setSize(670, 435);
     frame.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     frame.setVisible(true);
+  }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addFrameOverlay(frame, toggle);
   }
 
   private void jClose_actionPerformed(ActionEvent e) {

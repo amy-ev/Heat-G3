@@ -17,8 +17,10 @@ package view.windows;
 
 import managers.ActionManager;
 import managers.OverlayManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
+import utils.Settings;
 import view.dialogs.FileDialogs;
 
 import java.awt.event.ActionEvent;
@@ -105,6 +107,12 @@ public class WizardWindow {
     dialog.setMinimumSize(new Dimension(500,200));
     dialog.setSize(400,200);
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
+    dialog.setVisible(true);
   }
 
   public void updateDisplayOverlayToggle(String toggle) {

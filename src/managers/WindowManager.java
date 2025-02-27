@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 import utils.Resources;
+import utils.Settings;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
 import view.windows.AboutWindow;
@@ -362,7 +363,12 @@ public class WindowManager {
 	
     jSplitMain.setOneTouchExpandable(true);
     jSplitTree.setOneTouchExpandable(true);
-   
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    if (!displayOverlay.equals("Off")) {
+        updateDisplayOverlayToggle(displayOverlay);
+    }
 
     try {
       /* handle closing screen */

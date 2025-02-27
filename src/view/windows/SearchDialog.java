@@ -16,9 +16,11 @@
 package view.windows;
 
 import managers.OverlayManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.Search;
+import utils.Settings;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -155,6 +157,18 @@ public class SearchDialog {
     frame.setSize(400, 100);
     frame.setResizable(false);
     frame.setLocationRelativeTo(wm.getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     frame.setVisible(true);
   }
+
+  public void updateDisplayOverlayToggle(String toggle) {
+    // Call the OverlayManager and apply an overlay if setting is true
+    OverlayManager om = OverlayManager.getInstance();
+    om.addFrameOverlay(frame, toggle);
+  }
+
 }

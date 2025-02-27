@@ -702,10 +702,8 @@ public class ActionManager {
       InterpreterManager im = InterpreterManager.getInstance();
 
       String displayOverlayToggle = wm.getOptionsWindow().getDisplayOverlayToggle();
+      sm.setSetting(Settings.OVERLAY_DISPLAY, displayOverlayToggle);
 
-      wm.updateDisplayOverlayToggle(displayOverlayToggle);
-      wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
-      wm.getOptionsWindow().updateDisplayOverlayToggle(displayOverlayToggle);
 
 
 
@@ -739,7 +737,15 @@ public class ActionManager {
         log.warning("[ActionManager] - Failed to parse " +
           Settings.CODE_FONT_SIZE + " setting from options window");
       }
-    
+
+        System.out.println("Reached wm toggle");
+      wm.updateDisplayOverlayToggle(displayOverlayToggle);
+        System.out.println("Reached aw toggle");
+//      wm.getAboutWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+        System.out.println("Reached om toggle");
+      wm.getOptionsWindow().updateDisplayOverlayToggle(displayOverlayToggle);
+
+      System.out.println("Reached close");
       wm.getOptionsWindow().close();
       sm.saveSettings();
       

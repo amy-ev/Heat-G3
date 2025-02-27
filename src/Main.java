@@ -38,6 +38,7 @@ public static void main(String[] args) {
     Logger log = Logger.getLogger("heat");
     try {
         log.setUseParentHandlers(false);  // turn off logging on stdout console
+        log.setUseParentHandlers(false);  // turn off logging on stdout console
         FileHandler handler = new FileHandler(System.getProperty("user.home") + File.separator + "heat.log");
         handler.setFormatter(new SimpleFormatter());
         log.addHandler(handler);

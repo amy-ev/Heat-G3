@@ -104,6 +104,14 @@ public class AboutWindow {
     dialog.getContentPane().add(jpMain);
     dialog.setSize(400,400);
     dialog.setLocationRelativeTo(WindowManager.getInstance().getMainScreenFrame());
+
+    SettingsManager sm = SettingsManager.getInstance();
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    if (displayOverlay != null && displayOverlay != "Off") {
+      updateDisplayOverlayToggle(displayOverlay);
+    }
+
+    dialog.setVisible(true);
   }
 
   public void updateDisplayOverlayToggle(String toggle) {
