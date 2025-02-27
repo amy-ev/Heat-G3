@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class SplashScreenManager {
 
     private static SplashScreenManager instance = null;
-    private final JFrame splashScreen = new JFrame("Accessibility Mode");
+    private final JFrame splashScreen = new JFrame("Accessibility Options");
     private final OptionsWindow ow = new OptionsWindow();
 
     public SplashScreenManager() {
