@@ -15,14 +15,16 @@
 
 package view.windows;
 
+import managers.FontManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.LinkListener;
+import utils.Settings;
+
+import java.awt.*;
 import java.util.logging.Logger;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,6 +37,11 @@ import javax.swing.JEditorPane;
 
 
 public class AboutWindow {
+  FontManager fm = FontManager.getInstance();
+  private SettingsManager sm = SettingsManager.getInstance();
+
+  private int fontSize = 12;
+
   private JPanel jpMain = new JPanel();
   private JPanel jPanel1 = new JPanel();
   private JLabel jlHeat = new JLabel();
@@ -52,6 +59,11 @@ public class AboutWindow {
   private java.net.URL htmURL;
   private String indexFile = "html/about.html";
 
+  public void setFontSize(int ptSize){
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setLabelsFont(font,jlHeat, jLabel1 );
+    fm.setButtonsFont(font, jbClose);
+  }
   public AboutWindow() {
     try {
       jbInit();
@@ -94,6 +106,20 @@ public class AboutWindow {
     jPanel2.add(jbClose, null);
     jpMain.add(jPanel2, BorderLayout.SOUTH);
     jpMain.add(jEditorPane1, BorderLayout.CENTER);
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
   }
 
   public void show() {

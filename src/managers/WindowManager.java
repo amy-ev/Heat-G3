@@ -15,8 +15,7 @@
 
 package managers;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
@@ -27,7 +26,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
-import java.awt.Dimension;
+import javax.swing.plaf.FontUIResource;
 
 import utils.Resources;
 import utils.jsyntax.SyntaxUtilities;
@@ -312,6 +311,15 @@ public class WindowManager {
   public MainMenu getMainMenu() {
     return mainMenu;
   }
+
+    /**
+     * Returns the {@link Toolbar} used in GUI
+     *
+     * @return the {@link Toolbar} object from GUI
+     */
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
 
   /**
    * Returns the {@link SearchDialog} used in GUI

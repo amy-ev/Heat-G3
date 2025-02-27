@@ -15,15 +15,19 @@
 
 package view.windows;
 
+import managers.FontManager;
+import managers.SettingsManager;
 import managers.WindowManager;
 
 import utils.Search;
+import utils.Settings;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -36,6 +40,11 @@ import javax.swing.JTextField;
  * Displays a window to perform a search
  */
 public class SearchDialog {
+  private FontManager fm = FontManager.getInstance();
+  SettingsManager sm = SettingsManager.getInstance();
+  private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
+
   private JPanel jPanel1 = new JPanel();
   private JTextField jTextField1 = new JTextField();
   private JLabel jLabel1 = new JLabel();
@@ -107,6 +116,27 @@ public class SearchDialog {
     jPanel1.add(jTextField1, null);
     jPanel1.add(jCheckBox1, null);
     jPanel1.add(jButton1, null);
+
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
+  }
+  public void setFontSize(int ptSize){
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setLabelsFont(font, jLabel1);
+    fm.setButtonsFont(font, jButton1);
+
   }
 
   private void jTextField1_actionPerformed(ActionEvent e) {
@@ -150,6 +180,7 @@ public class SearchDialog {
     frame.setSize(400, 100);
     frame.setResizable(false);
     frame.setLocationRelativeTo(wm.getMainScreenFrame());
+    frame.pack();
     frame.setVisible(true);
   }
 }

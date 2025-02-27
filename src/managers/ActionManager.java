@@ -704,6 +704,10 @@ public class ActionManager {
       String outputFontSize = wm.getOptionsWindow().getOuputFontSize();
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
 
+      //GLOBAL FONT SETTINGS
+      String globalFontSize = wm.getOptionsWindow().getGlobalFontSize();
+
+
       // Colour-blind syntax
       String syntaxTheme = wm.getOptionsWindow().getSyntaxTheme();
 
@@ -746,7 +750,25 @@ public class ActionManager {
         log.warning("[ActionManager] - Failed to parse " +
           Settings.CODE_FONT_SIZE + " setting from options window");
       }
-    
+      // GLOBAL FONT SETTINGS
+      try {
+        int globalFontsize = Integer.parseInt(globalFontSize);
+        wm.getMainMenu().setFontSize(globalFontsize);
+        wm.getToolbar().setFontSize(globalFontsize);
+        wm.getOptionsWindow().setFontSize(globalFontsize);
+        wm.getAboutWindow().setFontSize(globalFontsize);
+        //wm.getTreeWindow().getRenderer(); TreeWindow font changer is stored in the Renderer class
+        wm.getWizardWindow().setFontSize(globalFontsize);
+        wm.getSearchWindow().setFontSize(globalFontsize);
+
+
+        sm.setSetting(Settings.GLOBAL_FONT_SIZE, globalFontSize);
+    } catch (NumberFormatException nfe) {
+        log.warning("[ActionManager] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting from options window");
+    }
+
+
       wm.getOptionsWindow().close();
       sm.saveSettings();
       

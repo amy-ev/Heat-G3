@@ -16,10 +16,15 @@
 package view.toolbars;
 
 import managers.ActionManager;
+import managers.FontManager;
+import managers.SettingsManager;
+import utils.Settings;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import java.awt.*;
+import java.util.logging.Logger;
 
 // import com.apple.eawt.Application;
 
@@ -31,7 +36,11 @@ import javax.swing.JMenuItem;
  */
 public class MainMenu {
   private JMenuBar jMenuBar = new JMenuBar();
+  private FontManager fm = FontManager.getInstance();
+  private SettingsManager sm = SettingsManager.getInstance();
 
+  private int fontSize = 12;
+  private static Logger log = Logger.getLogger("heat");
   /* Program menu items */
   private JMenu jMenuFile = new JMenu();
   private JMenuItem jMenuItemOpen = new JMenuItem();
@@ -42,6 +51,11 @@ public class MainMenu {
 
   /* Edit menu items */
   private JMenu jMenuEdit = new JMenu();
+
+  // converted undo and redo abstract action objects into jMenuItems for font size adjustments.
+  private JMenuItem jMenuItemUndo = new JMenuItem();
+  private JMenuItem jMenuItemRedo = new JMenuItem();
+
   private JMenuItem jMenuItemCopy = new JMenuItem();
   private JMenuItem jMenuItemCut = new JMenuItem();
   private JMenuItem jMenuItemPaste = new JMenuItem();
@@ -81,6 +95,8 @@ public class MainMenu {
    */
   public void jbInit() throws Exception {
     ActionManager am = ActionManager.getInstance();
+    SettingsManager sm = SettingsManager.getInstance();
+
 
     /* File Menu */
     jMenuFile.setText("Program");
@@ -106,10 +122,15 @@ public class MainMenu {
     jMenuFile.addSeparator();
     jMenuFile.add(jMenuItemExit);
 
+
     /* Edit Menu */
     jMenuEdit.setText("Edit");
-    jMenuEdit.add(undoAction);
-    jMenuEdit.add(redoAction);
+    // changed the undoAction into a jMenuItem and attached its action to allow for font size adjustment
+    jMenuItemUndo.setAction(undoAction);
+    jMenuItemRedo.setAction(redoAction);
+    //jMenuEdit.add(undoAction);
+    //jMenuEdit.add(redoAction);
+
     jMenuEdit.addSeparator();
     jMenuEdit.setMnemonic('e');
     jMenuItemCut.setText("Cut");
@@ -124,6 +145,8 @@ public class MainMenu {
     jMenuItemSearch.setText("Find");
     jMenuItemSearch.setAction(am.getSearchAction());
     jMenuItemPaste.setMnemonic('f');
+    jMenuEdit.add(jMenuItemUndo);
+    jMenuEdit.add(jMenuItemRedo);
     jMenuEdit.add(jMenuItemCut);
     jMenuEdit.add(jMenuItemCopy);
     jMenuEdit.add(jMenuItemPaste);
@@ -161,12 +184,34 @@ public class MainMenu {
     jMenuBar.add(jMenuEdit);
     jMenuBar.add(jMenuRun);
     jMenuBar.add(jMenuHelp);
-    
+
+    String fontSizeStr = sm.getSetting(Settings.GLOBAL_FONT_SIZE);
+
+    if ((fontSizeStr != null) && (fontSizeStr != "")) {
+      try {
+        int size = Integer.parseInt(fontSizeStr);
+        fontSize = size;
+        setFontSize(fontSize);
+      } catch (NumberFormatException nfe) {
+        log.warning("[DisplayWindow] - Failed to parse " +
+                Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
+      }
+    }
     // Mac specific stuff
     // Application app = Application.getApplication();
     // app.setAboutHandler(null);
     // app.setPreferencesHandler(null);
     // app.setQuitHandler(null);
+  }
+
+  // Set font size for MainMenu items
+  public void setFontSize(int ptSize) {
+    Font font = new Font("Arial", Font.PLAIN, ptSize);
+    fm.setJMenuFont(font, jMenuFile, jMenuItemOpen, jMenuItemCloseFile, jMenuItemOptions, jMenuItemExit);
+    fm.setJMenuFont(font, jMenuEdit, jMenuItemUndo, jMenuItemRedo, jMenuItemCut, jMenuItemCopy, jMenuItemPaste, jMenuItemSearch);
+    fm.setJMenuFont(font, jMenuRun, jMenuItemCompile, jMenuItemInterrupt, jMenuItemTest);
+    fm.setJMenuFont(font,jMenuHelp, jMenuHelp, jMenuItemContents, jMenuItemAbout);
+    //jMenuFile.repaint();
   }
 
   /**

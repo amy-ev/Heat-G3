@@ -63,7 +63,7 @@ public class ConsoleWindow {
   private SimpleAttributeSet promptText = new SimpleAttributeSet();
   
   private Font displayFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
-  
+
   private boolean commandEditing = true;
   private boolean withinPrompt = false;
   private boolean testing = false;
@@ -133,8 +133,8 @@ public class ConsoleWindow {
     }
 
     jtaInterpreterOutput.setFont(displayFont);
-    
-    /* This document filter ensures that the fixed content of the console, 
+
+      /* This document filter ensures that the fixed content of the console,
      * i.e. the initial content up to fixedContentEnd, cannot be modified.
      */
     class DocumentFixedFilter extends javax.swing.text.DocumentFilter {

@@ -276,10 +276,10 @@ public class EditorWindow {
    * @param ptSize The new size
    */
   public void setFontSize(int ptSize) {
-    Font font = new Font("monospaced", Font.PLAIN, ptSize);
+      Font font = new Font("monospaced", Font.PLAIN, ptSize);
 
-    jtaCodeView.getPainter().setFont(font);
-    jtaCodeView.repaint();
+      jtaCodeView.getPainter().setFont(font);
+      jtaCodeView.repaint();
   }
 
   /**

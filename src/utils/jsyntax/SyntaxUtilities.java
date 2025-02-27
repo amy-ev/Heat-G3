@@ -95,6 +95,7 @@ public class SyntaxUtilities {
    * the default syntax styles.
    */
   public static SyntaxStyle[] getDefaultSyntaxStyles() {
+
     SyntaxStyle[] styles = new SyntaxStyle[Token.ID_COUNT];
 
     /* Comments */
