@@ -20,7 +20,7 @@ public class SyntaxColourBlindTheme {
 
     static {
         // Default Theme (Standard vision)
-        DEFAULT_THEME.put("keyword1", new Color(0, 0, 255));  // Bright Blue
+        DEFAULT_THEME.put("keyword1", new Color(0, 0, 255));  // Blue
         DEFAULT_THEME.put("keyword2", new Color(75, 0, 130)); // Indigo
         DEFAULT_THEME.put("keyword3", new Color(139, 0, 139)); // Dark Magenta
         DEFAULT_THEME.put("literal1", new Color(153, 76, 0));  // Brown
