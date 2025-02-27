@@ -21,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
 import utils.Resources;
-import utils.jsyntax.SyntaxThemeSelectionPanel; //test
 
 
 /**

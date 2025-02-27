@@ -30,7 +30,6 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 
 import utils.Resources;
-import utils.jsyntax.SyntaxThemeSelectionPanel;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
 import view.windows.AboutWindow;

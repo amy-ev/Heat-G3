@@ -25,7 +25,6 @@ import managers.WindowManager;
 
 import utils.Settings;
 
-import utils.jsyntax.SyntaxThemeSelectionPanel;
 import view.dialogs.FileDialogs;
 
 import java.awt.*;
