@@ -14,7 +14,7 @@ public class SplashScreenManager {
     private static SplashScreenManager instance = null;
 
     private final JFrame splashScreen = new JFrame("Accessibility Options");
-    public final OptionsWindow ow = new OptionsWindow();
+    //public final OptionsWindow ow = new OptionsWindow();
 
     public SplashScreenManager() {
         // Setup main frame
@@ -176,14 +176,14 @@ public class SplashScreenManager {
         // Apply action listener
         yesButton.addActionListener(e -> {
             splashScreen.dispose();
-            ow.is_visible = true;
+            //ow.is_visible = true;
             // TODO add the options window logic here
         });
 
         // Continue action listener
         noButton.addActionListener(e -> {
             splashScreen.dispose();
-            ow.is_visible = true;
+            //ow.is_visible = true;
         });
 
         buttonPanel.add(yesButton);
@@ -395,9 +395,9 @@ public class SplashScreenManager {
     /**
      * Checks if OptionsWindow is active.
      */
-    public boolean owIsActive() {
-        return ow.is_visible;
-    }
+//    public boolean owIsActive() {
+//        return ow.is_visible;
+//    }
 
 
     /**
@@ -433,7 +433,6 @@ public class SplashScreenManager {
 
             return this;
         }
-
         private Icon createColourIcon(Color colour) {
             int width = 32;
             int height = 32;
@@ -444,9 +443,5 @@ public class SplashScreenManager {
             g.dispose();
             return new ImageIcon(image);
         }
-    }
-
-    public static void main(String[] args) {
-        SplashScreenManager.getInstance();
     }
 }

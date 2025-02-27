@@ -51,7 +51,7 @@ public static void main(String[] args) {
     System.setProperty("apple.laf.useScreenMenuBar", "true");  // on Mac separate menu from window
 
     // Show splash image
-    showSplash();
+    JWindow splashWindow = new JWindow();
 
     // Create managers
     SettingsManager sm = SettingsManager.getInstance();
@@ -59,11 +59,16 @@ public static void main(String[] args) {
     SplashScreenManager splashScreen = SplashScreenManager.getInstance();
 
     // while splash screen is still open do NOT start the program
-    //
-    while(!splashScreen.owIsActive()){
-        while (splashScreen.isActive()){
-            ;
-        }
+
+    // TODO Fix
+    showSplash(splashWindow);
+
+    while (splashWindow.isActive()){
+        ;
+    }
+
+    while (splashScreen.isActive()){
+        ;
     }
 
 
@@ -101,8 +106,9 @@ public static void main(String[] args) {
     /**
      * Shows the splash image on load
      */
-    public static void showSplash() {
-        JWindow splashWindow = new JWindow();
+
+    public static void showSplash(JWindow splashWindow) {
+
         splashWindow.getContentPane().add(
                 new JLabel(new ImageIcon("src/icons/splash.png")),
                 BorderLayout.CENTER
