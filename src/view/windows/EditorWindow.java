@@ -47,7 +47,8 @@ public class EditorWindow {
   /* If it has been saved */
   private boolean needsSaving;
   private int fontSize = 12;
-  
+
+  private String syntaxColour = "DEFAULT_THEME";
   /* Popup menu for the display window*/
   private JPopupMenu popMenu = new JPopupMenu("Edit");
   /*Popup menu items*/
@@ -196,6 +197,8 @@ public class EditorWindow {
   private void jbInit() throws Exception {
     SettingsManager sm = SettingsManager.getInstance();
     FileManager fm = FileManager.getInstance();
+
+
     jtaCodeView = new JEditTextAreaWithMouseWheel();
 
     String fontSizeStr = sm.getSetting(Settings.CODE_FONT_SIZE);
@@ -209,7 +212,12 @@ public class EditorWindow {
         log.warning("[DisplayWindow] - Failed to parse " +
           Settings.CODE_FONT_SIZE + " setting, check value in settings file");
       }
+
+
     }
+
+
+
 
     
     jtaCodeView.setTokenMarker(new HaskellTokenMarker());

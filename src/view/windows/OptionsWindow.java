@@ -158,14 +158,7 @@ public class OptionsWindow {
     jcbSyntaxThemes.addItem("DEFAULT_THEME");
     SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
 
-
-
-
-
-
     panelFontSizes.add(SyntaxThemeSelectionPanel);
-
-
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
 
@@ -231,10 +224,7 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
-    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.PROTANOPIA_THEME));
-    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.DEUTERANOPIA_THEME));
-    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.TRITANOPIA_THEME));
-    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.DEFAULT_THEME));
+    jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.SYNTAX_THEME));
 
   }
 
@@ -292,17 +282,7 @@ public class OptionsWindow {
     return (String) jcbCodeFontSize.getSelectedItem();
   }
 
-
-  public String getProtanopiaTheme() {
-      return (String) jcbSyntaxThemes.getSelectedItem();
-  }
-  public String getDeuteranopiaTheme() {
-        return (String) jcbSyntaxThemes.getSelectedItem();
-  }
-  public String getTritanopiaTheme() {
-        return (String) jcbSyntaxThemes.getSelectedItem();
-  }
-  public String getDefaultTheme() {
+  public String getSyntaxTheme() {
       return (String) jcbSyntaxThemes.getSelectedItem();
   }
 

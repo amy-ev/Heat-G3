@@ -704,10 +704,7 @@ public class ActionManager {
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
 
       // Colour-blind syntax
-      String protanopiaTheme = wm.getOptionsWindow().getProtanopiaTheme();
-      String deuteranopiaTheme = wm.getOptionsWindow().getDeuteranopiaTheme();
-      String tritanopiaTheme = wm.getOptionsWindow().getTritanopiaTheme();
-      String defaultTheme = wm.getOptionsWindow().getDefaultTheme();
+      String syntaxTheme = wm.getOptionsWindow().getSyntaxTheme();
 
 
 
@@ -728,17 +725,8 @@ public class ActionManager {
 
       // Colour-blind set theme settings
 
-        wm.getSyntaxUtilities().applyTheme(protanopiaTheme);
-        sm.setSetting(Settings.PROTANOPIA_THEME, protanopiaTheme);
-
-        wm.getSyntaxUtilities().applyTheme(deuteranopiaTheme);
-        sm.setSetting(Settings.DEUTERANOPIA_THEME, deuteranopiaTheme);
-
-        wm.getSyntaxUtilities().applyTheme(tritanopiaTheme);
-        sm.setSetting(Settings.TRITANOPIA_THEME, tritanopiaTheme);
-
-        wm.getSyntaxUtilities().applyTheme(defaultTheme);
-        sm.setSetting(Settings.DEFAULT_THEME, defaultTheme);
+        wm.getSyntaxUtilities().applyTheme(syntaxTheme);
+        sm.setSetting(Settings.SYNTAX_THEME, syntaxTheme);
 
       /* Perform any font updates */
       try {
