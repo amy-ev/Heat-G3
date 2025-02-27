@@ -147,7 +147,7 @@ public class AboutWindow {
     // Call the OverlayManager and apply an overlay if setting is true
     OverlayManager om = OverlayManager.getInstance();
     om.addPanelOverlay(dialog, jpMain, toggle);
-    dialog.pack();
+    //dialog.pack();
     dialog.repaint();
   }
 

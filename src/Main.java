@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.io.File;
 
 /**
+ * 
  * Main HEAT class
  */
 public class Main {
