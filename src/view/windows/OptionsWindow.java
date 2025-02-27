@@ -20,6 +20,7 @@
 package view.windows;
 
 import managers.ActionManager;
+import managers.OverlayManager;
 import managers.FontManager;
 import managers.SettingsManager;
 import managers.WindowManager;
@@ -63,6 +64,8 @@ public class OptionsWindow {
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
   private JComboBox jcbGlobalFontSize; // global font settings
+  private JComboBox jcbDisplayOverlayToggle;
+  private JComboBox jcbDisplayOverlayColour;
 
 
   // buttons turned into global variables to adjust font
@@ -173,12 +176,29 @@ public class OptionsWindow {
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
     jcbGlobalFontSize = new JComboBox();
- /* Populate the font size combo boxes */
+
+    jcbDisplayOverlayToggle = new JComboBox();
+    jcbDisplayOverlayColour = new JComboBox();
+
+    /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
       jcbOutputFontSize.addItem(String.valueOf(i));
       jcbCodeFontSize.addItem(String.valueOf(i));
       jcbGlobalFontSize.addItem(String.valueOf(i));
     }
+
+    // Adds the toggle option for the visual disturbance overlay
+    jcbDisplayOverlayToggle.addItem("On");
+    jcbDisplayOverlayToggle.addItem("Off");
+
+    // Adds the colour options for the visual disturbance overlay
+    jcbDisplayOverlayColour.addItem("Red");
+    jcbDisplayOverlayColour.addItem("Green");
+    jcbDisplayOverlayColour.addItem("Blue");
+    jcbDisplayOverlayColour.addItem("Yellow");
+    jcbDisplayOverlayColour.addItem("Purple");
+
+
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(editorFontSizeLabel);
     editorFontSize.add(jcbCodeFontSize);
@@ -203,6 +223,9 @@ public class OptionsWindow {
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
     panelFontSizes.add(globalFontSize);
+    panelFontSizes.add(jcbDisplayOverlayToggle);
+    panelFontSizes.add(jcbDisplayOverlayColour);
+
 
     // combine panels on tabbed pane
 
@@ -265,8 +288,17 @@ public class OptionsWindow {
     dialog.setSize(600, 400);
     dialog.pack();
     dialog.setLocationRelativeTo(wm.getMainScreenFrame());
+
+    String displayOverlay = sm.getSetting(Settings.OVERLAY_DISPLAY);
+    updateDisplayOverlayToggle(displayOverlay);
+
     dialog.setVisible(true);
     is_visible = true;
+  }
+  // This method updates the visual disturbance overlay based upon new user settings
+  public void updateDisplayOverlayToggle(String toggle) {
+    OverlayManager om = OverlayManager.getInstance();
+    om.addPanelOverlay(dialog, panelOptions, toggle);
   }
 
   /**
@@ -290,9 +322,11 @@ public class OptionsWindow {
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
     jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.SYNTAX_THEME));
-
     // GLOBAL SETTINGS
     jcbGlobalFontSize.setSelectedItem(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+    jcbDisplayOverlayToggle.setSelectedItem(sm.getSetting(Settings.OVERLAY_DISPLAY));
+    jcbDisplayOverlayColour.setSelectedItem(sm.getSetting(Settings.OVERLAY_COLOUR));
+
   }
 
  
@@ -371,10 +405,8 @@ public class OptionsWindow {
   public String getDisplayOverlayColour() {
     // Grabs the string from the combo box to do switch statement check
     String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
-
     // Empty string to add colour value string to which is set as the setting in OVERLAY_COLOUR
     String chosenColour = "";
-
     // Switch case to assign OVERLAY_COLOUR based upon user selection
     switch (colour) {
       case "Red":
@@ -401,15 +433,10 @@ public class OptionsWindow {
     close();
   }
 
-
-
-
-
 //  private void jbUpdate_actionPerformed(ActionEvent e) {
 //    close();
 //  }
 
-  
   /**
    * Browse for an interpreter file with full path
    */
