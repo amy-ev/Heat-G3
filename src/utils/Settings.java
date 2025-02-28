@@ -47,7 +47,6 @@ public class Settings {
    */
   public static final String CODE_FONT_SIZE = "CODE_FONT_SIZE";
 
-
   /**
    * The font size used across UI
    */
@@ -63,7 +62,6 @@ public class Settings {
    */
   public static final String OVERLAY_COLOUR = "OVERLAY_COLOUR";
 
-
   /*
    * For Boolean unit tests or QuickCheck
    */
@@ -71,6 +69,11 @@ public class Settings {
   
   public static final String TEST_POSITIVE = "TEST_POSITIVE";
 
+
+  // SYNTAX SETTINGS
   public static final String SYNTAX_THEME = "SYNTAX_THEME";
+
+  // AUDIO SETTINGS
+  public static final String AUDIO_RESPONSE = "AUDIO_RESPONSE";
 
 }

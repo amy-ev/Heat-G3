@@ -16,18 +16,23 @@
 package view.toolbars;
 
 import managers.ActionManager;
+import managers.SettingsManager;
+import managers.FontManager;
+import managers.AudioManager;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.ImageIcon;
 
-import managers.FontManager;
-import managers.SettingsManager;
 import utils.Resources;
 import utils.Settings;
 
 import java.awt.*;
 import java.util.logging.Logger;
+import java.io.IOException;
 
 
 /**
@@ -39,9 +44,13 @@ public class Toolbar {
   private ActionManager am = ActionManager.getInstance();
   private FontManager fm = FontManager.getInstance();
   private SettingsManager sm = SettingsManager.getInstance();
+  private AudioManager audm = AudioManager.getInstance();
 
   private int fontSize = 12;
   private static Logger log = Logger.getLogger("heat");
+
+
+
   /* some icons */
   private ImageIcon iiCompileSuccess = Resources.getIcon("buttonok32");
   private ImageIcon iiCompileUnknown = Resources.getIcon("buttonquestion32");
@@ -162,10 +171,30 @@ public class Toolbar {
    */
   public void setCompileStatus(int status) {
 	  switch (status) {
-	  	case 0: statusButton.setIcon(iiCompileFail); break;
-	  	case 1: statusButton.setIcon(iiCompileSuccess); break;
-	  	case 2: statusButton.setIcon(iiCompileUnknown); break;
-	  	case 3: statusButton.setIcon(iiWorking); break;
+	  	case 0:
+            statusButton.setIcon(iiCompileFail);
+            if (sm.getSetting(Settings.AUDIO_RESPONSE) == "On"){
+              audm.play("src/audio/572936__bloodpixelhero__error.wav");
+              System.out.println("compile_fail audio played");
+            }else {
+              ;
+            }
+
+          break;
+	  	case 1:
+            statusButton.setIcon(iiCompileSuccess);
+            if (sm.getSetting(Settings.AUDIO_RESPONSE) == "On"){
+              audm.play("src/audio/430800__justvic__complete_sound.wav");
+              System.out.println("compile_success audio played");
+          }else {
+            ;
+          }
+          break;
+	  	case 2:
+            statusButton.setIcon(iiCompileUnknown);
+          break;
+	  	case 3: statusButton.setIcon(iiWorking);
+          break;
 	  }
   } 
   

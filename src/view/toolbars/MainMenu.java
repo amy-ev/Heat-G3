@@ -137,8 +137,6 @@ public class MainMenu {
     // changed the undoAction into a jMenuItem and attached its action to allow for font size adjustment
     jMenuItemUndo.setAction(undoAction);
     jMenuItemRedo.setAction(redoAction);
-    //jMenuEdit.add(undoAction);
-    //jMenuEdit.add(redoAction);
 
     jMenuEdit.addSeparator();
     jMenuEdit.setMnemonic('e');
@@ -206,6 +204,7 @@ public class MainMenu {
                 Settings.GLOBAL_FONT_SIZE + " setting, check value in settings file");
       }
     }
+
     // Mac specific stuff
     // Application app = Application.getApplication();
     // app.setAboutHandler(null);

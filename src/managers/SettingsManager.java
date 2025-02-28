@@ -95,7 +95,6 @@ public class SettingsManager {
    */
   private Properties createDefaultProperties() {
     Properties newSettings = new Properties();
-
     newSettings.setProperty(Settings.INTERPRETER_PATH,
       "C:\\Program Files\\Hugs98\\hugs.exe");
     newSettings.setProperty(Settings.LIBRARY_PATH,
@@ -112,6 +111,7 @@ public class SettingsManager {
     // OVERLAY SETTINGS
     newSettings.setProperty(Settings.OVERLAY_DISPLAY,"Off");
     newSettings.setProperty(Settings.OVERLAY_COLOUR,"0,255,0,50");
+    newSettings.setProperty(Settings.AUDIO_RESPONSE,"Off");
     return newSettings;
   }
   

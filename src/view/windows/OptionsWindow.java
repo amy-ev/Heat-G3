@@ -22,6 +22,7 @@ package view.windows;
 import managers.ActionManager;
 import managers.OverlayManager;
 import managers.FontManager;
+import managers.AudioManager;
 import managers.SettingsManager;
 import managers.WindowManager;
 
@@ -55,7 +56,7 @@ import static utils.jsyntax.SyntaxUtilities.applyTheme;
 public class OptionsWindow {
 
   private JPanel panelOptions;
-  private JTextField jTextFieldInterpreterPath;
+  private JTextField jTextFieldInterpreterPath; 
   private JTextField jTextFieldOptions;
   private JTextField jTextFieldLibraryPath;
   private JTextField jTextFieldTestFunction;
@@ -66,6 +67,8 @@ public class OptionsWindow {
   private JComboBox jcbGlobalFontSize; // global font settings
   private JComboBox jcbDisplayOverlayToggle;
   private JComboBox jcbDisplayOverlayColour;
+  private JComboBox jcbAudio;
+  private JComboBox jcbSyntaxThemes;
 
 
   // buttons turned into global variables to adjust font
@@ -85,23 +88,25 @@ public class OptionsWindow {
   private JLabel editorFontSizeLabel = new JLabel("Editor font size: ");
   private JLabel interpreterFontSizeLabel = new JLabel("Interpreter font size:");
   private JLabel globalFontSizeLabel = new JLabel("Global font size:");
+  private JLabel audioLabel = new JLabel("Audio Response: ");
+  private JLabel syntaxLabel = new JLabel("Syntax Settings: ");
+  private JLabel overlayLabel = new JLabel("Overlay Settings: ");
 
   JTabbedPane tabOptions = new JTabbedPane();
 
   private JDialog dialog;
-  private JComboBox jcbSyntaxThemes;
-
-
 
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
+  private AudioManager am = AudioManager.getInstance();
+  private FontManager fm = FontManager.getInstance();
 
   public boolean is_visible = false;
-  private FontManager fm = FontManager.getInstance();
+
 
   private int fontSize = 12;
   private static Logger log = Logger.getLogger("heat");
-  
+
   /**
    * Creates a new OptionsWindow object.
    */
@@ -176,11 +181,13 @@ public class OptionsWindow {
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
     jcbGlobalFontSize = new JComboBox();
-
     jcbDisplayOverlayToggle = new JComboBox();
     jcbDisplayOverlayColour = new JComboBox();
-
+    jcbAudio = new JComboBox();
+    jcbSyntaxThemes = new JComboBox();
     /* Populate the font size combo boxes */
+
+ /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
       jcbOutputFontSize.addItem(String.valueOf(i));
       jcbCodeFontSize.addItem(String.valueOf(i));
@@ -198,6 +205,15 @@ public class OptionsWindow {
     jcbDisplayOverlayColour.addItem("Yellow");
     jcbDisplayOverlayColour.addItem("Purple");
 
+    // AUDIO SETTINGS
+    jcbAudio.addItem("Off");
+    jcbAudio.addItem("On");
+
+    //SYNTAX SETTINGS
+    jcbSyntaxThemes.addItem("PROTANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEUTERANOPIA_THEME");
+    jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
+    jcbSyntaxThemes.addItem("DEFAULT_THEME");
 
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(editorFontSizeLabel);
@@ -205,27 +221,35 @@ public class OptionsWindow {
     JPanel interpreterFontSize = new JPanel();
     interpreterFontSize.add(interpreterFontSizeLabel);
     interpreterFontSize.add(jcbOutputFontSize);
+
+    // GLOBAL FONT SETTINGS
     JPanel globalFontSize = new JPanel();
     globalFontSize.add(globalFontSizeLabel);
     globalFontSize.add(jcbGlobalFontSize);
 
+    // SYNTAX SETTINGS
     JPanel SyntaxThemeSelectionPanel = new JPanel();
     SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
-
-    jcbSyntaxThemes = new JComboBox();
-    jcbSyntaxThemes.addItem("PROTANOPIA_THEME");
-    jcbSyntaxThemes.addItem("DEUTERANOPIA_THEME");
-    jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
-    jcbSyntaxThemes.addItem("DEFAULT_THEME");
+    SyntaxThemeSelectionPanel.add(syntaxLabel);
     SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
 
+    // AUDIO SETTINGS
+    JPanel audioPanel = new JPanel();
+    audioPanel.add(audioLabel);
+    audioPanel.add(jcbAudio);
+
     panelFontSizes.add(SyntaxThemeSelectionPanel);
+
+    JPanel displayPanel = new JPanel();
+    displayPanel.add(overlayLabel);
+    displayPanel.add(jcbDisplayOverlayToggle);
+    displayPanel.add(jcbDisplayOverlayColour);
+
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
     panelFontSizes.add(globalFontSize);
-    panelFontSizes.add(jcbDisplayOverlayToggle);
-    panelFontSizes.add(jcbDisplayOverlayColour);
-
+    panelFontSizes.add(audioPanel);
+    panelFontSizes.add(displayPanel);
 
     // combine panels on tabbed pane
 
@@ -270,9 +294,9 @@ public class OptionsWindow {
   public void setFontSize(int ptSize) {
     Font font = new Font("Arial", Font.PLAIN, ptSize);
     fm.setButtonsFont(font, buttonApply, buttonCancel, browse);
-    fm.setLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel);
+    fm.setLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel, audioLabel, syntaxLabel, overlayLabel);
     fm.setOptionTabsFont(font, tabOptions);
-    fm.setComboBoxFont(font, jcbCodeFontSize, jcbOutputFontSize, jcbGlobalFontSize);
+    fm.setComboBoxFont(font, jcbCodeFontSize, jcbOutputFontSize, jcbGlobalFontSize, jcbAudio, jcbSyntaxThemes, jcbDisplayOverlayColour,jcbDisplayOverlayToggle);
   }
 
   /**
@@ -307,7 +331,6 @@ public class OptionsWindow {
   public void close() {
     if (dialog != null)
       dialog.dispose();
-      //is_visible = false;
   }
 
   /**
@@ -321,9 +344,11 @@ public class OptionsWindow {
     jTextFieldTestPositive.setText(sm.getSetting(Settings.TEST_POSITIVE));
     jcbOutputFontSize.setSelectedItem(sm.getSetting(Settings.OUTPUT_FONT_SIZE));
     jcbCodeFontSize.setSelectedItem(sm.getSetting(Settings.CODE_FONT_SIZE));
+    // SYNTAX SETTINGS
     jcbSyntaxThemes.setSelectedItem(sm.getSetting(Settings.SYNTAX_THEME));
     // GLOBAL SETTINGS
     jcbGlobalFontSize.setSelectedItem(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
+    // OVERLAY SETTINGS
     jcbDisplayOverlayToggle.setSelectedItem(sm.getSetting(Settings.OVERLAY_DISPLAY));
     jcbDisplayOverlayColour.setSelectedItem(sm.getSetting(Settings.OVERLAY_COLOUR));
 
@@ -401,7 +426,7 @@ public class OptionsWindow {
     return (String) jcbDisplayOverlayToggle.getSelectedItem();
   }
 
-  
+
   public String getDisplayOverlayColour() {
     // Grabs the string from the combo box to do switch statement check
     String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
@@ -429,6 +454,10 @@ public class OptionsWindow {
   }
 
 
+  public String getAudioResponse(){
+    return (String) jcbAudio.getSelectedItem();
+  }
+
   private void jButton2_actionPerformed(ActionEvent e) {
     close();
   }
@@ -437,6 +466,7 @@ public class OptionsWindow {
 //    close();
 //  }
 
+  
   /**
    * Browse for an interpreter file with full path
    */
@@ -465,4 +495,3 @@ public class OptionsWindow {
     return is_visible;
   }
 }
-

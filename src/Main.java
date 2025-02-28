@@ -19,6 +19,11 @@ import view.windows.OptionsWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import managers.*;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -30,7 +35,7 @@ import java.io.File;
  * Main HEAT class
  */
 public class Main {
-
+  
   /**
    * Used to run HEAT
    * @param args
@@ -38,8 +43,8 @@ public class Main {
 public static void main(String[] args) {
     Logger log = Logger.getLogger("heat");
     try {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Set look and feel
-        log.setUseParentHandlers(false);  // turn off logging on stdout console
+//        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Set look and feel
+//        log.setUseParentHandlers(false);  // turn off logging on stdout console
         log.setUseParentHandlers(false);  // turn off logging on stdout console
         FileHandler handler = new FileHandler(System.getProperty("user.home") + File.separator + "heat.log");
         handler.setFormatter(new SimpleFormatter());
@@ -47,7 +52,7 @@ public static void main(String[] args) {
     } catch (Exception e) {
         System.out.println("Could not install file handler for logging.");
     }
-
+    
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", ""); // set name of main menu on Mac
     System.setProperty("apple.laf.useScreenMenuBar", "true");  // on Mac separate menu from window
 
@@ -58,7 +63,7 @@ public static void main(String[] args) {
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
     SplashScreenManager splashScreen = SplashScreenManager.getInstance();
-
+    AudioManager am = AudioManager.getInstance();
     // while splash screen is still open do NOT start the program
 
     // TODO FIX - MY OUTPUT WINDOW WONT SHOW SO I CANT DO IT RIGHT NOW
@@ -74,11 +79,9 @@ public static void main(String[] args) {
         ;
     }
 
-
     sm.loadSettings();
     WindowManager.setLookAndFeel();
     wm.createGUI();
-
 
     if (sm.isNewSettingsFile())
       wm.showWizardWindow();
@@ -90,12 +93,12 @@ public static void main(String[] args) {
       InterpreterManager im = InterpreterManager.getInstance();
       im.startProcess(false);
     }
-
+    
     if (args.length > 0) {
     	wm.openFile(new java.io.File(args[0]));
         wm.showAll();
         /* Make edit area active */
-        wm.getEditorWindow().grabFocus();
+        wm.getEditorWindow().grabFocus(); 
     } else {
         wm.getEditorWindow().setEditorContent("Use menu to open an existing or create a new program in the editor.");
         wm.setCloseEnabled(false);
@@ -131,4 +134,4 @@ public static void main(String[] args) {
         splashWindow.dispose();
     }
 }
-
+  

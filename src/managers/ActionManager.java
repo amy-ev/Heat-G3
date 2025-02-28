@@ -702,13 +702,10 @@ public class ActionManager {
 
       //GLOBAL FONT SETTINGS
       String globalFontSize = wm.getOptionsWindow().getGlobalFontSize();
-
-
       // Colour-blind syntax
       String syntaxTheme = wm.getOptionsWindow().getSyntaxTheme();
-
-
-
+      // AUDIO SETTINGS
+      String audioResponse = wm.getOptionsWindow().getAudioResponse();
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
@@ -739,6 +736,7 @@ public class ActionManager {
         wm.getSyntaxUtilities().applyTheme(syntaxTheme);
         sm.setSetting(Settings.SYNTAX_THEME, syntaxTheme);
 
+      sm.setSetting(Settings.AUDIO_RESPONSE, audioResponse);
       /* Perform any font updates */
       try {
         int outputFontsize = Integer.parseInt(outputFontSize);
@@ -774,7 +772,6 @@ public class ActionManager {
         log.warning("[ActionManager] - Failed to parse " +
                 Settings.GLOBAL_FONT_SIZE + " setting from options window");
     }
-
 
 
       // The about and wizard windows should never be open at the same time as options
@@ -954,6 +951,9 @@ public class ActionManager {
 
     public void actionPerformed(ActionEvent e) {
       WindowManager wm = WindowManager.getInstance();
+      SettingsManager sm = SettingsManager.getInstance();
+      String audioResponse = wm.getOptionsWindow().getAudioResponse();
+
       if (!wm.isCompileEnabled()) {
           Toolkit.getDefaultToolkit().beep();
           return;
@@ -970,6 +970,7 @@ public class ActionManager {
       
       wm.setStatusEvaluating();
       wm.getConsoleWindow().compile();
+
       //im.compile();
       //im.breakInterpreter();
       //wm.getTreeWindow().refreshTree(wm.getEditorWindow().getEditorContent());
