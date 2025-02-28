@@ -188,7 +188,7 @@ public class SplashScreenManager {
         buttonApply.setFont(new Font("Arial", Font.BOLD, 24));
         buttonCancel.setFont(new Font("Arial", Font.BOLD, 24));
 
-        buttonApply.setAction(ActionManager.getInstance().getSaveAccessibilityOptionsAction());
+        //buttonApply.setAction(ActionManager.getInstance().getS());
         // Set preferred size to make buttons wider
         Dimension buttonSize = new Dimension(200, 40);
         buttonApply.setPreferredSize(buttonSize);

@@ -176,12 +176,15 @@ public class OptionsWindow {
     JPanel panelFontSizes = new JPanel(new GridLayout(0,1));
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
+
+
+    JPanel panelAccessibility = new JPanel(new GridLayout(0,1));
     jcbGlobalFontSize = new JComboBox();
     jcbDisplayOverlayToggle = new JComboBox();
     jcbDisplayOverlayColour = new JComboBox();
     jcbAudio = new JComboBox();
     jcbSyntaxThemes = new JComboBox();
-    /* Populate the font size combo boxes */
+
 
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
@@ -234,7 +237,7 @@ public class OptionsWindow {
     audioPanel.add(audioLabel);
     audioPanel.add(jcbAudio);
 
-    panelFontSizes.add(SyntaxThemeSelectionPanel);
+
 
     JPanel displayPanel = new JPanel();
     displayPanel.add(overlayLabel);
@@ -243,11 +246,14 @@ public class OptionsWindow {
 
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
-    panelFontSizes.add(globalFontSize);
-    panelFontSizes.add(audioPanel);
-    panelFontSizes.add(displayPanel);
+
+    panelAccessibility.add(globalFontSize);
+    panelAccessibility.add(audioPanel);
+    panelAccessibility.add(displayPanel);
+    panelAccessibility.add(SyntaxThemeSelectionPanel);
 
     // combine panels on tabbed pane
+    tabOptions.addTab("Accessibility Options", panelAccessibility);
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
     tabOptions.addTab("Property Tests", panelTest);
     tabOptions.addTab("Font Sizes", panelFontSizes);

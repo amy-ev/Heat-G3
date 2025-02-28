@@ -29,8 +29,6 @@ import utils.jsyntax.SyntaxUtilities;
 import view.toolbars.MainMenu;
 import view.toolbars.Toolbar;
 import view.windows.*;
-import managers.SplashScreenManager;
-
 
 
 /**
@@ -56,8 +54,6 @@ public class WindowManager {
   private SearchDialog searchWindow;
   private TreeWindow treeWindow;
   private SyntaxUtilities syntaxUtilities;
-  private SplashTest splashScreen;
-
 
   /* toolbars */
   private MainMenu mainMenu;
@@ -256,10 +252,6 @@ public class WindowManager {
     return optionsWindow;
   }
 
-  public SplashTest getSplashScreen(){
-      return splashScreen;
-  }
-
   /**
    * Returns the {@link WizardWindow} used in GUI
    *
@@ -364,7 +356,6 @@ public class WindowManager {
     searchWindow = new SearchDialog();
     printwindow = new PrintWindow();
     treeWindow = new TreeWindow();
-    splashScreen = SplashTest.getInstance();
 
     mainMenu = new MainMenu();
     toolbar = new Toolbar();
