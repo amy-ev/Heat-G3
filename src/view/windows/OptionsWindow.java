@@ -41,6 +41,8 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import static utils.jsyntax.SyntaxUtilities.applyTheme;
 
@@ -86,6 +88,7 @@ public class OptionsWindow {
   private JLabel audioLabel = new JLabel("Audio Response: ");
   private JLabel syntaxLabel = new JLabel("Syntax Settings: ");
   private JLabel overlayLabel = new JLabel("Overlay Settings: ");
+  private JLabel overlayColourLabel = new JLabel("Overlay Colour Settings: ");
 
   JTabbedPane tabOptions = new JTabbedPane();
 
@@ -178,13 +181,39 @@ public class OptionsWindow {
     jcbCodeFontSize = new JComboBox();
 
 
-    JPanel panelAccessibility = new JPanel(new GridLayout(0,1));
+    JPanel panelAccessibility = new JPanel(new GridBagLayout());
+
     jcbGlobalFontSize = new JComboBox();
     jcbDisplayOverlayToggle = new JComboBox();
     jcbDisplayOverlayColour = new JComboBox();
     jcbAudio = new JComboBox();
     jcbSyntaxThemes = new JComboBox();
 
+    panelAccessibility.setOpaque(false);
+    panelAccessibility.setBorder(new EmptyBorder(20, 0, 20, 0));
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.insets = new Insets(5, 10, 5, 10);
+    gbc.weightx = 1;
+
+    // Left Column
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+
+    // Left Column Title with Description
+    JLabel fontLabel = new JLabel("Font Settings");
+    fontLabel.setFont(new Font("Arial", Font.BOLD, 28));
+
+    JPanel fontPanel = new JPanel();
+    fontPanel.setLayout(new BoxLayout(fontPanel, BoxLayout.Y_AXIS));
+    fontPanel.setOpaque(false);
+    fontPanel.setBorder(new EmptyBorder(0, 0, 5, 0));
+
+    fontPanel.add(fontLabel, gbc);
+
+    gbc.gridy++;
 
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
@@ -214,49 +243,342 @@ public class OptionsWindow {
     jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
     jcbSyntaxThemes.addItem("DEFAULT_THEME");
 
-    JPanel editorFontSize = new JPanel();
-    editorFontSize.add(editorFontSizeLabel);
-    editorFontSize.add(jcbCodeFontSize);
-    JPanel interpreterFontSize = new JPanel();
-    interpreterFontSize.add(interpreterFontSizeLabel);
-    interpreterFontSize.add(jcbOutputFontSize);
+    JPanel editorFontSize = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    editorFontSize.setOpaque(false);
+    editorFontSize.setBackground(Color.WHITE);
+    editorFontSize.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel codeIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/editor-fs.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+
+    editorFontSize.add(codeIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    editorFontSize.add(editorFontSizeLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    editorFontSize.add(jcbCodeFontSize, gbc);
+
+    // Apply global size for components
+    //component.setFont(new Font("Arial", Font.BOLD, 24));
+    gbc.gridy++;
+
+    JPanel interpreterFontSize = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    interpreterFontSize.setOpaque(false);
+    interpreterFontSize.setBackground(Color.WHITE);
+    interpreterFontSize.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel outputIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/inter-fs.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+
+    interpreterFontSize.add(outputIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    interpreterFontSize.add(interpreterFontSizeLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    interpreterFontSize.add(jcbOutputFontSize, gbc);
+
+    // Apply global size for components
+    //component.setFont(new Font("Arial", Font.BOLD, 24));
+    gbc.gridy++;
 
     // GLOBAL FONT SETTINGS
-    JPanel globalFontSize = new JPanel();
-    globalFontSize.add(globalFontSizeLabel);
-    globalFontSize.add(jcbGlobalFontSize);
 
+    JPanel globalFontSize = new JPanel(new GridBagLayout()){
+        @Override
+        protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          Graphics2D g2d = (Graphics2D) g;
+          g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          g2d.setColor(getBackground());
+          g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        }
+      };
+    globalFontSize.setOpaque(false);
+    globalFontSize.setBackground(Color.WHITE);
+    globalFontSize.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel globalFontIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/global-fs.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    globalFontSize.add(globalFontIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    globalFontSize.add(globalFontSizeLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    globalFontSize.add(jcbGlobalFontSize, gbc);
+
+    // Apply global size for components
+    //component.setFont(new Font("Arial", Font.BOLD, 24));
+
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+
+    JLabel visualLabel = new JLabel("Visual Settings");
+    visualLabel.setFont(new Font("Arial", Font.BOLD, 28));
+
+    JPanel visualPanel = new JPanel();
+    visualPanel.setLayout(new BoxLayout(visualPanel, BoxLayout.Y_AXIS));
+    visualPanel.setOpaque(false);
+    visualPanel.setBorder(new EmptyBorder(0, 0, 5, 0));
+
+    visualPanel.add(visualLabel);
+
+    gbc.gridy++;
     // SYNTAX SETTINGS
-    JPanel SyntaxThemeSelectionPanel = new JPanel();
-    SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
-    SyntaxThemeSelectionPanel.add(syntaxLabel);
+    JPanel SyntaxThemeSelectionPanel = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    SyntaxThemeSelectionPanel.setOpaque(false);
+    SyntaxThemeSelectionPanel.setBackground(Color.WHITE);
+    SyntaxThemeSelectionPanel.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel syntaxIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/syntax-hl.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    SyntaxThemeSelectionPanel.add(syntaxIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    SyntaxThemeSelectionPanel.add(syntaxLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    globalFontSize.add(jcbGlobalFontSize, gbc);
+
+    gbc.gridy++;
+
+    //SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
     SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
 
     // AUDIO SETTINGS
-    JPanel audioPanel = new JPanel();
-    audioPanel.add(audioLabel);
-    audioPanel.add(jcbAudio);
+    JPanel audioPanel = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    audioPanel.setOpaque(false);
+    audioPanel.setBackground(Color.WHITE);
+    audioPanel.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
 
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
 
+    // ICON
+    JLabel audioIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/audio-resp.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
 
-    JPanel displayPanel = new JPanel();
-    displayPanel.add(overlayLabel);
-    displayPanel.add(jcbDisplayOverlayToggle);
-    displayPanel.add(jcbDisplayOverlayColour);
+    audioPanel.add(audioIcon, gbc);
 
-    panelFontSizes.add(editorFontSize);
-    panelFontSizes.add(interpreterFontSize);
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    audioPanel.add(audioLabel, gbc);
 
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    audioPanel.add(jcbAudio, gbc);
+
+    gbc.gridy++;
+
+    // DISPLAY
+    JPanel displayPanel = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    displayPanel.setOpaque(false);
+    displayPanel.setBackground(Color.WHITE);
+    displayPanel.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel displayIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+
+    displayPanel.add(displayIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    displayPanel.add(overlayLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    displayPanel.add(jcbDisplayOverlayToggle, gbc);
+
+    gbc.gridy++;
+
+    // DISPLAY
+    JPanel displayPanelColour = new JPanel(new GridBagLayout()){
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+      }
+    };
+    displayPanelColour.setOpaque(false);
+    displayPanelColour.setBackground(Color.WHITE);
+    displayPanelColour.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Color.LIGHT_GRAY, 1, true),
+            new EmptyBorder(16, 20, 16, 20)
+    ));
+
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.insets = new Insets(10, 20, 10, 20);
+
+    // ICON
+    JLabel displayColourIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    displayPanelColour.add(displayColourIcon, gbc);
+
+    // Label
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    displayPanelColour.add(overlayColourLabel, gbc);
+
+    // Component - Toggle Button | Dropdown
+    gbc.gridx = 2;
+    gbc.weightx = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    displayPanelColour.add(jcbDisplayOverlayColour, gbc);
+
+    gbc.gridy++;
+
+    panelAccessibility.add(editorFontSize);
+    panelAccessibility.add(interpreterFontSize);
     panelAccessibility.add(globalFontSize);
     panelAccessibility.add(audioPanel);
     panelAccessibility.add(displayPanel);
+    panelAccessibility.add(displayPanelColour);
     panelAccessibility.add(SyntaxThemeSelectionPanel);
 
     // combine panels on tabbed pane
     tabOptions.addTab("Accessibility Options", panelAccessibility);
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
     tabOptions.addTab("Property Tests", panelTest);
-    tabOptions.addTab("Font Sizes", panelFontSizes);
+    //tabOptions.addTab("Font Sizes", panelFontSizes);
     
     // buttons for applying options and cancellation
 
@@ -295,7 +617,7 @@ public class OptionsWindow {
   public void setFontSize(int ptSize) {
     Font font = new Font("Arial", Font.PLAIN, ptSize);
     fm.setButtonsFont(font, buttonApply, buttonCancel, browse);
-    fm.setLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel, audioLabel, syntaxLabel, overlayLabel);
+    fm.setLabelsFont(font, interpreterPathLabel, optionsInfoLabel, libraryPathLabel, testLabel, quickCheckLabel, testPositiveLabel1, testPositiveLabel2, editorFontSizeLabel, interpreterFontSizeLabel, globalFontSizeLabel, audioLabel, syntaxLabel, overlayLabel, overlayColourLabel);
     fm.setOptionTabsFont(font, tabOptions);
     fm.setComboBoxFont(font, jcbCodeFontSize, jcbOutputFontSize, jcbGlobalFontSize, jcbAudio, jcbSyntaxThemes, jcbDisplayOverlayColour,jcbDisplayOverlayToggle);
   }

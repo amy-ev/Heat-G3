@@ -63,6 +63,7 @@ public static void main(String[] args) {
     sm.loadSettings();
     WindowManager.setLookAndFeel();
     wm.createGUI();
+    wm.getOptionsWindow().show();
 
     if (sm.isNewSettingsFile())
       wm.showWizardWindow();
@@ -113,6 +114,8 @@ public static void main(String[] args) {
 
         splashWindow.setVisible(false);
         splashWindow.dispose();
+
+
     }
 }
   
