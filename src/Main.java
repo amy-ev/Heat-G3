@@ -54,7 +54,6 @@ public static void main(String[] args) {
     // Create managers
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
-    SplashScreenManager ss = SplashScreenManager.getInstance();
     AudioManager am = AudioManager.getInstance();
 
 

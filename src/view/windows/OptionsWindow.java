@@ -180,8 +180,7 @@ public class OptionsWindow {
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
 
-
-    JPanel panelAccessibility = new JPanel(new GridBagLayout());
+    JPanel panelAccessibility = new JPanel(new GridLayout(2,3));
 
     jcbGlobalFontSize = new JComboBox();
     jcbDisplayOverlayToggle = new JComboBox();
@@ -192,16 +191,6 @@ public class OptionsWindow {
     panelAccessibility.setOpaque(false);
     panelAccessibility.setBorder(new EmptyBorder(20, 0, 20, 0));
 
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.insets = new Insets(5, 10, 5, 10);
-    gbc.weightx = 1;
-
-    // Left Column
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-
     // Left Column Title with Description
     JLabel fontLabel = new JLabel("Font Settings");
     fontLabel.setFont(new Font("Arial", Font.BOLD, 28));
@@ -211,9 +200,7 @@ public class OptionsWindow {
     fontPanel.setOpaque(false);
     fontPanel.setBorder(new EmptyBorder(0, 0, 5, 0));
 
-    fontPanel.add(fontLabel, gbc);
-
-    gbc.gridy++;
+    fontPanel.add(fontLabel);
 
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
@@ -243,7 +230,7 @@ public class OptionsWindow {
     jcbSyntaxThemes.addItem("TRITANOPIA_THEME");
     jcbSyntaxThemes.addItem("DEFAULT_THEME");
 
-    JPanel editorFontSize = new JPanel(new GridBagLayout()){
+    JPanel editorFontSize = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -260,34 +247,17 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
+
 
     // ICON
     JLabel codeIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/editor-fs.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
+    editorFontSize.add(codeIcon);
 
-    editorFontSize.add(codeIcon, gbc);
+    editorFontSize.add(editorFontSizeLabel);
 
-    // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    editorFontSize.add(editorFontSizeLabel, gbc);
+    editorFontSize.add(jcbCodeFontSize);
 
-    // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    editorFontSize.add(jcbCodeFontSize, gbc);
-
-    // Apply global size for components
-    //component.setFont(new Font("Arial", Font.BOLD, 24));
-    gbc.gridy++;
-
-    JPanel interpreterFontSize = new JPanel(new GridBagLayout()){
+    JPanel interpreterFontSize = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -304,36 +274,23 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
 
     // ICON
     JLabel outputIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/inter-fs.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
 
-    interpreterFontSize.add(outputIcon, gbc);
+    interpreterFontSize.add(outputIcon);
 
-    // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    interpreterFontSize.add(interpreterFontSizeLabel, gbc);
+    interpreterFontSize.add(interpreterFontSizeLabel);
 
     // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    interpreterFontSize.add(jcbOutputFontSize, gbc);
+    interpreterFontSize.add(jcbOutputFontSize);
 
     // Apply global size for components
     //component.setFont(new Font("Arial", Font.BOLD, 24));
-    gbc.gridy++;
 
     // GLOBAL FONT SETTINGS
 
-    JPanel globalFontSize = new JPanel(new GridBagLayout()){
+    JPanel globalFontSize = new JPanel(new GridLayout(0,1)){
         @Override
         protected void paintComponent(Graphics g) {
           super.paintComponent(g);
@@ -350,33 +307,18 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
 
     // ICON
     JLabel globalFontIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/global-fs.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    globalFontSize.add(globalFontIcon, gbc);
 
-    // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    globalFontSize.add(globalFontSizeLabel, gbc);
+    globalFontSize.add(globalFontIcon);
+
+    globalFontSize.add(globalFontSizeLabel);
 
     // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    globalFontSize.add(jcbGlobalFontSize, gbc);
+    globalFontSize.add(jcbGlobalFontSize);
 
     // Apply global size for components
-    //component.setFont(new Font("Arial", Font.BOLD, 24));
-
-    gbc.gridx = 1;
-    gbc.gridy = 0;
 
     JLabel visualLabel = new JLabel("Visual Settings");
     visualLabel.setFont(new Font("Arial", Font.BOLD, 28));
@@ -388,9 +330,8 @@ public class OptionsWindow {
 
     visualPanel.add(visualLabel);
 
-    gbc.gridy++;
     // SYNTAX SETTINGS
-    JPanel SyntaxThemeSelectionPanel = new JPanel(new GridBagLayout()){
+    JPanel SyntaxThemeSelectionPanel = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -407,36 +348,19 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
 
     // ICON
     JLabel syntaxIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/syntax-hl.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    SyntaxThemeSelectionPanel.add(syntaxIcon, gbc);
+    SyntaxThemeSelectionPanel.add(syntaxIcon);
 
-    // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    SyntaxThemeSelectionPanel.add(syntaxLabel, gbc);
-
-    // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-
-    globalFontSize.add(jcbGlobalFontSize, gbc);
-
-    gbc.gridy++;
+    SyntaxThemeSelectionPanel.add(syntaxLabel);
+    globalFontSize.add(jcbGlobalFontSize);
 
     //SyntaxThemeSelectionPanel.setLayout(new FlowLayout());
     SyntaxThemeSelectionPanel.add(jcbSyntaxThemes);
 
     // AUDIO SETTINGS
-    JPanel audioPanel = new JPanel(new GridBagLayout()){
+    JPanel audioPanel = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -453,34 +377,11 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
-
-    // ICON
     JLabel audioIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/audio-resp.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-
-    audioPanel.add(audioIcon, gbc);
-
-    // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    audioPanel.add(audioLabel, gbc);
-
-    // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-
-    audioPanel.add(jcbAudio, gbc);
-
-    gbc.gridy++;
-
-    // DISPLAY
-    JPanel displayPanel = new JPanel(new GridBagLayout()){
+    audioPanel.add(audioIcon);
+    audioPanel.add(audioLabel);
+    audioPanel.add(jcbAudio);
+    JPanel displayPanel = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -497,34 +398,20 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
-
     // ICON
     JLabel displayIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
 
-    displayPanel.add(displayIcon, gbc);
+    displayPanel.add(displayIcon);
 
     // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    displayPanel.add(overlayLabel, gbc);
+    displayPanel.add(overlayLabel);
 
     // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    displayPanel.add(jcbDisplayOverlayToggle, gbc);
-
-    gbc.gridy++;
+    displayPanel.add(jcbDisplayOverlayToggle);
 
     // DISPLAY
-    JPanel displayPanelColour = new JPanel(new GridBagLayout()){
+    JPanel displayPanelColour = new JPanel(new GridLayout(0,1)){
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -541,30 +428,16 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    gbc.anchor = GridBagConstraints.WEST;
-    gbc.insets = new Insets(10, 20, 10, 20);
-
     // ICON
     JLabel displayColourIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    displayPanelColour.add(displayColourIcon, gbc);
+    displayPanelColour.add(displayColourIcon);
 
     // Label
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.weightx = 0;
-    displayPanelColour.add(overlayColourLabel, gbc);
+    displayPanelColour.add(overlayColourLabel);
 
     // Component - Toggle Button | Dropdown
-    gbc.gridx = 2;
-    gbc.weightx = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    displayPanelColour.add(jcbDisplayOverlayColour, gbc);
-
-    gbc.gridy++;
+    displayPanelColour.add(jcbDisplayOverlayColour);
 
     panelAccessibility.add(editorFontSize);
     panelAccessibility.add(interpreterFontSize);
@@ -789,7 +662,6 @@ public class OptionsWindow {
 //    close();
 //  }
 
-  
   /**
    * Browse for an interpreter file with full path
    */
