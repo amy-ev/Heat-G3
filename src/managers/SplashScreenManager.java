@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
@@ -13,10 +14,26 @@ public class SplashScreenManager {
 
     private static SplashScreenManager instance = null;
 
-    private final JFrame splashScreen = new JFrame("Accessibility Options");
+    private JButton buttonApply = new JButton("Apply");
+    private JButton buttonCancel = new JButton("Continue");
+
+    private JComboBox jcbOutputFontSize;
+    private JComboBox jcbCodeFontSize;
+    private JComboBox jcbGlobalFontSize; // global font settings
+    private JComboBox jcbDisplayOverlayToggle;
+    private JComboBox jcbDisplayOverlayColour;
+    private JComboBox jcbAudio;
+    private JComboBox jcbSyntaxThemes;
+
+    private JFrame splashScreen = new JFrame("Accessibility Options");
+
     //public final OptionsWindow ow = new OptionsWindow();
 
-    public SplashScreenManager() {
+    protected SplashScreenManager(){
+    }
+
+    public void createSplash() {
+
         // Setup main frame
         splashScreen.setLayout(new BorderLayout());
         splashScreen.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/logo1.png")));
@@ -75,9 +92,13 @@ public class SplashScreenManager {
         gbc.gridy++;
 
         // Font Size Settings
-        JComboBox<String> jcbOutputFontSize = new JComboBox<>();
-        JComboBox<String> jcbCodeFontSize = new JComboBox<>();
-        JComboBox<String> jcbGlobalFontSize = new JComboBox<>();
+        jcbOutputFontSize = new JComboBox();
+        jcbCodeFontSize = new JComboBox();
+        jcbGlobalFontSize = new JComboBox();
+        jcbDisplayOverlayToggle = new JComboBox();
+        jcbDisplayOverlayColour = new JComboBox();
+        jcbAudio = new JComboBox();
+        jcbSyntaxThemes = new JComboBox();
 
         // Populate font sizes (10 to 24)
         for (int i = 10; i <= 24; i++) {
@@ -161,33 +182,34 @@ public class SplashScreenManager {
         ));
         buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         // Create buttons
-        JButton yesButton = new JButton("Apply");
-        JButton noButton = new JButton("Continue");
+
 
         // Set fonts
-        yesButton.setFont(new Font("Arial", Font.BOLD, 24));
-        noButton.setFont(new Font("Arial", Font.BOLD, 24));
+        buttonApply.setFont(new Font("Arial", Font.BOLD, 24));
+        buttonCancel.setFont(new Font("Arial", Font.BOLD, 24));
 
+        buttonApply.setAction(ActionManager.getInstance().getSaveAccessibilityOptionsAction());
         // Set preferred size to make buttons wider
         Dimension buttonSize = new Dimension(200, 40);
-        yesButton.setPreferredSize(buttonSize);
-        noButton.setPreferredSize(buttonSize);
+        buttonApply.setPreferredSize(buttonSize);
+        buttonCancel.setPreferredSize(buttonSize);
 
         // Apply action listener
-        yesButton.addActionListener(e -> {
-            splashScreen.dispose();
-            //ow.is_visible = true;
-            // TODO add the options window logic here
+//        buttonApply.addActionListener(e -> {
+//            splashScreen.dispose();
+//            //ow.is_visible = true;
+//            // TODO add the options window logic here
+//        });
+
+        buttonCancel.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                splashScreen.dispose();
+            }
         });
 
-        // Continue action listener
-        noButton.addActionListener(e -> {
-            splashScreen.dispose();
-            //ow.is_visible = true;
-        });
-
-        buttonPanel.add(yesButton);
-        buttonPanel.add(noButton);
+        buttonPanel.add(buttonApply);
+        buttonPanel.add(buttonCancel);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         // Main Layout
@@ -379,6 +401,7 @@ public class SplashScreenManager {
     /**
      * Singleton Instance
      */
+
     public static SplashScreenManager getInstance() {
         if (instance == null)
             instance = new SplashScreenManager();
@@ -388,9 +411,9 @@ public class SplashScreenManager {
     /**
      * Checks if the splash screen is active.
      */
-    public boolean isActive() {
-        return splashScreen.isActive();
-    }
+//    public boolean isActive() {
+//        return splashScreen.isActive();
+//    }
 
     /**
      * Checks if OptionsWindow is active.
@@ -399,6 +422,10 @@ public class SplashScreenManager {
 //        return ow.is_visible;
 //    }
 
+    public void close() {
+        if (splashScreen != null)
+            splashScreen.dispose();
+    }
 
     /**
      * Custom class to handle the coloured icons
@@ -443,5 +470,74 @@ public class SplashScreenManager {
             g.dispose();
             return new ImageIcon(image);
         }
+    }
+
+
+    /**
+     * Returns the desired font size for output window
+     *
+     * @return the output window font size
+     */
+    public String getOuputFontSize() {
+        return (String) jcbOutputFontSize.getSelectedItem();
+    }
+
+    /**
+     * Returns the desired font size for display window
+     *
+     * @return the display window font size
+     */
+    public String getCodeFontSize() {
+        return (String) jcbCodeFontSize.getSelectedItem();
+    }
+
+    /**
+     * Returns the desired font size for global
+     *
+     * @return the window font size
+     */
+
+    public String getGlobalFontSize() { return (String) jcbGlobalFontSize.getSelectedItem();}
+
+
+
+    public String getSyntaxTheme() {
+        return (String) jcbSyntaxThemes.getSelectedItem();
+    }
+
+    public String getDisplayOverlayToggle() {
+        return (String) jcbDisplayOverlayToggle.getSelectedItem();
+    }
+
+
+    public String getDisplayOverlayColour() {
+        // Grabs the string from the combo box to do switch statement check
+        String colour = (String) jcbDisplayOverlayColour.getSelectedItem();
+        // Empty string to add colour value string to which is set as the setting in OVERLAY_COLOUR
+        String chosenColour = "";
+        // Switch case to assign OVERLAY_COLOUR based upon user selection
+        switch (colour) {
+            case "Red":
+                chosenColour = "255,0,0,50";
+                break;
+            case "Green":
+                chosenColour = "0,255,0,50";
+                break;
+            case "Blue":
+                chosenColour = "0,0,255,50";
+                break;
+            case "Yellow":
+                chosenColour = "255,255,0,50";
+                break;
+            case "Purple":
+                chosenColour = "255,0,255,50";
+                break;
+        }
+        return chosenColour;
+    }
+
+
+    public String getAudioResponse(){
+        return (String) jcbAudio.getSelectedItem();
     }
 }

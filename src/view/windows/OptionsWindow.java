@@ -19,12 +19,7 @@
 
 package view.windows;
 
-import managers.ActionManager;
-import managers.OverlayManager;
-import managers.FontManager;
-import managers.AudioManager;
-import managers.SettingsManager;
-import managers.WindowManager;
+import managers.*;
 
 import utils.Settings;
 
@@ -100,6 +95,7 @@ public class OptionsWindow {
   private WindowManager wm = WindowManager.getInstance();
   private AudioManager am = AudioManager.getInstance();
   private FontManager fm = FontManager.getInstance();
+  //private SplashScreenManager ss = SplashScreenManager.getInstance();
 
   public boolean is_visible = false;
 
@@ -252,7 +248,6 @@ public class OptionsWindow {
     panelFontSizes.add(displayPanel);
 
     // combine panels on tabbed pane
-
     tabOptions.addTab("Haskell Interpreter", panelInterpreter);
     tabOptions.addTab("Property Tests", panelTest);
     tabOptions.addTab("Font Sizes", panelFontSizes);

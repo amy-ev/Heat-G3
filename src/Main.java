@@ -20,6 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import managers.*;
+import view.windows.SplashTest;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -30,6 +31,7 @@ import java.util.logging.Handler;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.Level;
 import java.io.File;
+import view.windows.SplashTest;
 
 /**
  * Main HEAT class
@@ -62,23 +64,31 @@ public static void main(String[] args) {
     // Create managers
     SettingsManager sm = SettingsManager.getInstance();
     WindowManager wm = WindowManager.getInstance();
-    SplashScreenManager splashScreen = SplashScreenManager.getInstance();
+    SplashScreenManager ss = SplashScreenManager.getInstance();
     AudioManager am = AudioManager.getInstance();
+
+    SplashTest st = SplashTest.getInstance();
+    st.createSplashScreen();
+
     // while splash screen is still open do NOT start the program
 
+    //ss.createSplash();
     // TODO FIX - MY OUTPUT WINDOW WONT SHOW SO I CANT DO IT RIGHT NOW
-    showSplash(splashWindow);
+    //showSplash(splashWindow);
 
-    while (splashWindow.isActive()){
-        //System.out.println(splashWindow.isActive());
-        ;
-    }
+//    while (splashWindow.isActive()){
+//        //System.out.println(splashWindow.isActive());
+//        ;
+//    }
 
-    while (splashScreen.isActive()){
-        //System.out.println(splashScreen.isActive());
-        ;
-    }
+//    while (splashScreen.isActive()){
+//        //System.out.println(splashScreen.isActive());
+//        ;
+//    }
+    st.createSplashScreen();
+    st.setVisible();
 
+    
     sm.loadSettings();
     WindowManager.setLookAndFeel();
     wm.createGUI();

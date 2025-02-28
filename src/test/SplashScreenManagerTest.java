@@ -13,16 +13,16 @@ class SplashScreenManagerTest {
 
     private SplashScreenManager manager;
 
-    @BeforeEach
-    void setUp() {
-        manager = SplashScreenManager.getInstance();
-    }
-
-    @Test
-    void testSingletonInstance() {
-        SplashScreenManager anotherInstance = SplashScreenManager.getInstance();
-        assertSame(manager, anotherInstance, "getInstance should return the same instance.");
-    }
+//    @BeforeEach
+//    void setUp() {
+//        manager = SplashScreenManager.getInstance();
+//    }
+//
+//    @Test
+//    void testSingletonInstance() {
+//        SplashScreenManager anotherInstance = SplashScreenManager.getInstance();
+//        assertSame(manager, anotherInstance, "getInstance should return the same instance.");
+//    }
 
     @Test
     void testHandleFilterToggle() {

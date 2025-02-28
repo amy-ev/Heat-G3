@@ -164,6 +164,11 @@ public class ActionManager {
 	      Resources.getIcon(""), "Apply options",
 	      new Integer(KeyEvent.VK_S),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_S, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
+  private SaveAccessibilityOptionsAction saveAccessibilityOptionsAction = new SaveAccessibilityOptionsAction("Apply",
+          Resources.getIcon(""), "Apply options",
+          new Integer(KeyEvent.VK_S),
+          KeyStroke.getKeyStroke(KeyEvent.VK_S, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
+
   private SaveWizardAction saveWizardAction = new SaveWizardAction("Continue",
 	      Resources.getIcon(""), "Save path and continue", new Integer(KeyEvent.VK_S),
 	      KeyStroke.getKeyStroke(KeyEvent.VK_S, java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask(), false));
@@ -245,6 +250,10 @@ public class ActionManager {
 
   public ActionManager.SaveOptionsAction getSaveOptionsAction() {
     return saveOptionsAction;
+  }
+
+  public ActionManager.SaveAccessibilityOptionsAction getSaveAccessibilityOptionsAction() {
+      return saveAccessibilityOptionsAction;
   }
 
   public ActionManager.SaveWizardAction getSaveWizardAction() {
@@ -803,7 +812,45 @@ public class ActionManager {
       }
     }
   } /* end SaveOptionsAction */
-  
+
+    protected class SaveAccessibilityOptionsAction extends AbstractAction {
+        public SaveAccessibilityOptionsAction(String text, ImageIcon icon, String desc,
+                                 Integer mnemonic, KeyStroke accelerator) {
+            super(text, icon);
+            putValue(SHORT_DESCRIPTION, desc);
+            putValue(MNEMONIC_KEY, mnemonic);
+            putValue(ACCELERATOR_KEY, accelerator);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            WindowManager wm = WindowManager.getInstance();
+            SettingsManager sm = SettingsManager.getInstance();
+            boolean essentialChange = false;
+
+            String outputFontSize = wm.getSplashScreen().getOuputFontSize();
+            /* Perform any font updates */
+            try {
+                int outputFontsize = Integer.parseInt(outputFontSize);
+                wm.getConsoleWindow().setFontSize(outputFontsize);
+                sm.setSetting(Settings.OUTPUT_FONT_SIZE, outputFontSize);
+            } catch (NumberFormatException nfe) {
+                log.warning("[ActionManager] - Failed to parse " +
+                        Settings.OUTPUT_FONT_SIZE + " setting from options window");
+            }
+
+            wm.getOptionsWindow().close();
+            sm.saveSettings();
+
+            if (essentialChange) {
+                // wm.createGUI();
+                // wm.getConsoleWindow().outputInfo("Settings changes applied.\n");
+                wm.getConsoleWindow().restart();
+            } else {
+                wm.repaintAll();
+            }
+        }
+    } /* end SaveAccessibilityOptionsAction */
+
   /*
    * Save Action of Wizard Window for Settings
    */
