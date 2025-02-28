@@ -21,6 +21,7 @@ package view.windows;
 
 import managers.*;
 
+import utils.Resources;
 import utils.Settings;
 
 import view.dialogs.FileDialogs;
@@ -250,8 +251,6 @@ public class OptionsWindow {
 
 
     // ICON
-    JLabel codeIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/editor-fs.png"));
-    editorFontSize.add(codeIcon);
 
     editorFontSize.add(editorFontSizeLabel);
 
@@ -276,9 +275,6 @@ public class OptionsWindow {
 
 
     // ICON
-    JLabel outputIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/inter-fs.png"));
-
-    interpreterFontSize.add(outputIcon);
 
     interpreterFontSize.add(interpreterFontSizeLabel);
 
@@ -309,9 +305,7 @@ public class OptionsWindow {
 
 
     // ICON
-    JLabel globalFontIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/global-fs.png"));
 
-    globalFontSize.add(globalFontIcon);
 
     globalFontSize.add(globalFontSizeLabel);
 
@@ -350,8 +344,6 @@ public class OptionsWindow {
 
 
     // ICON
-    JLabel syntaxIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/syntax-hl.png"));
-    SyntaxThemeSelectionPanel.add(syntaxIcon);
 
     SyntaxThemeSelectionPanel.add(syntaxLabel);
     globalFontSize.add(jcbGlobalFontSize);
@@ -377,8 +369,6 @@ public class OptionsWindow {
             new EmptyBorder(16, 20, 16, 20)
     ));
 
-    JLabel audioIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/audio-resp.png"));
-    audioPanel.add(audioIcon);
     audioPanel.add(audioLabel);
     audioPanel.add(jcbAudio);
     JPanel displayPanel = new JPanel(new GridLayout(0,1)){
@@ -399,9 +389,6 @@ public class OptionsWindow {
     ));
 
     // ICON
-    JLabel displayIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
-
-    displayPanel.add(displayIcon);
 
     // Label
     displayPanel.add(overlayLabel);
@@ -427,10 +414,6 @@ public class OptionsWindow {
             new LineBorder(Color.LIGHT_GRAY, 1, true),
             new EmptyBorder(16, 20, 16, 20)
     ));
-
-    // ICON
-    JLabel displayColourIcon = new JLabel(new ImageIcon("src/icons/accessibility_icons/vs-filter.png"));
-    displayPanelColour.add(displayColourIcon);
 
     // Label
     displayPanelColour.add(overlayColourLabel);

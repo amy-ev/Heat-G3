@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import java.io.File;
+import utils.Resources;
 
 /**
  * Main HEAT class
@@ -97,7 +98,8 @@ public static void main(String[] args) {
     public static void showSplash(JWindow splashWindow) {
 
         splashWindow.getContentPane().add(
-                new JLabel(new ImageIcon("src/icons/splash.png")),
+
+                new JLabel(Resources.getIcon("splash.png")),
                 BorderLayout.CENTER
         );
         splashWindow.setSize(420, 300);
