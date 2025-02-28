@@ -326,6 +326,10 @@ public class WindowManager {
       return treeWindow;
   }
 
+  public Toolbar getToolbar() {
+      return toolbar;
+  }
+
   /**
    * Creates the main program GUI, then shows it in the center of the screen
    */

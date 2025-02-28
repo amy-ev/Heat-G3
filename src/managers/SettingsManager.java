@@ -104,6 +104,7 @@ public class SettingsManager {
     newSettings.setProperty(Settings.INTERPRETER_OPTS,"");
     newSettings.setProperty(Settings.TEST_FUNCTION,"");
     newSettings.setProperty(Settings.TEST_POSITIVE,"True");
+    newSettings.setProperty(Settings.AUDIO_RESPONSE,"Off");
     return newSettings;
   }
   

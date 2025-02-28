@@ -702,6 +702,7 @@ public class ActionManager {
       String libraryPath = wm.getOptionsWindow().getLibraryPath();
       String outputFontSize = wm.getOptionsWindow().getOuputFontSize();
       String codeFontSize = wm.getOptionsWindow().getCodeFontSize();
+      String audioResponse = wm.getOptionsWindow().getAudioResponse();
       SettingsManager sm = SettingsManager.getInstance();
       InterpreterManager im = InterpreterManager.getInstance();
 
@@ -717,6 +718,8 @@ public class ActionManager {
       sm.setSetting(Settings.TEST_FUNCTION, wm.getOptionsWindow().getTestFunction().trim());
       sm.setSetting(Settings.TEST_POSITIVE, wm.getOptionsWindow().getTestPositive().trim());
 
+      //wm.getToolbar().playAudio(audioResponse);
+      sm.setSetting(Settings.AUDIO_RESPONSE, audioResponse);
       /* Perform any font updates */
       try {
         int outputFontsize = Integer.parseInt(outputFontSize);
@@ -896,6 +899,9 @@ public class ActionManager {
 
     public void actionPerformed(ActionEvent e) {
       WindowManager wm = WindowManager.getInstance();
+      SettingsManager sm = SettingsManager.getInstance();
+      String audioResponse = wm.getOptionsWindow().getAudioResponse();
+
       if (!wm.isCompileEnabled()) {
           Toolkit.getDefaultToolkit().beep();
           return;
@@ -912,6 +918,7 @@ public class ActionManager {
       
       wm.setStatusEvaluating();
       wm.getConsoleWindow().compile();
+
       //im.compile();
       //im.breakInterpreter();
       //wm.getTreeWindow().refreshTree(wm.getEditorWindow().getEditorContent());

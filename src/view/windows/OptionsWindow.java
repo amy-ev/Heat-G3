@@ -20,6 +20,7 @@
 package view.windows;
 
 import managers.ActionManager;
+import managers.AudioManager;
 import managers.SettingsManager;
 import managers.WindowManager;
 
@@ -58,10 +59,14 @@ public class OptionsWindow {
   private JTextField jTextFieldTestPositive;
   private JComboBox jcbOutputFontSize;
   private JComboBox jcbCodeFontSize;
+  private JComboBox jcbAudio;
   private JDialog dialog;
 
+
+  private JLabel audioLabel = new JLabel("Audio Response: ");
   private SettingsManager sm = SettingsManager.getInstance();
   private WindowManager wm = WindowManager.getInstance();
+  private AudioManager am = AudioManager.getInstance();
   
   
   /**
@@ -137,19 +142,27 @@ public class OptionsWindow {
     JPanel panelFontSizes = new JPanel(new GridLayout(0,1));
     jcbOutputFontSize = new JComboBox();
     jcbCodeFontSize = new JComboBox();
+    jcbAudio = new JComboBox();
  /* Populate the font size combo boxes */
     for (int i = 10; i < 25; i++) {
       jcbOutputFontSize.addItem(String.valueOf(i));
       jcbCodeFontSize.addItem(String.valueOf(i));
     }
+    jcbAudio.addItem("Off");
+    jcbAudio.addItem("On");
+
     JPanel editorFontSize = new JPanel();
     editorFontSize.add(new JLabel("Editor font size: "));
     editorFontSize.add(jcbCodeFontSize);
     JPanel interpreterFontSize = new JPanel();
     interpreterFontSize.add(new JLabel("Interpreter font size:"));
     interpreterFontSize.add(jcbOutputFontSize);
+    JPanel audioPanel = new JPanel();
+    audioPanel.add(audioLabel);
+    audioPanel.add(jcbAudio);
     panelFontSizes.add(editorFontSize);
     panelFontSizes.add(interpreterFontSize);
+    panelFontSizes.add(audioPanel);
     
     // combine panels on tabbed pane
     JTabbedPane tabOptions = new JTabbedPane();
@@ -267,6 +280,10 @@ public class OptionsWindow {
    */
   public String getCodeFontSize() {
     return (String) jcbCodeFontSize.getSelectedItem();
+  }
+
+  public String getAudioResponse(){
+    return (String) jcbAudio.getSelectedItem();
   }
 
   private void jButton2_actionPerformed(ActionEvent e) {
