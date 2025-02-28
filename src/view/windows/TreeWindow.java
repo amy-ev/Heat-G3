@@ -102,12 +102,13 @@ public class TreeWindow
         ToolTipManager.sharedInstance().registerComponent(tree);
         tree.setCellRenderer(new MyRenderer());
 
-        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-        renderer.setOpenIcon(Resources.getIcon("fileopen16"));
-        renderer.setClosedIcon(Resources.getIcon("fileopen16"));
-        renderer.setLeafIcon(Resources.getIcon("module16"));
-        tree.putClientProperty("JTree.lineStyle", "Angled");
-        tree.setCellRenderer(renderer);
+        //DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+//
+//        renderer.setOpenIcon(Resources.getIcon("fileopen16"));
+//        renderer.setClosedIcon(Resources.getIcon("fileopen16"));
+//        renderer.setLeafIcon(Resources.getIcon("module16"));
+//        tree.putClientProperty("JTree.lineStyle", "Angled");
+//        tree.setCellRenderer(renderer);
 
         //  popups
         popMenu = new JPopupMenu();
@@ -428,10 +429,13 @@ public class TreeWindow
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus)
         {
             ArrayList tests;
+
+            // GLOBAL FONT SETTINGS
             int fontsize = Integer.parseInt(sm.getSetting(Settings.GLOBAL_FONT_SIZE));
             setFontSize(fontsize);
 
             super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
             Object object = node.getUserObject();
             if (isNotComponent(object))
